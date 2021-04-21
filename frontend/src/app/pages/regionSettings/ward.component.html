@@ -1,0 +1,139 @@
+<div class="container-fluid">
+  <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Ward Details"></app-pagetitle>
+
+
+  <div *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) " class="row">
+
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <div>
+            <!--  -->
+            <button (click)="initAddWard()" class="btn btn-success mb-2" type="button">
+
+              <!-- <a href="javascript:void(0);" class="btn btn-success mb-2" (click)="addUser()">-->
+              <i class="mdi mdi-plus mr-2"></i> Add Ward
+            </button>
+          </div>
+          <div class="table-responsive mt-3">
+            <table class="table table-centered datatable dt-responsive nowrap"
+                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+              <thead class="thead-light">
+              <tr>
+                <!--   <th style="width: 20px;">
+                 &lt;!&ndash;    <div class="custom-control custom-checkbox">
+                       <input type="checkbox" class="custom-control-input" id="customercheck" />
+                       <label class="custom-control-label" for="customercheck">&nbsp;</label>
+                     </div>&ndash;&gt;
+                   </th>-->
+                <th>Ward Code</th>
+                <th>ward Name</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of ward1; let i= index">
+                <!--     <td>
+                       <div class="custom-control custom-checkbox">
+                         <input type="checkbox" class="custom-control-input" :id="customercheck{{i}}" />
+                         <label class="custom-control-label" :for="customercheck{{i}}">&nbsp;</label>
+                       </div>
+                     </td>-->
+
+                <td>{{user.wardCode}}</td>
+                <td>{{user.wardName}}</td>
+
+                <td>
+                  <button (click)="initEditWard(user)"
+                          class="btn-rounded btn-light btn-lg btn-outline-primary"
+                          title="Edit Ward"
+                          type="button">
+
+                    <i class="ri-quill-pen-line"></i> Edit Ward
+                  </button>
+
+
+                  <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
+                       <i class="mdi mdi-trash-can font-size-18"></i>
+                     </a>-->
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contacts model  -->
+<!--<ng-template #content role="document" let-modal="close"  *ngIf="!isAddMode " >-->
+<div class="modal-header">
+
+
+  <button aria-label="Close" class="close" type="button"><!--(click)="modal('Cross click')"-->
+
+    <!--<span aria-hidden="true">&times;</span>-->
+  </button>
+</div>
+
+<div *ngIf="(!isAddMode && isExisting)|| (!isExisting && isAddMode)" class="modal-body p-3">
+  <div class="text-left">
+
+    <form [formGroup]="wardForm">
+
+      <div class="card mr-5 p-5  col-xxl-8">
+        <div>
+          <div class="form-group col-xxl-8">
+            <label class="control-label">Sub County</label>
+            <ng-select [items]="region1"
+                       bindLabel="subCountyName"
+                       bindValue="subCountyId"
+                       formControlName="subCountyId">
+            </ng-select>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group col-xxl-8">
+            <label for="wardCode"> Ward Code</label>
+            <input class="form-control" formControlName="wardCode" id="wardCode" placeholder="Enter Ward Code"
+                   type="text"
+            >
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group col-xxl-8">
+            <label for="wardName">Ward Name</label>
+            <input class="form-control" formControlName="wardName" id="wardName" placeholder="Enter Ward Name"
+                   type="text"
+            >
+          </div>
+        </div>
+
+
+        <div class="btn-group-sm mb-2 text-right">
+
+          <button (click)="saveData()" *ngIf="!isExisting && isAddMode" class="btn btn-success btn-sm mr-2"
+                  type="submit">Save
+          </button>
+
+          <button (click)="updateWard()" *ngIf="!isAddMode && isExisting" class="btn btn-success btn-sm mr-2"
+                  type="submit">Update
+          </button>
+
+          <button (click)="cancel()" class="btn btn-danger" type="button">Cancel</button>
+        </div>
+
+
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+<!--</ng-template>-->

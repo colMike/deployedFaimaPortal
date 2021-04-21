@@ -1,0 +1,127 @@
+<block-ui>
+  <div class="container-fluid">
+    <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Subcounty Details"></app-pagetitle>
+
+
+    <div *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) " class="row">
+
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+            <div>
+              <!--  -->
+              <button
+                (click)="initAddsubCounty()" class="btn btn-success mb-2" type="button">
+
+                <!-- <a href="javascript:void(0);" class="btn btn-success mb-2" (click)="addUser()">-->
+                <i class="mdi mdi-plus"></i> Add Sub County
+              </button>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-centered datatable dt-responsive nowrap"
+                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead class="thead-light">
+                <tr>
+                  <!--   <th style="width: 20px;">
+                   &lt;!&ndash;    <div class="custom-control custom-checkbox">
+                         <input type="checkbox" class="custom-control-input" id="customercheck" />
+                         <label class="custom-control-label" for="customercheck">&nbsp;</label>
+                       </div>&ndash;&gt;
+                     </th>-->
+                  <th>Sub-County Code</th>
+                  <th>Sub-County Name</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of region1; let i= index">
+                  <!--     <td>
+                         <div class="custom-control custom-checkbox">
+                           <input type="checkbox" class="custom-control-input" :id="customercheck{{i}}" />
+                           <label class="custom-control-label" :for="customercheck{{i}}">&nbsp;</label>
+                         </div>
+                       </td>-->
+
+                  <td>{{user.subCountyCode}}</td>
+                  <td>{{user.subCountyName}}</td>
+
+                  <td>
+                    <button (click)="initEditsubCounty(user)"
+                            class="btn-rounded btn-light btn-lg btn-outline-primary"
+                            title="Edit Sub County"
+                            type="button">
+
+                      <i class="ri-quill-pen-line"></i> Edit Sub-County
+                    </button>
+
+
+                    <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
+                         <i class="mdi mdi-trash-can font-size-18"></i>
+                       </a>-->
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contacts model  -->
+  <!--<ng-template #content role="document" let-modal="close"  *ngIf="!isAddMode " >-->
+
+  <div *ngIf="(!isAddMode && isExisting)|| (!isExisting && isAddMode)" class="modal-body p-3">
+    <div class="text-left">
+
+      <form [formGroup]="subCountyForm">
+
+
+        <div class="card mr-5 p-5  col-xxl-8">
+          <div>
+            <div class="form-group col-xxl-8">
+              <label for="subCountyCode">Sub County Code</label>
+              <input class="form-control" formControlName="subCountyCode" id="subCountyCode"
+                     placeholder="Enter Sub-county Code"
+                     type="text"
+              >
+            </div>
+          </div>
+          <div>
+            <div class="form-group col-xxl-8">
+              <label for="subCountyName">Service Name</label>
+              <input class="form-control" formControlName="subCountyName" id="subCountyName"
+                     placeholder="Enter Sub county Name"
+                     type="text"
+              >
+            </div>
+          </div>
+
+
+          <div class="btn-group-sm mb-2 text-right">
+            <button (click)="saveData()" *ngIf="!isExisting && isAddMode" class="btn btn-success btn-sm mr-2"
+                    type="submit">Save
+            </button>
+            <button (click)="updatesubCounty()" *ngIf="!isAddMode && isExisting" class="btn btn-success btn-sm mr-2"
+                    type="submit">
+              Update
+            </button>
+
+            <button (click)="cancel()" class="btn btn-danger" type="button">Cancel</button>
+          </div>
+
+
+        </div>
+
+
+      </form>
+
+
+    </div>
+  </div>
+
+
+  <!--</ng-template>-->
+</block-ui>
