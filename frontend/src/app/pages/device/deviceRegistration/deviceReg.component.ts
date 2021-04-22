@@ -129,12 +129,12 @@ export class DeviceRegComponent implements OnInit {
       if (this.response.status === 200) {
 
 
-        //logger.info("Great! The subCounty information was saved succesfully")
+        //  logger.info("Great! The subCounty information was saved succesfully")
         this.modalService.dismissAll();
         this.getDevices();
         return this.toastr.success('Great! The device registration details were saved successfully', ' Success!', {timeOut: 3000});
 
-        //alert("Great! The subCounty information was saved succesfully");
+        //  alert("Great! The subCounty information was saved succesfully");
 
       } else {
         return this.toastr.error('Exception Occurred', ' Error!', {timeOut: 3000});

@@ -1,16 +1,15 @@
 <block-ui>
   <div class="container-fluid">
-    <app-pagetitle title="Land Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+    <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Land Details"></app-pagetitle>
 
 
+    <div *ngIf="(!appEditMode)" class="row">
 
-    <div class="row" *ngIf="(!appEditMode)" >
-
-      <div class="col-lg-12"  >
+      <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
 
-            <div class="table-responsive mt-3"  >
+            <div class="table-responsive mt-3">
               <table class="table table-centered datatable dt-responsive nowrap"
                      style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead class="thead-light">
@@ -19,61 +18,61 @@
                   <th>
                     <div class="th">
                       # <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('count') "
-                              data-ng-class="{active: row == 'count'}"></span><span
+                              data-ng-class="{active: row == 'count'}"
+                              data-ng-click=" order('count') "></span><span
                       class="glyphicon glyphicon-chevron-down"
-                      data-ng-click=" order('-count') "
-                      data-ng-class="{active: row == '-count'}"></span>
+                      data-ng-class="{active: row == '-count'}"
+                      data-ng-click=" order('-count') "></span>
                     </div>
                   </th>
                   <th>
                     <div class="th">
                       Plot Number<span class="glyphicon glyphicon-chevron-up"
-                                       data-ng-click=" order('plotNumber') "
-                                       data-ng-class="{active: row == 'plotNumber'}"></span><span
+                                       data-ng-class="{active: row == 'plotNumber'}"
+                                       data-ng-click=" order('plotNumber') "></span><span
                       class="glyphicon glyphicon-chevron-down"
-                      data-ng-click=" order('-plotNumber') "
-                      data-ng-class="{active: row == '-plotNumber'}"></span>
+                      data-ng-class="{active: row == '-plotNumber'}"
+                      data-ng-click=" order('-plotNumber') "></span>
                     </div>
                   </th>
                   <th>
                     <div class="th">
                       Title Deed Number <span class="glyphicon glyphicon-chevron-up"
-                                              data-ng-click=" order('titleDeedNumber') "
-                                              data-ng-class="{active: row == 'titleDeedNumber'}"></span><span
+                                              data-ng-class="{active: row == 'titleDeedNumber'}"
+                                              data-ng-click=" order('titleDeedNumber') "></span><span
                       class="glyphicon glyphicon-chevron-down"
-                      data-ng-click=" order('-titleDeedNumber') "
-                      data-ng-class="{active: row == '-titleDeedNumber'}"></span>
+                      data-ng-class="{active: row == '-titleDeedNumber'}"
+                      data-ng-click=" order('-titleDeedNumber') "></span>
                     </div>
                   </th>
                   <th>
                     <div class="th">
                       Name <span class="glyphicon glyphicon-chevron-up"
-                                 data-ng-click=" order('name') "
-                                 data-ng-class="{active: row == 'name'}"></span><span
+                                 data-ng-class="{active: row == 'name'}"
+                                 data-ng-click=" order('name') "></span><span
                       class="glyphicon glyphicon-chevron-down"
-                      data-ng-click=" order('-name') "
-                      data-ng-class="{active: row == '-name'}"></span>
+                      data-ng-class="{active: row == '-name'}"
+                      data-ng-click=" order('-name') "></span>
                     </div>
                   </th>
                   <th>
                     <div class="th">
                       Acreage <span class="glyphicon glyphicon-chevron-up"
-                                    data-ng-click=" order('acreage') "
-                                    data-ng-class="{active: row == 'acreage'}"></span><span
+                                    data-ng-class="{active: row == 'acreage'}"
+                                    data-ng-click=" order('acreage') "></span><span
                       class="glyphicon glyphicon-chevron-down"
-                      data-ng-click=" order('-acreage') "
-                      data-ng-class="{active: row == '-acreage'}"></span>
+                      data-ng-class="{active: row == '-acreage'}"
+                      data-ng-click=" order('-acreage') "></span>
                     </div>
                   </th>
                   <th>
                     <div class="th">
                       Status <span class="glyphicon glyphicon-chevron-up"
-                                   data-ng-click=" order('status') "
-                                   data-ng-class="{active: row == 'status'}"></span><span
+                                   data-ng-class="{active: row == 'status'}"
+                                   data-ng-click=" order('status') "></span><span
                       class="glyphicon glyphicon-chevron-down"
-                      data-ng-click=" order('-status') "
-                      data-ng-class="{active: row == '-status'}"></span>
+                      data-ng-class="{active: row == '-status'}"
+                      data-ng-click=" order('-status') "></span>
                     </div>
                   </th>
 
@@ -82,24 +81,24 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let reg of land1; let i= index">
-                  <td>{{i+1}}</td>
+                  <td>{{i + 1}}</td>
                   <td>{{reg.plotNumber}}</td>
                   <td>{{reg.titleDeedNumber}}</td>
                   <td>{{reg.name}}</td>
                   <td>{{reg.acreage}}</td>
                   <td>
-                    <div class="badge font-size-12" [ngClass]="{'badge-soft-danger': reg.approved === 'Pending Approval',
-                    'badge-soft-success':reg.approved === 'Approved'}">
+                    <div [ngClass]="{'badge-soft-danger': reg.approved === 'Pending Approval',
+                    'badge-soft-success':reg.approved === 'Approved'}" class="badge font-size-12">
                       <ngb-highlight [result]="reg.approved"></ngb-highlight>
                     </div>
                     <!-- {{item.approved}}-->
                   </td>
                   <td style="padding: 1px;">
-                    <button type="button" class="btn btn-success"
-                            style="height: 25px; width: 60px;" tooltip-placement="top"
-
-                            (click)="initEditLand(reg)">
-                      <span class="glyphicon glyphicon-pencil" style="top: -2px;">Edit</span>
+                    <button
+                      (click)="initEditLand(reg)"
+                      class="btn btn-success btn-sm" tooltip-placement="top"
+                      type="button">
+                      <span class="glyphicon glyphicon-pencil" >Edit</span>
                     </button>
                   </td>
                 </tr>
@@ -113,201 +112,189 @@
   </div>
 
 
-  <div class="modal-body p-3" *ngIf="(appEditMode)"   >
+  <div *ngIf="(appEditMode)" class="modal-body p-3">
 
-    <div class="text-left" >
+    <div class="text-left">
 
-      <form  [formGroup]="landForm">
+      <form [formGroup]="landForm">
         <section class="panel panel-default">
+
           <section>
-            <div class="panel-heading input-sm">
-              <h4 class="card-title">Land Details</h4>
-            </div>
+            <h5 class="mb-10 font-weight-bold text-dark text-center">Land Details</h5>
+            <hr style="width: 35%">
 
             <div class="panel-body">
-
-              <div class="form-group">
-                <label for="plotNumber" class="col-sm-2 control-label input-sm">Plot
-                  Number</label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="plotNumber"
-                         placeholder="Plot Number" formControlName="plotNumber">
+              <div class="row">
+                <div class="col-xl-2">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm" for="plotNumber">Plot Number</label>
+                    <input class="form-control input-sm" formControlName="plotNumber" id="plotNumber"
+                           placeholder="Plot Number"
+                           type="text">
+                  </div>
                 </div>
 
-
-              </div>
-
-              <div class="form-group">
-
-                <label for="mapSheetNumber" class="col-sm-2 control-label input-sm">MapSheet
-                  Number</label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm"
-                         id="mapSheetNumber" placeholder="MapSheet Number"
-                         formControlName="mapSheetNumber">
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label input-sm" for="mapSheetNumber">MapSheet Number</label>
+                    <input class="form-control input-sm" formControlName="mapSheetNumber" id="mapSheetNumber"
+                           placeholder="MapSheet Number" type="text">
+                  </div>
+                </div>
+                <div class="col-xl-2">
                 </div>
               </div>
-
-              <!--   <div class="form-group">
-
-                   <label for="location" class="col-sm-2 control-label input-sm">Location</label>
-
-                   <div class="col-sm-8">
-                     <input type="location" class="form-control input-sm" id="Farm Name"
-                            placeholder="Location" formControlName="location">
-                   </div>
-                 </div>-->
-
-              <!--<div class="form-group">
-
-                <label for="location" class="col-sm-2 control-label input-sm">Sub-location</label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="sublocation"
-                         placeholder="Sublocation" formControlName="sublocation">
-                </div>
-              </div>-->
 
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group  ">
+                <div class="col-xl-2">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
                     <label class="control-label">Land Type <strong style="color:red">*</strong></label>
-                    <ng-select [items]="permitType1"
-                               bindLabel="permitTypeName"
-                               bindValue="permitTypeId"
+                    <ng-select [items]="permitType1" bindLabel="permitTypeName" bindValue="permitTypeId"
                                formControlName="permitTypeId">
                     </ng-select>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-10">
+
+                <div class="col-xl-4">
                   <div class="form-group" ng-show="permitTypeSelect!=14">
-                    <label for="acreage" class="col-sm-2 control-label input-sm">Acreage
+                    <label class="col-sm-4 control-label input-sm" for="acreage">Acreage
                     </label>
-
-                    <div class="col-sm-8">
-                      <input type="number" class="form-control input-sm" id="acreage"
-                             placeholder="Acreage" formControlName="acreage">
-                    </div>
+                    <input class="form-control input-sm" formControlName="acreage" id="acreage" placeholder="Acreage"
+                           type="number">
                   </div>
                 </div>
-              </div>
-              <div class="row">
-
-                <div class="col-md-10">
-                  <label for="titleDeedNumber"
-                         class="col-sm-2 control-label input-sm">Title Deed Number</label>
-
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control input-sm"
-                           id="titleDeedNumber" placeholder="Title Deed Number"
-                           formControlName="titleDeedNumber">
-
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
-
-          </section>
-          <section>
-            <div class="panel-heading input-sm">
-              <h4 class="card-title">Owner Details</h4>
-            </div>
-            <div class="panel-body">
-              <div class="form-group">
-                <label for="name" class="col-sm-2 control-label input-sm">
-                  Name</label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="name"
-                         placeholder="name" formControlName="name">
-                </div>
-              </div>
-              <div class="form-group">
-
-                <label for="krapin" class="col-sm-2 control-label input-sm">KRA
-                  PIN </label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="krapin"
-                         placeholder="krapin" formControlName="krapin">
-                </div>
-              </div>
-
-              <div class="form-group">
-
-                <label for="nationalIdNumber"
-                       class="col-sm-2 control-label input-sm">National ID Number
-                </label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm"
-                         id="nationalIdNumber" placeholder="nationalIdNumber"
-                         formControlName="nationalIdNumber">
-                </div>
-              </div>
-              <div class="form-group">
-
-                <label for="nationalIdNumber"
-                       class="col-sm-2 control-label input-sm">Phone Number
-                </label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm"
-                         id="phone" placeholder="phone"
-                         formControlName="phone">
-                </div>
-              </div>
-              <div class="form-group">
-
-                <label for="location" class="col-sm-2 control-label input-sm">Address</label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="address"
-                         placeholder="Address" formControlName="address">
-                </div>
-              </div>
-              <div class="form-group">
-
-                <label for="location" class="col-sm-2 control-label input-sm">Postal Code</label>
-
-                <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="address"
-                         placeholder="Address" formControlName="code">
-                </div>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div class="panel-heading input-sm">
-
-              <h4 class="card-title">Land Location Details</h4>
-            </div>
-            <div class="panel-body">
-
-              <div class="col-md-6">
-                <div class="form-group ">
-                  <label class="control-label">Sub County <strong style="color:red">*</strong></label>
-                  <ng-select [items]="region1"
-                             bindLabel="subCountyName"
-                             bindValue="subCountyId"
-                             formControlName="subcountyId">
-                  </ng-select>
+                <div class="col-xl-2">
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group ">
+                <div class="col-xl-4">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label input-sm" for="titleDeedNumber">Title Deed Number</label>
+                    <input class="form-control input-sm" formControlName="titleDeedNumber" id="titleDeedNumber"
+                           placeholder="Title Deed Number" type="text">
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <section>
+            <h5 class="mb-10 font-weight-bold text-dark text-center">Owner Details</h5>
+            <hr style="width: 35%">
+
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xl-2">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm" for="name">Name</label>
+                    <input class="form-control input-sm" formControlName="name" id="name"
+                           placeholder="name" type="text">
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm" for="krapin">KRA PIN </label>
+                    <input class="form-control input-sm" formControlName="krapin" id="krapin"
+                           placeholder="krapin" type="text">
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-2">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm"
+                           for="nationalIdNumber">National ID Number</label>
+                    <input class="form-control input-sm" formControlName="nationalIdNumber"
+                           id="nationalIdNumber" placeholder="nationalIdNumber"
+                           type="text">
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm"
+                           for="nationalIdNumber">Phone Number
+                    </label>
+                    <input class="form-control input-sm" formControlName="phone"
+                           id="phone" placeholder="phone"
+                           type="text">
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-2">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm" for="address">Address</label>
+                    <input class="form-control input-sm" formControlName="address" id="address"
+                           placeholder="Address" type="text">
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label input-sm" for="postal code">Postal
+                      Code</label>
+                    <input class="form-control input-sm" formControlName="code" id="postal code"
+                           placeholder="Address" type="text">
+                  </div>
+                </div>
+                <div class="col-xl-2">
+                </div>
+              </div>
+
+            </div>
+          </section>
+          <section>
+            <div class="panel-heading input-sm">
+
+              <h5 class="mb-10 font-weight-bold text-dark text-center">Land Location Details</h5>
+              <hr style="width: 35%">
+
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-xl-2">
+                </div>
+                <div class="col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label">Sub County <strong
+                      style="color:red">*</strong></label>
+                    <ng-select [items]="region1"
+                               bindLabel="subCountyName"
+                               bindValue="subCountyId"
+                               formControlName="subcountyId">
+                    </ng-select>
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="form-group">
                     <label class="control-label">Ward <strong style="color:red">*</strong></label>
-
-
                     <ng-select *ngIf="region1" [items]="ward1"
                                bindLabel="wardName"
                                bindValue="wardId"
@@ -315,24 +302,33 @@
                     </ng-select>
                   </div>
                 </div>
+                <div class="col-xl-2">
+                </div>
               </div>
             </div>
-
           </section>
+
+
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-8">
-
-
-              <button type="button" class="btn btn-success input-sm"
-                      style="width: 120px"(click)="Approve()">
+            <div class="btn-group-sm mt-4 mb-2 text-center">
+              <button
+                (click)="Approve()"
+                class="btn btn-success mr-2"
+                type="button">
                 <span class="glyphicon glyphicon-arrow-right"> Approve </span>
               </button>
-              <button type="button" class="btn btn-success input-sm"
-                      style="width: 120px"(click)="Reject()">
+
+              <button
+                (click)="Reject()"
+                class="btn btn-warning mr-2"
+                type="button">
                 <span class="glyphicon glyphicon-arrow-right"> Reject </span>
               </button>
-              <button type="button" class="btn btn-warning input-sm"
-                      style="width: 100px" (click)="cancel()">
+
+              <button
+                (click)="cancel()"
+                class="btn btn-danger"
+                type="button">
                 <span class="glyphicon glyphicon-remove"> Cancel </span>
               </button>
             </div>
@@ -341,8 +337,6 @@
         </section>
       </form>
     </div>
-
-
 
 
   </div>
