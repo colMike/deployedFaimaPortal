@@ -43,7 +43,7 @@ const salesAnalytics: ChartType = {
         height: 230,
         type: 'donut',
     },
-    labels: ['Product A', 'Product B', 'Product C'],
+    labels: ['SBP Collections', 'Land Rates', 'Parking Fees'],
     plotOptions: {
         pie: {
             donut: {

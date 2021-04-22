@@ -15,12 +15,6 @@
                      style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead class="thead-light">
                 <tr>
-                  <!--   <th style="width: 20px;">
-                   &lt;!&ndash;    <div class="custom-control custom-checkbox">
-                         <input type="checkbox" class="custom-control-input" id="customercheck" />
-                         <label class="custom-control-label" for="customercheck">&nbsp;</label>
-                       </div>&ndash;&gt;
-                     </th>-->
                   <th>Business Id</th>
                   <th>Business Name</th>
                   <th>No Of Employees</th>
@@ -75,88 +69,71 @@
     </div>
   </div>
 
-  <!-- Contacts model  -->
-  <!--<ng-template #content role="document" let-modal="close"  *ngIf="!isAddMode " >-->
-
-<!--  <div class="modal-header">-->
-<!--    <button aria-label="Close" class="close" type="button">&lt;!&ndash;(click)="modal('Cross click')"&ndash;&gt;-->
-<!--      &lt;!&ndash;<span aria-hidden="true">&times;</span>&ndash;&gt;-->
-<!--    </button>-->
-<!--  </div>-->
-
   <div *ngIf="(appEditMode)" class="modal-body p-3">
 
-    <div class="text-center">
+    <div class="text-left">
 
       <form [formGroup]="invoiceForm">
 
-        <div class="card mr-5 p-5 col-xxl-6">
-          Business Details
+        <h5 class="mb-10 font-weight-bold text-dark text-center">Business Details</h5>
 
-          <div>
-            <div class="form-group col-xxl-6">
-              <label class="control-label">Business Name</label>
-              <input
-                class="form-control input-sm"
-                formControlName="businessName"
-                id="businessName"
-                readonly
-                type="text"
-              />
+        <div>
+
+          <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label">Business Name</label>
+                <input class="form-control input-sm" formControlName="businessName" id="businessName" readonly
+                       type="text"/>
+              </div>
+            </div>
+
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label">
+                  Permit Type <strong style="color: red">*</strong></label>
+                <ng-select [items]="permitType1" bindLabel="permitTypeName" bindValue="permitTypeId"
+                           formControlName="permitTypeId">
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-xl-2">
+
             </div>
           </div>
 
-          <div>
-            <div class="form-group col-xxl-6">
-              <label class="control-label">
-                Permit Type <strong style="color: red">*</strong></label
-              >
-              <ng-select
-                [items]="permitType1"
-                bindLabel="permitTypeName"
-                bindValue="permitTypeId"
-                formControlName="permitTypeId"
-              >
-              </ng-select>
+          <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label input-sm" for="regNo">Business Id </label>
+                <input class="form-control input-sm" disabled formControlName="regNo" id="regNo" type="text"/>
+              </div>
+            </div>
+
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label input-sm" for="PIN">KRA pin </label>
+                <input class="form-control input-sm" disabled formControlName="PIN" id="PIN" type="text"/>
+              </div>
+            </div>
+            <div class="col-xl-2">
             </div>
           </div>
 
-          <div>
-            <div class="form-group col-xxl-6">
-              <label class="control-label input-sm" for="regNo">Business Id </label>
-              <input
-                class="form-control input-sm"
-                disabled
-                formControlName="regNo"
-                id="regNo"
-                type="text"
-              />
+          <div class="row">
+            <div class="col-xl-4">
             </div>
-          </div>
-
-          <div>
-            <div class="form-group col-xxl-6">
-              <label class="control-label input-sm" for="PIN">KRA pin </label>
-              <input
-                class="form-control input-sm"
-                disabled
-                formControlName="PIN"
-                id="PIN"
-                type="text"
-              />
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label input-sm" for="fee">Amount Payable </label>
+                <input class="form-control input-sm" disabled formControlName="fee" id="fee" type="text"/>
+              </div>
             </div>
-          </div>
-
-          <div>
-            <div class="form-group col-xxl-6">
-              <label class="control-label input-sm" for="fee">Amount Payable </label>
-              <input
-                class="form-control input-sm"
-                disabled
-                formControlName="fee"
-                id="fee"
-                type="text"
-              />
+            <div class="col-xl-4">
             </div>
           </div>
         </div>
@@ -296,7 +273,7 @@
           </div>
         </section>
 
-        <div class="btn-group-sm mb-2 mr-5 text-right">
+        <div class="btn-group-sm mt-4 mb-2 text-center">
           <button
             (click)="updateinvoice()"
             *ngIf="(invoiceForm.value.paidStatus !='paid' )"
