@@ -30,7 +30,7 @@ export class LandRenewalComponent implements OnInit, OnDestroy {
   asignedRights = [];
   response: any = null;
   is_edit: any = false;
-  sessionId:any;
+  sessionId: any;
   editMode = false;
   rightView = false;
   rightAdd = false;

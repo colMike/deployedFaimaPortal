@@ -9,6 +9,7 @@ import {DOCUMENT} from '@angular/common';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeviceService} from '../../services/device.service';
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class DeviceRegComponent implements OnInit {
   sessionId: any;
   status: any;
   storageObject: any = {};
+  @BlockUI() blockUI: NgBlockUI;
 
   // subCountysData: subCountys[];
 
@@ -58,8 +60,9 @@ export class DeviceRegComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getDevices();
+    // this.blockUI.start('Loading device data...');
 
+    this.getDevices();
     //this.initAddsubCounty();
     // this.initEditsubCounty();
     /*  this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'subCountys', active: true }];*/

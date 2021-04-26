@@ -1,16 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {LocalDataSource} from 'ng2-smart-table';
 
-import { ToastrService } from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {RegionService} from "../services/region.service";
-import {LandService} from "../services/landRates.service";
-
+import {RegionService} from '../services/region.service';
+import {LandService} from '../services/landRates.service';
 
 
 @Component({
@@ -30,7 +29,7 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
   asignedRights = [];
   response: any = null;
   is_edit: any = false;
-  sessionId:any;
+  sessionId: any;
   editMode = false;
   rightView = false;
   rightAdd = false;
@@ -38,28 +37,32 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
   rightDelete = false;
   title: string;
   button: string;
-  showWards:any;
+  showWards: any;
   public land1: any = [];
   public region1: any = [];
   public ward1: any = [];
 
   public permitType1: any = [];
-  rId:any;
-  ug:any;
-  idRight:any;
+  rId: any;
+  ug: any;
+  idRight: any;
   rightId: any;
   session: any = {};
   landForm: FormGroup;
-  appEditMode:any;
-  appDetailMode:any;
+  appEditMode: any;
+  appDetailMode: any;
   source: LocalDataSource;
   @BlockUI() blockUI: NgBlockUI;
-  constructor(private Landervice: LandService,private regionSvc: RegionService,public formBuilder: FormBuilder, private toastr: ToastrService,  private modalService: NgbModal) {
+  settings = settings;
+
+  constructor(private Landervice: LandService, private regionSvc: RegionService, public formBuilder: FormBuilder, private toastr: ToastrService, private modalService: NgbModal) {
 
 
   }
-  settings = settings;
 
+  get form() {
+    return this.landForm.controls;
+  }
 
   ngOnInit() {
     this.getAllLand();
@@ -87,8 +90,7 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
   initAddLand() {
     //  this.initUserRights();
     this.appEditMode = true;
-    this.appDetailMode=false;
-
+    this.appDetailMode = false;
 
 
     this.landForm = this.formBuilder.group({
@@ -98,7 +100,7 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],
       mapSheetNumber: ['', [Validators.required]],
-     // location: ['', [Validators.required]],
+      // location: ['', [Validators.required]],
       acreage: ['', [Validators.required]],
       titleDeedNumber: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -111,64 +113,60 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
       permitTypeId: ['', [Validators.required]],
 
 
-
-
     });
 
 
   }
-  get form() {
-    return this.landForm.controls;
-  }
 
   initEditLand($event) {
     this.appEditMode = true;
-    this.appDetailMode=true;
-    this.land1.permitId=$event.LandId;
+    this.appDetailMode = true;
+    this.land1.permitId = $event.LandId;
     this.title = 'update';
-    console.log(this.land1.LandId,'  this.land1.LandId')
+    console.log(this.land1.LandId, '  this.land1.LandId');
     this.landForm = this.formBuilder.group({
 
-      plotNumber:new FormControl($event.plotNumber, Validators.required),
+      plotNumber: new FormControl($event.plotNumber, Validators.required),
 
-      code:new FormControl($event.code, Validators.required),
-      phone:new FormControl($event.phone, Validators.required),
-      address:new FormControl($event.address, Validators.required),
-      mapSheetNumber:new FormControl($event.mapSheetNumber, Validators.required),
+      code: new FormControl($event.code, Validators.required),
+      phone: new FormControl($event.phone, Validators.required),
+      address: new FormControl($event.address, Validators.required),
+      mapSheetNumber: new FormControl($event.mapSheetNumber, Validators.required),
 
 
-      acreage:new FormControl($event.acreage, Validators.required),
-      titleDeedNumber:new FormControl($event.titleDeedNumber, Validators.required),
-      name :new FormControl($event.name, Validators.required),
-      krapin :new FormControl($event.krapin, Validators.required),
-      nationalIdNumber :new FormControl($event.nationalIdNumber, Validators.required),
-      wardId:new FormControl($event.wardId, Validators.required),
+      acreage: new FormControl($event.acreage, Validators.required),
+      titleDeedNumber: new FormControl($event.titleDeedNumber, Validators.required),
+      name: new FormControl($event.name, Validators.required),
+      krapin: new FormControl($event.krapin, Validators.required),
+      nationalIdNumber: new FormControl($event.nationalIdNumber, Validators.required),
+      wardId: new FormControl($event.wardId, Validators.required),
 
-      subcountyId:new FormControl($event.subCountyId, Validators.required),
+      subcountyId: new FormControl($event.subCountyId, Validators.required),
 
-      id:new FormControl($event.id, Validators.required),
+      id: new FormControl($event.id, Validators.required),
 
-      permitTypeId:new FormControl($event.permitTypeId, Validators.required),
+      permitTypeId: new FormControl($event.permitTypeId, Validators.required),
 
       //name: ['', [Validators.required]]
-    })
+    });
 
   }
 
   getAllLand() {
     this.blockUI.start('Loading group data...');
-    this.appEditMode=false;
+    this.appEditMode = false;
     this.Landervice.gtLand().subscribe(data => {
-      console.log(JSON.stringify(data),"HEREEEEEEEEEEEEEE")
+      console.log(JSON.stringify(data), 'HEREEEEEEEEEEEEEE');
       this.land1 = data;
 
       this.blockUI.stop();
 
     }, error => {
       this.blockUI.stop();
-      return this.toastr.error('Error in loading  data.', 'Error!', { timeOut: 4000 });
+      return this.toastr.error('Error in loading  data.', 'Error!', {timeOut: 4000});
     });
   }
+
   /**
    * gets the list of wards based on subcounty selected
    */
@@ -178,101 +176,101 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
     this.blockUI.start('Loading group data...');
     this.Landervice.gtPermitType().subscribe(data => {
 
-      console.log(JSON.stringify(data),"HEREEEEEEEEEEEEEE")
+      console.log(JSON.stringify(data), 'HEREEEEEEEEEEEEEE');
       this.permitType1 = data;
 
       this.blockUI.stop();
 
     }, error => {
       this.blockUI.stop();
-      return this.toastr.error('Error in loading  data.', 'Error!', { timeOut: 4000 });
+      return this.toastr.error('Error in loading  data.', 'Error!', {timeOut: 4000});
     });
   }
 
   addLand() {
     if (this.land1.businessName === '') {
-      this.toastr.warning('Please specify the businessName', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the businessName', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.PIN === '') {
-      this.toastr.warning('Please specify the PIN', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the PIN', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.postalAdd === '') {
-      this.toastr.warning('Please specify the postal Address', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the postal Address', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.mobileNo === '') {
-      this.toastr.warning('Please specify the  Business mobileNo', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the  Business mobileNo', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.email === '') {
-      this.toastr.warning('Please specify the Business Email', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the Business Email', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.landZone === '') {
-      this.toastr.warning('Please specify the Physical Address', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the Physical Address', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.applicant === '') {
-      this.toastr.warning('Please specify the applicant name', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the applicant name', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.nationalId === '') {
-      this.toastr.warning('Please specify the nationalId', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the nationalId', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.applicantMobile === '') {
-      this.toastr.warning('Please specify the applicant Mobile', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the applicant Mobile', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.personalAdd === '') {
-      this.toastr.warning('Please specify the applicant Postal Add', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the applicant Postal Add', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.businessDesc === '') {
-      this.toastr.warning('Please specify the business Description', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the business Description', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.area === '') {
-      this.toastr.warning('Please specify the area', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the area', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.permitTypeId === '') {
-      this.toastr.warning('Please specify the Permit Type', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the Permit Type', 'Alert!', {timeOut: 4000});
     }
     if (this.land1.subCountyId === '') {
-      this.toastr.warning('Please specify the Subcounty', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the Subcounty', 'Alert!', {timeOut: 4000});
     }
 
     if (this.land1.wardId === '') {
-      this.toastr.warning('Please specify the Ward', 'Alert!', { timeOut: 4000 });
+      this.toastr.warning('Please specify the Ward', 'Alert!', {timeOut: 4000});
     }
     this.land1 = this.landForm.value;
 
-    this.land1.plotNumber= this.landForm.get('plotNumber').value;
+    this.land1.plotNumber = this.landForm.get('plotNumber').value;
 
-    this.land1.code= this.landForm.get('code').value;
-    this.land1.phone= this.landForm.get('phone').value;
-    this.land1.address= this.landForm.get('address').value;
-    this.land1.mapSheetNumber= this.landForm.get('mapSheetNumber').value;
-    this.land1.appliedFor= new Date().getFullYear();
+    this.land1.code = this.landForm.get('code').value;
+    this.land1.phone = this.landForm.get('phone').value;
+    this.land1.address = this.landForm.get('address').value;
+    this.land1.mapSheetNumber = this.landForm.get('mapSheetNumber').value;
+    this.land1.appliedFor = new Date().getFullYear();
 
-    this.land1.acreage= this.landForm.get('acreage').value;
-    this.land1.titleDeedNumber= this.landForm.get('titleDeedNumber').value;
+    this.land1.acreage = this.landForm.get('acreage').value;
+    this.land1.titleDeedNumber = this.landForm.get('titleDeedNumber').value;
     this.land1.name = this.landForm.get('name').value;
     this.land1.krapin = this.landForm.get('krapin').value;
     this.land1.nationalIdNumber = this.landForm.get('nationalIdNumber').value;
-    this.land1.wardId= this.landForm.get('wardId').value;
-    this.land1.subCountyId= this.landForm.get('subcountyId').value;
-    this.land1.id= this.landForm.get('id').value;
+    this.land1.wardId = this.landForm.get('wardId').value;
+    this.land1.subCountyId = this.landForm.get('subcountyId').value;
+    this.land1.id = this.landForm.get('id').value;
 
-    this.land1.permitTypeId= this.landForm.get('permitTypeId').value;
+    this.land1.permitTypeId = this.landForm.get('permitTypeId').value;
     //this.land1.name= this.landForm.get('name').value;
     //this.land1.id=this.asignedRights.groupId;
 
-    const session=localStorage.getItem('currentUser');
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.userId,"this.users1");
-    console.log(this.sessionId.entity,"this.users1");
+    console.log(this.sessionId.entity.userId, 'this.users1');
+    console.log(this.sessionId.entity, 'this.users1');
 
-    this.land1.createdBy=this.sessionId.entity.userId;
-    console.log(this.land1.createdBy, "this.users1.createdBy")
-    console.log(this.land1.permitId,"finding permit id" )
-    this.blockUI.start('Please wait')
+    this.land1.createdBy = this.sessionId.entity.userId;
+    console.log(this.land1.createdBy, 'this.users1.createdBy');
+    console.log(this.land1.permitId, 'finding permit id');
+    this.blockUI.start('Please wait');
     this.Landervice.addLand(this.land1).subscribe(res => {
       this.res = res;
-      console.log(this.res,"LLLLLLLLLLLLLLLL");
+      console.log(this.res, 'LLLLLLLLLLLLLLLL');
       this.blockUI.stop();
       if (this.res.status === 200) {
         this.appEditMode = false;
@@ -282,7 +280,7 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
         this.getAllLand();
         this.modalService.dismissAll();
 
-        return this.toastr.success('Great! Land saved Successfully', 'Success!', { timeOut: 4000 });
+        return this.toastr.success('Great! Land saved Successfully', 'Success!', {timeOut: 4000});
       }
       if (this.res.status === true) {
         // if (this.userGroup.id === 0) {
@@ -297,37 +295,38 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
         this.getAllLand();
         this.modalService.dismissAll();
         this.blockUI.stop();
-        return this.toastr.success(this.res.respMessage, 'Success!', { timeOut: 4000 });
+        return this.toastr.success(this.res.respMessage, 'Success!', {timeOut: 4000});
       }
     }, error => {
       // this.log(this.rightId, 'server error updating user group ');
       this.blockUI.stop();
-      return this.toastr.error('Error in loading data.', 'Error!', { timeOut: 4000 });
+      return this.toastr.error('Error in loading data.', 'Error!', {timeOut: 4000});
     });
 
   }
-  updateLand(){
+
+  updateLand() {
     // this.land1 = this.landForm.value;
-    console.log(this.land1.permitId,"when updating")
-    this.land1.plotNumber= this.landForm.get('plotNumber').value;
+    console.log(this.land1.permitId, 'when updating');
+    this.land1.plotNumber = this.landForm.get('plotNumber').value;
 
-    this.land1.code= this.landForm.get('code').value;
-    this.land1.phone= this.landForm.get('phone').value;
-    this.land1.address= this.landForm.get('address').value;
-    this.land1.mapSheetNumber= this.landForm.get('mapSheetNumber').value;
+    this.land1.code = this.landForm.get('code').value;
+    this.land1.phone = this.landForm.get('phone').value;
+    this.land1.address = this.landForm.get('address').value;
+    this.land1.mapSheetNumber = this.landForm.get('mapSheetNumber').value;
 
-    this.land1.acreage= this.landForm.get('acreage').value;
-    this.land1.titleDeedNumber= this.landForm.get('titleDeedNumber').value;
+    this.land1.acreage = this.landForm.get('acreage').value;
+    this.land1.titleDeedNumber = this.landForm.get('titleDeedNumber').value;
     this.land1.name = this.landForm.get('name').value;
     this.land1.krapin = this.landForm.get('krapin').value;
     this.land1.nationalIdNumber = this.landForm.get('nationalIdNumber').value;
-    this.land1.wardId= this.landForm.get('wardId').value;
-    this.land1.subCountyId= this.landForm.get('subcountyId').value;
-    this.land1.id= this.landForm.get('id').value;
+    this.land1.wardId = this.landForm.get('wardId').value;
+    this.land1.subCountyId = this.landForm.get('subcountyId').value;
+    this.land1.id = this.landForm.get('id').value;
 
-    this.land1.permitTypeId= this.landForm.get('permitTypeId').value;
-    const Land2 ={
-      'plotNumber':this.land1.plotNumber,
+    this.land1.permitTypeId = this.landForm.get('permitTypeId').value;
+    const Land2 = {
+      'plotNumber': this.land1.plotNumber,
 
       'code': this.land1.code,
       'phone': this.land1.phone,
@@ -336,22 +335,22 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
       'appliedFor': this.land1.appliedFor,
 
       'acreage': this.land1.acreage,
-      'titleDeedNumber' :this.land1.titleDeedNumber,
-      'name ' :this.land1.name,
-      'krapin ':this.land1.krapin,
-      'nationalIdNumber ':this.land1.nationalIdNumber,
-    'wardId': this.land1.wardId,
-    'subcountyId': this.land1.subCountyId,
-    'id':this.land1.id,
+      'titleDeedNumber': this.land1.titleDeedNumber,
+      'name ': this.land1.name,
+      'krapin ': this.land1.krapin,
+      'nationalIdNumber ': this.land1.nationalIdNumber,
+      'wardId': this.land1.wardId,
+      'subcountyId': this.land1.subCountyId,
+      'id': this.land1.id,
 
-    'permitTypeId':this.land1.permitTypeId,
+      'permitTypeId': this.land1.permitTypeId,
 
 
-    }
-    console.log(Land2," PPPPPPPPPPPPPPPPPP")
+    };
+    console.log(Land2, ' PPPPPPPPPPPPPPPPPP');
     this.Landervice.addLand(Land2).subscribe(res => {
       this.res = res;
-      console.log(this.res,"LLLLLLLLLLLLLLLL")
+      console.log(this.res, 'LLLLLLLLLLLLLLLL');
       if (this.res.status === 200) {
         this.appEditMode = false;
         this.asignedRights = [];
@@ -360,7 +359,7 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
         this.getAllLand();
         this.modalService.dismissAll();
         this.blockUI.stop();
-        return this.toastr.success('Great! Land saved Successfully', 'Success!', { timeOut: 4000 });
+        return this.toastr.success('Great! Land saved Successfully', 'Success!', {timeOut: 4000});
       }
       if (this.res.status === true) {
         // if (this.userGroup.id === 0) {
@@ -375,12 +374,12 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
         this.getAllLand();
         this.modalService.dismissAll();
         this.blockUI.stop();
-        return this.toastr.success(this.res.respMessage, 'Success!', { timeOut: 4000 });
+        return this.toastr.success(this.res.respMessage, 'Success!', {timeOut: 4000});
       }
     }, error => {
       // this.log(this.rightId, 'server error updating user group ');
       this.blockUI.stop();
-      return this.toastr.error('Error in loading data.', 'Error!', { timeOut: 4000 });
+      return this.toastr.error('Error in loading data.', 'Error!', {timeOut: 4000});
     });
   }
 
@@ -393,52 +392,54 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
     this.appEditMode = false;
     this.getAllLand();
   }
-  getWards(){
+
+  getWards() {
     //  this.blockUI.start("Loading data....");
 
-    const session=localStorage.getItem('currentUser');
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.subCountyId,"this.ward1");
-    console.log(this.sessionId.entity,"this.ward1");
-    console.log(this.region1,"region here")
+    console.log(this.sessionId.entity.subCountyId, 'this.ward1');
+    console.log(this.sessionId.entity, 'this.ward1');
+    console.log(this.region1, 'region here');
 
-    this.regionSvc.gtWard().subscribe(subCountys =>{
+    this.regionSvc.gtWard().subscribe(subCountys => {
       // if(data){
 
-      this.showWards=true;
+      this.showWards = true;
       this.ward1 = subCountys;
       //this.blockUI.stop();
       /* }
        else{*/
       for (var i = 0; i <= this.ward1.length - 1; i++) {
-        console.log(this.ward1[i].approved, "this.ward1.approved")
+        console.log(this.ward1[i].approved, 'this.ward1.approved');
 
 
         if (this.ward1[i].approved === 'N') {
 
-          this.ward1[i].approved ==='Pending Approval';
-          console.log(this.ward1[i].approved,"$$$$$$$$$$$$$$$$$$$$")
+          this.ward1[i].approved === 'Pending Approval';
+          console.log(this.ward1[i].approved, '$$$$$$$$$$$$$$$$$$$$');
         } else {
           this.ward1[i].approved === 'Approved';
         }
-        console.log(this.ward1, "data.message");
+        console.log(this.ward1, 'data.message');
         // this.blockUI.stop();
         //return this.toastr.info(data.message);
         //}
       }
-    },()=>{
-      console.log("error fetching customers...");
+    }, () => {
+      console.log('error fetching customers...');
       //this.blockUI.stop();
-    })
+    });
   }
-  getsubCountys(){
+
+  getsubCountys() {
     //  this.blockUI.start("Loading data....");
 
 
-    this.showWards=false;
-    this.regionSvc.gtSubcounty().subscribe(subCountys =>{
+    this.showWards = false;
+    this.regionSvc.gtSubcounty().subscribe(subCountys => {
       // if(data){
 
 
@@ -448,26 +449,29 @@ export class LandRegeistrationComponent implements OnInit, OnDestroy {
       /* }
        else{*/
 
-      console.log(this.region1, "data.message");
+      console.log(this.region1, 'data.message');
       // this.blockUI.stop();
       //return this.toastr.info(data.message);
       //}
 
-    },()=>{
-      console.log("error fetching customers...");
+    }, () => {
+      console.log('error fetching customers...');
       //this.blockUI.stop();
-    })
+    });
   }
+
   selectAllViewRights() {
     for (let i = 0; i < this.rights.length; i++) {
       this.rights[i].allowView = this.rightView;
     }
   }
+
   selectAllAddRights() {
     for (let i = 0; i < this.rights.length; i++) {
       this.rights[i].allowAdd = this.rightAdd;
     }
   }
+
   selectAllEditRights() {
     for (let i = 0; i < this.rights.length; i++) {
       this.rights[i].allowEdit = this.rightEdit;
