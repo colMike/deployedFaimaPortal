@@ -122,7 +122,7 @@ export class approveDeleteAgentsComponent implements OnInit {
     }*/
 
   Reject(){
-    //this.agents.agent_names = this.validationform.get('agent_names').value;
+    //this.agents.agentnames = this.validationform.get('agentnames').value;
     console.log( this.agents.id, " this.agents.userId")
     this.agents.deleted = 'U';
 
@@ -217,7 +217,7 @@ export class approveDeleteAgentsComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
   Approve(){
-    //this.agents.agent_names = this.validationform.get('agent_names').value;
+    //this.agents.agentnames = this.validationform.get('agentnames').value;
     console.log( this.agents.id, " this.agents.userId")
     this.agents.deleted = 'AD';
     const session=localStorage.getItem('currentUser');
@@ -342,7 +342,7 @@ export class approveDeleteAgentsComponent implements OnInit {
       if (this.response.status===200) {
         //if (this.validationform.valid) {
         /* this.agentsData.push({
-           agent_names,
+           agentnames,
            location,
            mobile	,
            branch	,
@@ -357,7 +357,7 @@ export class approveDeleteAgentsComponent implements OnInit {
            postal_address,
            referees_contacts,
            business_category,
-           agent_type	,
+           agenttype	,
            ward
 
          });*/

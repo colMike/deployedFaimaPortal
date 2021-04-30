@@ -1,6 +1,6 @@
 <block-ui>
 <div class="container-fluid">
-  <app-pagetitle title="User Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Parking Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
 
   <div class="row" *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) ">
@@ -95,7 +95,7 @@
 
       <div class="form-group row">
         <label for="serviceCode">Service Code</label>
-        <input type="text" class="form-control" id="serviceCode" placeholder="Enter ServiceCode" formControlName="serviceCode"
+        <input type="text" class="form-control" id="serviceCode" placeholder="Enter ServiceCode" formControlName="serviceCode" value="PARKING1" disabled
         >
         <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
              <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">

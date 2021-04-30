@@ -18,21 +18,13 @@
                         </div>
                       </th>-->
 
-                <th>First Name</th>
-                <th>Second Name</th>
-                <th>location</th>
-                <th>mobile</th>
-                <!--<th>branch</th>-->
-                <th>Business Name</th>
-                <th>email</th>
+                <th>Agent Name</th>
                 <th>ID Number</th>
                 <th>Business Mobile</th>
-                <th>Postal Address</th>
-                <!-- <th>Referees Contacts</th>-->
-                <th>Business Category</th>
+                <th>email</th>
                 <th>Status</th>
-                <!--   <th>ward</th>-->
                 <th style="width: 120px;">Action</th>
+
               </tr>
               </thead>
               <tbody>
@@ -44,37 +36,30 @@
                        </div>
                      </td>-->
 
-                <td>{{item.first_name}}</td>
-                <td>{{item.second_name}}</td>
-                <td>{{item.location}}</td>
-                <td>{{item.mobile}}</td>
-                <!--<td>{{item.branch}}</td>-->
-                <td>{{item.business_name}}</td>
+                <td>{{item.firstname + ' ' + item.secondname}}</td>
+                <td>{{item.idnumber}}</td>
+                <td>{{item.businessmobile}}</td>
                 <td>{{item.email}}</td>
-                <td>{{item.id_number}}</td>
-                <td>{{item.business_mobile}}</td>
-                <!-- <td>{{item.super_agent}}</td>-->
-                <td>{{item.postal_address}}</td>
-                <td>{{item.business_category}}</td>
                 <td>
-                  <div [ngClass]="{'badge-soft-danger': item.approved === 'Pending Approval',
-                    'badge-soft-success':item.approved === 'Approved'}" class="badge font-size-12">
-                    <ngb-highlight [result]="item.approved"></ngb-highlight>
+                  <!--                    [ngClass]="{'badge-soft-danger': item.approved === 'Pending Approval', 'badge-soft-success':item.approved === 'Approved'}-->
+                  <div [ngClass]="{'badge-soft-danger': !item.approved, 'badge-soft-success':item.approved}
+                    "
+
+                       class="badge font-size-12">
+                    <ngb-highlight [result]="item.approved ? 'approved':'pending' "></ngb-highlight>
                   </div>
-                  <!-- {{item.approved}}-->
                 </td>
-                <!-- <td>{{item.ward}}</td>-->
 
 
                 <td>
-                  <a (click)="initEditAgent(item)" class="mr-3 text-primary" href="javascript:void(0);"
-                     title="Edit" v-b-tooltip.hover>
-                    <i class="ri-quill-pen-line"></i>
-                  </a>
-                  <!--  <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
-                      <i class="mdi mdi-trash-can font-size-18"></i>
-                    </a>-->
+                  <button (click)="initEditAgent(item)"
+                          class="btn-rounded btn-light btn-lg btn-outline-primary btn-sm"
+                          title="Edit"
+                          type="button">
+                    <i class="ri-quill-pen-line"></i> Approve
+                  </button>
                 </td>
+
               </tr>
               </tbody>
             </table>
@@ -94,132 +79,174 @@
    </button>-->
 </div>
 <div *ngIf="(!isAddMode && isExisting)|| (!isExisting && isAddMode)" class="modal-body p-3">
-  <div class="text-left">
+  <div class="text-center">
     <form [formGroup]="validationform">
 
-      <div class="form-group">
-        <label for="name">First Name</label>
-        <input [ngClass]="{'is-invalid': submitted && form.first_name.errors}" class="form-control" disabled formControlName="first_name" id="name"
-               placeholder="Enter first_name" type="text">
-        <div *ngIf="submitted && form.first_name.errors" class="invalid-feedback">
-          <span *ngIf="form.first_name.errors.required">Name is mandatory.</span>
-        </div>
-      </div>
+      <section>
+        <h5 class="mb-10 font-weight-bold text-dark text-center">Enter Agent Details</h5>
+        <hr style="width: 35%">
 
-      <div class="form-group">
-        <label for="second_name">Second Name</label>
-        <input [ngClass]="{'is-invalid': submitted && form.second_name.errors}" class="form-control" disabled formControlName="second_name"
-               id="second_name" placeholder="Enter second_name">
-        <div *ngIf="submitted && form.second_name.errors" class="invalid-feedback">
-          <span *ngIf="form.second_name.errors.required">second_name is mandatory.</span>
-
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Phone </label>
-        <input [ngClass]="{'is-invalid': submitted && form.mobile.errors}" class="form-control" disabled formControlName="mobile"
-               minlength="10" placeholder="Enter phone number" type="number">
-        <div *ngIf="submitted && form.mobile.errors" class="invalid-feedback">
-          <span *ngIf="form.mobile.errors.required">Phone is mandatory.</span>
-          <span *ngIf="form.mobile.errors.minlength">Phone number must be 10 characters.</span>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Email </label>
-        <input [ngClass]="{'is-invalid': submitted && form.email.errors}" class="form-control" disabled formControlName="email"
-               placeholder="Enter email" type="email">
-        <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
-          <span *ngIf="form.balance.errors.required">email is mandatory.</span>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>National Id Number </label>
-        <input [ngClass]="{'is-invalid': submitted && form.id_number.errors}" class="form-control" disabled formControlName="id_number"
-               placeholder="Enter Id Number" type="number">
-        <div *ngIf="submitted && form.id_number.errors" class="invalid-feedback">
-          <span *ngIf="form.id_number.errors.required">Balance is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Business Name </label>
-        <input [ngClass]="{'is-invalid': submitted && form.business_name.errors}" class="form-control" disabled formControlName="business_name"
-               placeholder="Enter business name" type="text">
-        <div *ngIf="submitted && form.business_name.errors" class="invalid-feedback">
-          <span *ngIf="form.business_name.errors.required">business_name is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Business Mobile </label>
-        <input [ngClass]="{'is-invalid': submitted && form.business_mobile.errors}" class="form-control" disabled formControlName="business_mobile"
-               placeholder="Enter business_mobile" type="number">
-        <div *ngIf="submitted && form.business_mobile.errors" class="invalid-feedback">
-          <span *ngIf="form.business_mobile.errors.required">business_mobile is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Postal Address </label>
-        <input [ngClass]="{'is-invalid': submitted && form.postal_address.errors}" class="form-control" disabled formControlName="postal_address"
-               placeholder="Enter postal_address" type="text">
-        <div *ngIf="submitted && form.postal_address.errors" class="invalid-feedback">
-          <span *ngIf="form.postal_address.errors.required">postal_address is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Business Category </label>
-        <input [ngClass]="{'is-invalid': submitted && form.business_category.errors}" class="form-control" disabled
-               formControlName="business_category"
-               placeholder="Enter business_category" type="text">
-        <div *ngIf="submitted && form.business_category.errors" class="invalid-feedback">
-          <span *ngIf="form.business_category.errors.required">business_category is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Location </label>
-        <input [ngClass]="{'is-invalid': submitted && form.location.errors}" class="form-control" disabled formControlName="location"
-               placeholder="Enter location" type="text">
-        <div *ngIf="submitted && form.location.errors" class="invalid-feedback">
-          <span *ngIf="form.location.errors.required">location is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>referees_contacts </label>
-        <input [ngClass]="{'is-invalid': submitted && form.referees_contacts.errors}" class="form-control" disabled
-               formControlName="referees_contacts"
-               placeholder="Enter referees_contacts" type="text">
-        <div *ngIf="submitted && form.referees_contacts.errors" class="invalid-feedback">
-          <span *ngIf="form.referees_contacts.errors.required">referees_contacts is mandatory.</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>ward</label>
-        <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control" disabled formControlName="ward"
-               placeholder="Enter ward" type="text">
-        <div *ngIf="submitted && form.ward.errors" class="invalid-feedback">
-          <span *ngIf="form.ward.errors.required">wardis mandatory.</span>
-        </div>
-      </div>
+        <div class="panel-body">
 
 
-      <!-- <div class="custom-control custom-checkbox">
-         <input type="checkbox" class="custom-control-input" id="active" />
-         <label class="custom-control-label" for="active">Active</label>
-       </div>-->
+          <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label input-sm" for="name">First Name</label><strong
+                style="color:#ff0000">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.firstname.errors}" class="form-control" formControlName="firstname" id="name"
+                       placeholder="Enter firstname"
+                       type="text">
+                <div *ngIf="submitted && form.firstname.errors" class="invalid-feedback">
+                  <span *ngIf="form.firstname.errors.required">Name is mandatory.</span>
+                </div>
+              </div>
+            </div>
 
-      <!--  <div class="form-group">
-          <label>Date </label>
-          <input class="form-control" placeholder="Enter date" formControlName="date"
-            [ngClass]="{'is-invalid': submitted && form.date.errors}">
-          <div *ngIf="submitted && form.date.errors" class="invalid-feedback">
-            <span *ngIf="form.date.errors.required">Date is mandatory.</span>
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label input-sm" for="secondname">Second Name</label><strong
+                style="color:red">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.secondname.errors}" class="form-control" formControlName="secondname" id="secondname"
+                       placeholder="Enter secondname">
+                <div *ngIf="submitted && form.secondname.errors" class="invalid-feedback">
+                  <span *ngIf="form.secondname.errors.required">secondname is mandatory.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2">
+            </div>
           </div>
-        </div>-->
 
-      <div class="text-right">
+          <div class="row space-between">
+            <div class="col-xl-2">
+            </div>
+
+            <div class="col-xl-3">
+              <div class="form-group">
+                <label class="control-label input-sm" for="dob">Date of Birth</label><strong
+                style="color:red">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.dob.errors}" class="form-control" formControlName="dob" id="dob" placeholder="Enter Date of Birth"
+                       type="date">
+                <div *ngIf="submitted && form.dob.errors" class="invalid-feedback">
+                  <span *ngIf="form.dob.errors.required">DOB is mandatory.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-2">
+              <div class="form-group">
+                <label class="control-label input-sm" for="idtype">ID Type</label><strong style="color:red">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.idtype.errors}" class="form-control" formControlName="idtype" id="idtype"
+                       placeholder="Enter id type"
+                       type="number">
+                <div *ngIf="submitted && form.idtype.errors" class="invalid-feedback">
+                  <span *ngIf="form.idtype.errors.required">Id Type is mandatory.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3">
+              <div class="form-group">
+                <label class="control-label input-sm" for="idnumber">ID Number</label><strong
+                style="color:red">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" id="idnumber"
+                       placeholder="Enter ID Number">
+                <div *ngIf="submitted && form.idnumber.errors" class="invalid-feedback">
+                  <span *ngIf="form.idnumber.errors.required">Id Number is mandatory.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-2">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-3">
+              <div class="form-group">
+                <label class="control-label input-sm" for="email">Email</label><strong style="color:red">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.email.errors}" class="form-control" formControlName="email" id="email" placeholder="Enter email"
+                       type="email">
+                <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                  <span *ngIf="form.balance.errors.required">email is mandatory.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-2">
+              <div class="form-group">
+                <label class="control-label input-sm" for="idNumber">Gender <strong style="color:red">*</strong>
+                </label>
+                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" placeholder="Enter Id Number"
+                       type="number">
+                <div *ngIf="submitted && form.idnumber.errors" class="invalid-feedback">
+                  <span *ngIf="form.idnumber.errors.required">Balance is mandatory.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3">
+              <div class="form-group">
+                <label class="control-label input-sm" for="businessmobile">Business Mobile</label><strong
+                style="color:red">*</strong>
+                <input [ngClass]="{'is-invalid': submitted && form.businessmobile.errors}" class="form-control" formControlName="businessmobile"
+                       id="businessmobile"
+                       placeholder="Enter Business Mobile">
+                <div *ngIf="submitted && form.businessmobile.errors" class="invalid-feedback">
+                  <span *ngIf="form.businessmobile.errors.required">Business Mobile.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-3">
+              <div class="form-group">
+                <label class="control-label input-sm" for="county">County <strong
+                  style="color:red">*</strong></label>
+                <input class="form-control input-sm" formControlName="county" id="county" placeholder="County"
+                       type="text">
+              </div>
+            </div>
+
+            <div class="col-xl-2">
+              <div class="form-group">
+                <label class="control-label input-sm" for="subcounty">SubCounty <strong
+                  style="color:red">*</strong></label>
+                <input class="form-control input-sm" formControlName="subcounty" id="subcounty"
+                       placeholder="Sub County "
+                       type="text">
+              </div>
+            </div>
+
+            <div class="col-xl-3">
+              <div class="form-group">
+                <label class="control-label input-sm" for="ward">Ward <strong
+                  style="color:red">*</strong></label>
+                <input class="form-control input-sm" formControlName="ward" id="ward" placeholder="Ward "
+                       type="text">
+              </div>
+            </div>
+
+            <div class="col-xl-2">
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
+      <div class="text-center btn-group">
         <button (click)="Approve()" class="btn btn-success" type="submit">Approve</button>
-        <button (click)="Reject()" class="btn btn-danger" type="submit">reject</button>
+        <button (click)="Reject()" class="btn btn-danger ml-1" type="submit">reject</button>
         <button (click)="cancel()" class="btn btn-dark ml-1" type="button">Cancel</button>
       </div>
     </form>

@@ -1,7 +1,6 @@
 package com.revenue.revenueCollection._service;
 
 
-import com.revenue.revenueCollection._shared.dto.AgentApproveDto;
 import com.revenue.revenueCollection._shared.dto.AgentDto;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public interface AgentService {
 
     List<AgentDto> getAgentToApprove();
 
-    AgentDto approveAgent(AgentApproveDto agent);
+    AgentDto approveAgent(AgentDto agent);
 
     List<AgentDto> getAgentsToApproveDelete();
 

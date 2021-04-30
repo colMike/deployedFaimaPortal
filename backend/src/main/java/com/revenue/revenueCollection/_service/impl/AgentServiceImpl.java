@@ -4,7 +4,6 @@ import com.revenue.revenueCollection._domains.Agents;
 import com.revenue.revenueCollection._exceptions.AgentServiceException;
 import com.revenue.revenueCollection._repositories.AgentRepository;
 import com.revenue.revenueCollection._service.AgentService;
-import com.revenue.revenueCollection._shared.dto.AgentApproveDto;
 import com.revenue.revenueCollection._shared.dto.AgentDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +51,13 @@ public class AgentServiceImpl implements AgentService {
   }
 
   @Override
-  public AgentDto approveAgent(AgentApproveDto agent) {
+  public AgentDto approveAgent(AgentDto agent) {
 
-    Agents agentEntity = new Agents();
+    Agents agentEntity = agentRepository.findByAgentid(agent.getagentid());
 
-    BeanUtils.copyProperties(agent, agentEntity);
-    
-    agentEntity.setapproved(agent.getApproved());
-    agentEntity.setchecker(agent.getChecker());
+    agentEntity.setapproved(agent.getapproved());
+    agentEntity.setrejected(!agent.getapproved());
+    agentEntity.setchecker(agent.getchecker());
     agentEntity.setcheckerdate(new Date(System.currentTimeMillis()));
 
     Agents storedAgentDetails = agentRepository.save(agentEntity);
@@ -135,16 +133,15 @@ public class AgentServiceImpl implements AgentService {
   @Override
   public AgentDto deleteAgent(AgentDto agent) {
 
-    if (agentRepository.findByidnumber(agent.getidnumber()) == null)
-      throw new AgentServiceException("No Such record exists.");
+    Agents agentEntity = agentRepository.findByAgentid(agent.getagentid());
 
-    Agents agentEntity = new Agents();
+    System.out.println(agentEntity);
+    System.out.println(agent);
 
-    agent.setdeletedby(agent.getdeletedby());
-    agent.setremarks(agent.getremarks());
-    agent.setdeletedon(new Date(System.currentTimeMillis()));
-
-    BeanUtils.copyProperties(agent, agentEntity);
+    agentEntity.setdeleted(agent.getdeleted());
+    agentEntity.setdeletedby(agent.getdeletedby());
+    agentEntity.setremarks(agent.getremarks());
+//    agentEntity.setdeletedon(new Date(System.currentTimeMillis()));
 
     Agents storedAgentDetails = agentRepository.save(agentEntity);
 
@@ -156,21 +153,21 @@ public class AgentServiceImpl implements AgentService {
 
   @Override
   public AgentDto approveDeleteAgent(AgentDto agent) {
-    if (agentRepository.findByidnumber(agent.getidnumber()) == null)
-      throw new AgentServiceException("No Such record exists.");
 
-    Agents agentEntity = new Agents();
+    Agents agentEntity = agentRepository.findByAgentid(agent.getagentid());
 
-    agent.setdeletedby(agent.getdeletedby());
-    agent.setremarks(agent.getremarks());
-    agent.setdeletedon(new Date(System.currentTimeMillis()));
+    System.out.println(agentEntity);
+    System.out.println(agent);
 
-    BeanUtils.copyProperties(agent, agentEntity);
+    agentEntity.setdeletedby(agent.getdeletedby());
+    agentEntity.setcheckerremark(agent.getremarks());
+    agentEntity.setdeletedon(new Date(System.currentTimeMillis()));
 
     Agents storedAgentDetails = agentRepository.save(agentEntity);
 
     AgentDto returnValue = new AgentDto();
     BeanUtils.copyProperties(storedAgentDetails, returnValue);
+
 
     return returnValue;
   }

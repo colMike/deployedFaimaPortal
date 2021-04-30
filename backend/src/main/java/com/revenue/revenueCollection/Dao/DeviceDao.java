@@ -40,8 +40,10 @@ public interface DeviceDao extends JpaRepository<Device_linking, Integer> {
             ",u.session_id\n" +
             ",u.trials,u.device_imei,u.user_id,u.issued_by,u.active,us.user_full_name as userFullName from Device_linking u inner join users us on us.user_id=u.user_id ")
     List<Device_linking> findAll();
+
     @Query("select u from Users u where u.userGroupTypeId=1 and u.userId not in(select d.userId from Device_linking  d where d.userId=u.userId)")
     List<Users> getPosUsers();
+
     @Query("select u from DeviceReg u where u.device_imei not in(select d.device_imei from Device_linking  d where d.userId is not null)")
     List<DeviceReg> getDevicesToIssue();
 

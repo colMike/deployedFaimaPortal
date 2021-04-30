@@ -1,18 +1,17 @@
-package com.revenue.revenueCollection._domains;
+package com.revenue.revenueCollection._shared.dto;
 
-import javax.persistence.*;
+import javafx.beans.binding.BooleanExpression;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+public class DeviceDto implements Serializable {
 
-@Entity(name = "devices")
-public class Devices implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deviceid;
-
     private String deviceimei;
     private String devicemobilenumber;
     private String agentid;
@@ -72,6 +71,7 @@ public class Devices implements Serializable {
     private String unblockedreason;
     private Boolean dormant;
     private Date lastworkingdate;
+
 
     public Long getDeviceid() {
         return deviceid;

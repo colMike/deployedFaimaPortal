@@ -1,0 +1,6 @@
+2021-04-30 06:34:57.648  WARN 17264 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h45m34s131ms302µs200ns).
+2021-04-30 06:35:01.189  INFO 17264 --- [http-nio-20202-exec-1] o.a.c.c.C.[.[.[/revenueCollection]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-30 06:35:01.189  INFO 17264 --- [http-nio-20202-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-30 06:35:01.192  INFO 17264 --- [http-nio-20202-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-04-30 07:11:59.951  WARN 17264 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m31s787ms712µs100ns).
+2021-04-30 08:17:25.014  WARN 17264 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14m54s41ms837µs).

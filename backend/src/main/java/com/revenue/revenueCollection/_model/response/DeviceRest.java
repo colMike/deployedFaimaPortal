@@ -1,18 +1,12 @@
-package com.revenue.revenueCollection._domains;
+package com.revenue.revenueCollection._model.response;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+public class DeviceRest {
 
-@Entity(name = "devices")
-public class Devices implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deviceid;
-
     private String deviceimei;
     private String devicemobilenumber;
     private String agentid;
@@ -72,6 +66,7 @@ public class Devices implements Serializable {
     private String unblockedreason;
     private Boolean dormant;
     private Date lastworkingdate;
+
 
     public Long getDeviceid() {
         return deviceid;
@@ -553,3 +548,4 @@ public class Devices implements Serializable {
         this.lastworkingdate = lastworkingdate;
     }
 }
+

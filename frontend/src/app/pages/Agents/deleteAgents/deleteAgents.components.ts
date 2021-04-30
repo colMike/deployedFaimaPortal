@@ -256,7 +256,7 @@ export class deleteAgentsComponent implements OnInit {
       if (this.response.status===200) {
         //if (this.validationform.valid) {
         /* this.agentsData.push({
-           agent_names,
+           agentnames,
            location,
            mobile	,
            branch	,
@@ -271,7 +271,7 @@ export class deleteAgentsComponent implements OnInit {
            postal_address,
            referees_contacts,
            business_category,
-           agent_type	,
+           agenttype	,
            ward
 
          });*/

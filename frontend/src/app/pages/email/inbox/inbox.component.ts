@@ -33,7 +33,7 @@ export class InboxComponent implements OnInit {
   // total number of records
   totalRecords = 0;
 
-  // start and end index
+  // start and end index.js
   startIndex = 1;
   endIndex = 15;
 

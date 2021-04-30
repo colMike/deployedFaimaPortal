@@ -4,7 +4,6 @@ import com.revenue.revenueCollection._model.request.AgentDetailsRequestModel;
 import com.revenue.revenueCollection._model.response.AgentRest;
 import com.revenue.revenueCollection._repositories.AgentRepository;
 import com.revenue.revenueCollection._service.AgentService;
-import com.revenue.revenueCollection._shared.dto.AgentApproveDto;
 import com.revenue.revenueCollection._shared.dto.AgentDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,166 +17,154 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api/agentService/")
+@RequestMapping(value = "/api/agentService/")
 public class AgentsController {
 
+  @Autowired AgentService agentService;
 
-    @Autowired
-    AgentService agentService;
+  @Autowired AgentRepository agentRepository;
 
-    @Autowired
-    AgentRepository agentRepository;
+  @GetMapping(
+      path = "/viewAgents",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public List<AgentRest> getAgents() {
 
+    List<AgentRest> returnValue = new ArrayList<>();
+    List<AgentDto> agents = agentService.getAllAgents();
 
-    @GetMapping(path = "/viewAgents",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public List<AgentRest> getAgents() {
+    for (AgentDto agentDto : agents) {
 
-        List<AgentRest> returnValue = new ArrayList<>();
-        List<AgentDto> agents = agentService.getAllAgents();
-
-        for (AgentDto agentDto : agents) {
-
-            AgentRest agentModel = new AgentRest();
-            BeanUtils.copyProperties(agentDto, agentModel);
-            returnValue.add(agentModel);
-        }
-
-        return returnValue;
+      AgentRest agentModel = new AgentRest();
+      BeanUtils.copyProperties(agentDto, agentModel);
+      returnValue.add(agentModel);
     }
 
-    
-    @GetMapping(path = "/viewAgentsToApprove",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public List<AgentRest> getAgentToApprove() {
+    return returnValue;
+  }
 
-        List<AgentRest> returnValue = new ArrayList<>();
-        List<AgentDto> agents = agentService.getAgentToApprove();
+  @GetMapping(
+      path = "/viewAgentsToApprove",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public List<AgentRest> getAgentToApprove() {
 
-        for (AgentDto agentDto : agents) {
+    List<AgentRest> returnValue = new ArrayList<>();
+    List<AgentDto> agents = agentService.getAgentToApprove();
 
-            AgentRest agentModel = new AgentRest();
-            BeanUtils.copyProperties(agentDto, agentModel);
-            returnValue.add(agentModel);
-        }
+    for (AgentDto agentDto : agents) {
 
-        return returnValue;
-    }
-    
-    
-    @GetMapping(path = "/viewAgentsToApproveDelete",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public List<AgentRest> getAgentsToApproveDelete() {
-
-        List<AgentRest> returnValue = new ArrayList<>();
-        List<AgentDto> agents = agentService.getAgentsToApproveDelete();
-
-        for (AgentDto agentDto : agents) {
-
-            AgentRest agentModel = new AgentRest();
-            BeanUtils.copyProperties(agentDto, agentModel);
-            returnValue.add(agentModel);
-        }
-
-        return returnValue;
+      AgentRest agentModel = new AgentRest();
+      BeanUtils.copyProperties(agentDto, agentModel);
+      returnValue.add(agentModel);
     }
 
+    return returnValue;
+  }
 
+  @GetMapping(
+      path = "/viewAgentsToApproveDelete",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public List<AgentRest> getAgentsToApproveDelete() {
 
-    @PostMapping(path = "addAgents",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<AgentRest> createAgent(
-            @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
+    List<AgentRest> returnValue = new ArrayList<>();
+    List<AgentDto> agents = agentService.getAgentsToApproveDelete();
 
-        AgentRest returnValue = new AgentRest();
+    for (AgentDto agentDto : agents) {
 
-        AgentDto agentDto = new AgentDto();
-        BeanUtils.copyProperties(agentDetails, agentDto);
-
-        AgentDto createdAgent = agentService.createAgent(agentDto);
-        BeanUtils.copyProperties(createdAgent, returnValue);
-
-        return ResponseEntity.status(200).body(returnValue);
+      AgentRest agentModel = new AgentRest();
+      BeanUtils.copyProperties(agentDto, agentModel);
+      returnValue.add(agentModel);
     }
 
-    @PutMapping(path = "updateAgent",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<AgentRest> updateAgent(
-            @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
+    return returnValue;
+  }
 
-        AgentRest returnValue = new AgentRest();
+  @PostMapping(
+      path = "addAgents",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<AgentRest> createAgent(
+      @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
 
-        AgentDto agentDto = new AgentDto();
-        BeanUtils.copyProperties(agentDetails, agentDto);
+    AgentRest returnValue = new AgentRest();
 
-        AgentDto updatedAgent = agentService.updateAgent(agentDto);
-        BeanUtils.copyProperties(updatedAgent, returnValue);
+    AgentDto agentDto = new AgentDto();
+    BeanUtils.copyProperties(agentDetails, agentDto);
 
-        return new ResponseEntity<>(returnValue, HttpStatus.OK);
-    }
+    AgentDto createdAgent = agentService.createAgent(agentDto);
+    BeanUtils.copyProperties(createdAgent, returnValue);
 
-    @PutMapping(path = "approveAgent",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<AgentRest> approveAgent(
-            @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
+    return ResponseEntity.status(200).body(returnValue);
+  }
 
-        AgentRest returnValue = new AgentRest();
+  @PutMapping(
+      path = "updateAgent",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<AgentRest> updateAgent(
+      @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
 
-        AgentApproveDto agentDto = new AgentApproveDto();
-        BeanUtils.copyProperties(agentDetails, agentDto);
+    AgentRest returnValue = new AgentRest();
 
-        AgentDto approvedAgent = agentService.approveAgent(agentDto);
-        BeanUtils.copyProperties(approvedAgent, returnValue);
+    AgentDto agentDto = new AgentDto();
+    BeanUtils.copyProperties(agentDetails, agentDto);
 
-        return new ResponseEntity<>(returnValue, HttpStatus.OK);
-    }
+    AgentDto updatedAgent = agentService.updateAgent(agentDto);
+    BeanUtils.copyProperties(updatedAgent, returnValue);
 
+    return new ResponseEntity<>(returnValue, HttpStatus.OK);
+  }
 
+  @PutMapping(
+      path = "approveAgent",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<AgentRest> approveAgent(
+      @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
 
+    AgentRest returnValue = new AgentRest();
 
-    @PutMapping(path = "deleteAgent",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<AgentRest> deleteAgent(
-            @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
+    AgentDto agentDto = new AgentDto();
+    BeanUtils.copyProperties(agentDetails, agentDto);
 
-        AgentRest returnValue = new AgentRest();
+    AgentDto approvedAgent = agentService.approveAgent(agentDto);
+    BeanUtils.copyProperties(approvedAgent, returnValue);
 
-        AgentDto agentDto = new AgentDto();
-        BeanUtils.copyProperties(agentDetails, agentDto);
+    return new ResponseEntity<>(returnValue, HttpStatus.OK);
+  }
 
-        AgentDto updatedAgent = agentService.deleteAgent(agentDto);
-        BeanUtils.copyProperties(updatedAgent, returnValue);
+  @PutMapping(
+      path = "deleteAgent",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<AgentRest> deleteAgent(
+      @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
 
-        return new ResponseEntity<>(returnValue, HttpStatus.OK);
-    }
+    AgentRest returnValue = new AgentRest();
 
-    @PutMapping(path = "approveDeleteAgent",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<AgentRest> approveDeleteAgent(
-            @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
+    AgentDto agentDto = new AgentDto();
+    BeanUtils.copyProperties(agentDetails, agentDto);
 
-        AgentRest returnValue = new AgentRest();
+    AgentDto updatedAgent = agentService.deleteAgent(agentDto);
+    BeanUtils.copyProperties(updatedAgent, returnValue);
 
-        AgentDto agentDto = new AgentDto();
-        BeanUtils.copyProperties(agentDetails, agentDto);
+    return new ResponseEntity<>(returnValue, HttpStatus.OK);
+  }
 
-        AgentDto updatedAgent = agentService.approveDeleteAgent(agentDto);
-        BeanUtils.copyProperties(updatedAgent, returnValue);
+  @PutMapping(
+      path = "approveDeleteAgent",
+      produces = {MediaType.APPLICATION_JSON_VALUE},
+      consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<AgentRest> approveDeleteAgent(
+      @Valid @RequestBody AgentDetailsRequestModel agentDetails) {
 
-        return new ResponseEntity<>(returnValue, HttpStatus.OK);
-    }
+    AgentRest returnValue = new AgentRest();
 
+    AgentDto agentDto = new AgentDto();
+    BeanUtils.copyProperties(agentDetails, agentDto);
+
+    AgentDto updatedAgent = agentService.approveDeleteAgent(agentDto);
+    BeanUtils.copyProperties(updatedAgent, returnValue);
+
+    return new ResponseEntity<>(returnValue, HttpStatus.OK);
+  }
 }
