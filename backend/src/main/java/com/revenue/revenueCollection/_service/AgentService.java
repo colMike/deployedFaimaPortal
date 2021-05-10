@@ -11,6 +11,10 @@ public interface AgentService {
 
     List<AgentDto> getAgentToApprove();
 
+    List<AgentDto> getAgentToDelete();
+
+    List<AgentDto> getDevicesToIssue();
+
     AgentDto approveAgent(AgentDto agent);
 
     List<AgentDto> getAgentsToApproveDelete();

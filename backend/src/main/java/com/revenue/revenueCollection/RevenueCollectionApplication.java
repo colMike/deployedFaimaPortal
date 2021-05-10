@@ -1,26 +1,34 @@
 package com.revenue.revenueCollection;
 
-import org.glassfish.jersey.jaxb.internal.XmlCollectionJaxbProvider;
+import com.revenue.revenueCollection.config.ResourceConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.support.ErrorPageFilter;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
+
+import java.util.Properties;
 
 @SpringBootApplication
-public class RevenueCollectionApplication  extends SpringBootServletInitializer {
+public class RevenueCollectionApplication extends SpringBootServletInitializer {
 
-	public RevenueCollectionApplication() {
-		super();
-		setRegisterErrorPageFilter(false); // <- this one
-	}
+  public RevenueCollectionApplication() {
+    super();
+    setRegisterErrorPageFilter(false); // <- this one
+  }
 
+  static Properties getProperties() {
+    Properties props = new Properties();
+    props.put("spring.config.location", ResourceConfig.CATALINA_BASE + "/conf/newErevenue/");
+    return props;
+  }
 
+  public static void main(String[] args) {
+    System.out.println("catalina base ###" + ResourceConfig.CATALINA_BASE);
+    SpringApplication.run(RevenueCollectionApplication.class, args);
+  }
 
-	public static void main(String[] args) {
-		SpringApplication.run(RevenueCollectionApplication.class, args);
-	}
-
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    return application.sources(RevenueCollectionApplication.class).properties(getProperties());
+  }
 }

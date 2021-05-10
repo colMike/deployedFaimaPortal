@@ -9,9 +9,15 @@ public interface DeviceService {
 
     List<DeviceDto> getAllDevices();
 
+    List<DeviceDto> getDevicesToIssue();
+
     List<DeviceDto> getDeviceToApprove();
 
     DeviceDto approveDevice(DeviceDto agent);
+
+    DeviceDto addDeviceLinking(DeviceDto agent);
+
+    List<DeviceDto> viewDeviceLinking();
 
     List<DeviceDto> getDevicesToApproveDelete();
 

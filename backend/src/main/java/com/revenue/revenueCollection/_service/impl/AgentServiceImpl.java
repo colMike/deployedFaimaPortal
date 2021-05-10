@@ -36,10 +36,41 @@ public class AgentServiceImpl implements AgentService {
   }
 
   @Override
+  public List<AgentDto> getDevicesToIssue() {
+
+    List<AgentDto> returnValue = new ArrayList<>();
+
+    List<Agents> agents = agentRepository.findAgentToAssignDevice();
+
+    for (Agents agent : agents) {
+      AgentDto agentDto = new AgentDto();
+      BeanUtils.copyProperties(agent, agentDto);
+      returnValue.add(agentDto);
+    }
+
+    return returnValue;
+  }
+
+  @Override
   public List<AgentDto> getAgentToApprove() {
     List<AgentDto> returnValue = new ArrayList<>();
 
     List<Agents> agents = agentRepository.findAgentToApprove();
+
+    for (Agents agent : agents) {
+      AgentDto agentDto = new AgentDto();
+      BeanUtils.copyProperties(agent, agentDto);
+      returnValue.add(agentDto);
+    }
+
+    return returnValue;
+  }
+
+  @Override
+  public List<AgentDto> getAgentToDelete() {
+    List<AgentDto> returnValue = new ArrayList<>();
+
+    List<Agents> agents = agentRepository.findAgentToDelete();
 
     for (Agents agent : agents) {
       AgentDto agentDto = new AgentDto();
@@ -86,7 +117,7 @@ public class AgentServiceImpl implements AgentService {
   @Override
   public AgentDto createAgent(AgentDto agent) {
 
-    if (agentRepository.findByidnumber(agent.getidnumber()) != null) {
+    if (agentRepository.findByIdnumber(agent.getidnumber()) != null) {
       System.out.println("agent exists" + agent.getagentnames() + ":" + agent.getidnumber());
       throw new AgentServiceException("Record already exists");
     }
@@ -108,19 +139,25 @@ public class AgentServiceImpl implements AgentService {
   @Override
   public AgentDto updateAgent(AgentDto agent) {
 
-    if (agentRepository.findByidnumber(agent.getidnumber()) == null) {
+    System.out.println("agentEntity");
+    Agents agentEntity = agentRepository.findByIdnumber(agent.getidnumber());
 
-      System.out.println("here we are1");
-      System.out.println(agent);
-      throw new AgentServiceException("No Such record exists.");
-    }
+    System.out.println(agentEntity);
 
-    System.out.println("here we are..");
-    Agents agentEntity = new Agents();
-
-    BeanUtils.copyProperties(agent, agentEntity);
-
+    agentEntity.setagentnames(agent.getagentnames());
     agentEntity.setapproved(false);
+    agentEntity.setbusinessmobile(agent.getbusinessmobile());
+    agentEntity.setcounty(agent.getcounty());
+    agentEntity.setdob(agent.getdob());
+    agentEntity.setemail(agent.getemail());
+    agentEntity.setfirstname(agent.getfirstname());
+    agentEntity.setgender(agent.getgender());
+    agentEntity.setidnumber(agent.getidnumber());
+    agentEntity.setidtype(agent.getidtype());
+    agentEntity.setsecondname(agent.getsecondname());
+    agentEntity.setsubcounty(agent.getsubcounty());
+    agentEntity.setward(agent.getward());
+
 
     Agents storedAgentDetails = agentRepository.save(agentEntity);
 

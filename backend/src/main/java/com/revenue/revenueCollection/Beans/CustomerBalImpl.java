@@ -1,7 +1,7 @@
 package com.revenue.revenueCollection.Beans;
 
 import com.google.gson.Gson;
-import com.revenue.revenueCollection.Dao.AgentDao;
+// import com.revenue.revenueCollection.Dao.AgentDao;
 import com.revenue.revenueCollection.Dao.AuditTrailDao;
 import com.revenue.revenueCollection.Dao.CustomerDao;
 import com.revenue.revenueCollection.Interfaces.CustomerBal;
@@ -27,7 +27,7 @@ public class CustomerBalImpl implements CustomerBal {
     public ResponseMessage registerCustomer(Customer customer) {
         try {
             System.out.print("customer "+ customer.getId());
-            if (customer.getId() ==0) {
+            if (customer.getId() == 0) {
                 String jsonString = gson.toJson(customer);
                 customer.setCreateJson(jsonString);
                 customerDao.save(customer);

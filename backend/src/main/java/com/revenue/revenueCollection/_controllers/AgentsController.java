@@ -61,6 +61,24 @@ public class AgentsController {
   }
 
   @GetMapping(
+      path = "/viewAgentsToDelete",
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  public List<AgentRest> getAgentsToDelete() {
+
+    List<AgentRest> returnValue = new ArrayList<>();
+    List<AgentDto> agents = agentService.getAgentToDelete();
+
+    for (AgentDto agentDto : agents) {
+
+      AgentRest agentModel = new AgentRest();
+      BeanUtils.copyProperties(agentDto, agentModel);
+      returnValue.add(agentModel);
+    }
+
+    return returnValue;
+  }
+
+  @GetMapping(
       path = "/viewAgentsToApproveDelete",
       produces = {MediaType.APPLICATION_JSON_VALUE})
   public List<AgentRest> getAgentsToApproveDelete() {

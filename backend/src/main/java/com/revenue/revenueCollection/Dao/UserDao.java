@@ -1,17 +1,11 @@
 package com.revenue.revenueCollection.Dao;
 
 
-import com.revenue.revenueCollection.GenericDao.GenericDao;
-import com.revenue.revenueCollection.Models.Agent;
-import com.revenue.revenueCollection.Models.Customer;
 import com.revenue.revenueCollection.Models.UserGroupType;
 import com.revenue.revenueCollection.Models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 

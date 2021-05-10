@@ -14,7 +14,10 @@ public class Agents implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long agentid;
 
+    private String firstname;
+    private String secondname;
     private String agentnames;
+
     private Date dob;
     private String gender;
     private String commissionaccount;
@@ -38,8 +41,6 @@ public class Agents implements Serializable {
     private String remarks;
     private String checkerremark;
     private BigDecimal id;
-    private String firstname;
-    private String secondname;
     private String lastname;
     private String customerno;
     private Timestamp makerdate;

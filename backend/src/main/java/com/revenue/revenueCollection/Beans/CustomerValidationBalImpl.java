@@ -3,7 +3,6 @@ package com.revenue.revenueCollection.Beans;
 
 import com.revenue.revenueCollection.Dao.CustomerValidationDao;
 import com.revenue.revenueCollection.Interfaces.CustomerValidationBal;
-import com.revenue.revenueCollection.Models.Agent;
 import com.revenue.revenueCollection.Models.Customer_validation;
 import com.revenue.revenueCollection.Models.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;

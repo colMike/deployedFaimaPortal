@@ -552,4 +552,71 @@ public class Devices implements Serializable {
     public void setLastworkingdate(Date lastworkingdate) {
         this.lastworkingdate = lastworkingdate;
     }
+
+
+    @Override
+    public String toString() {
+        return "Devices{" +
+                "deviceid=" + deviceid +
+                ", deviceimei='" + deviceimei + '\'' +
+                ", devicemobilenumber='" + devicemobilenumber + '\'' +
+                ", agentid='" + agentid + '\'' +
+                ", createdby='" + createdby + '\'' +
+                ", createdon=" + createdon +
+                ", approved=" + approved +
+                ", approvedby='" + approvedby + '\'' +
+                ", approvedon=" + approvedon +
+                ", reworked=" + reworked +
+                ", reworkedon=" + reworkedon +
+                ", reworkedby='" + reworkedby + '\'' +
+                ", reworkremarks='" + reworkremarks + '\'' +
+                ", assigned=" + assigned +
+                ", declined=" + declined +
+                ", declinedon=" + declinedon +
+                ", declinedby='" + declinedby + '\'' +
+                ", deleted=" + deleted +
+                ", deletedby='" + deletedby + '\'' +
+                ", deletedon=" + deletedon +
+                ", agentidnumber='" + agentidnumber + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", checkerremarks='" + checkerremarks + '\'' +
+                ", devicetype='" + devicetype + '\'' +
+                ", pin='" + pin + '\'' +
+                ", linkmaker='" + linkmaker + '\'' +
+                ", linkapproved=" + linkapproved +
+                ", agentnames='" + agentnames + '\'' +
+                ", datelinked=" + datelinked +
+                ", linkcheker='" + linkcheker + '\'' +
+                ", datelinkcheked='" + datelinkcheked + '\'' +
+                ", active=" + active +
+                ", linkchekerremarks='" + linkchekerremarks + '\'' +
+                ", linked=" + linked +
+                ", trials=" + trials +
+                ", loggedin=" + loggedin +
+                ", firstlogin=" + firstlogin +
+                ", pinmaker='" + pinmaker + '\'' +
+                ", resetpin=" + resetpin +
+                ", resetby='" + resetby + '\'' +
+                ", reseton='" + reseton + '\'' +
+                ", resetdate='" + resetdate + '\'' +
+                ", ussdimsi='" + ussdimsi + '\'' +
+                ", delinked=" + delinked +
+                ", delinkedon=" + delinkedon +
+                ", delinkedby='" + delinkedby + '\'' +
+                ", delinkapproved=" + delinkapproved +
+                ", delinkapprovedon=" + delinkapprovedon +
+                ", delinkapprovedby='" + delinkapprovedby + '\'' +
+                ", lang='" + lang + '\'' +
+                ", blocked=" + blocked +
+                ", blockedby='" + blockedby + '\'' +
+                ", blockedon=" + blockedon +
+                ", blockedreason='" + blockedreason + '\'' +
+                ", unblocked=" + unblocked +
+                ", unblockedby='" + unblockedby + '\'' +
+                ", unblockedon=" + unblockedon +
+                ", unblockedreason='" + unblockedreason + '\'' +
+                ", dormant=" + dormant +
+                ", lastworkingdate=" + lastworkingdate +
+                '}';
+    }
 }

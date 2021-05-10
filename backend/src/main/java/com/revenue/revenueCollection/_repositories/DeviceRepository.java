@@ -1,7 +1,6 @@
 package com.revenue.revenueCollection._repositories;
 
 import com.revenue.revenueCollection._domains.Devices;
-import com.revenue.revenueCollection._domains.Devices;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -9,16 +8,24 @@ import java.util.List;
 
 public interface DeviceRepository extends CrudRepository<Devices, Long> {
 
-    Devices findByDeviceimei(String deviceimei);
+  @Query(
+      "select d from devices d where d.deleted=false or d.deleted is null and d.deletedon is null ")
+  List<Devices> findAll();
 
-    Devices findByDeviceid(Long deviceId);
+  @Query(
+      "select d from devices d where d.deleted=false or d.deleted is null and d.deletedon is null and d.assigned=true")
+  List<Devices> findDeviceAndAgentDetails();
 
-    @Query("select d from devices d where d.approved=false")
-    List<Devices> findDeviceToApprove();
+  Devices findByDeviceimei(String deviceimei);
 
-    @Query("select d from devices d where d.deleted=true and d.deletedon is null")
-    List<Devices> findDeviceToApproveDelete();
+  Devices findByDeviceid(Long deviceId);
 
+  @Query("select d from devices d where d.agentid is null")
+  List<Devices> findDevicesToIssue();
 
+  @Query("select d from devices d where d.approved=false")
+  List<Devices> findDeviceToApprove();
 
+  @Query("select d from devices d where d.deleted=true and d.deletedon is null")
+  List<Devices> findDeviceToApproveDelete();
 }
