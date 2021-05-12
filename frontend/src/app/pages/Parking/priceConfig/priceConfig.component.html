@@ -27,9 +27,8 @@
                          <label class="custom-control-label" for="customercheck">&nbsp;</label>
                        </div>&ndash;&gt;
                      </th>-->
+                  <th>Sub-County</th>
                   <th>Service Name</th>
-                  <th class="text-center">Sub-County</th>
-
                   <th class="text-center">Car Type</th>
                   <th class="text-center">Fee</th>
                   <th class="text-center">Status</th>
@@ -57,7 +56,7 @@
                   </td>
                   <td class="text-center">{{user.fee}}</td>
 
-                  <td>
+                  <td class="text-center">
                     <div [ngClass]="{'badge-soft-danger': user.approved === 'Pending Approval',
                     'badge-soft-success':user.approved === 'Approved'}" class="badge font-size-12">
                       <ngb-highlight [result]="user.approved"></ngb-highlight>

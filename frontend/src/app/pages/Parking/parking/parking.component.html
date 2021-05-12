@@ -106,7 +106,13 @@
 <!--      </div>-->
       <div class="form-group row">
         <label for="serviceName">Parking Name</label>
-        <input type="text" class="form-control" id="serviceName" placeholder="Enter Parking Name" formControlName="serviceName"
+        <input
+          type="text"
+          class="form-control"
+          id="serviceName"
+          placeholder="Enter Parking Name"
+          formControlName="serviceName"
+          [value]="ParkingForm.get('serviceName').value | titlecase"
         >
         <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
              <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">

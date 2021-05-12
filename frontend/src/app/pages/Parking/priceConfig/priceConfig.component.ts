@@ -1,25 +1,21 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, Validators, FormGroup, FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
-
-import { ToastrService } from 'ngx-toastr';
-
+import {ToastrService} from 'ngx-toastr';
 
 
-import { DOCUMENT } from '@angular/common';
-import {logger} from "codelyzer/util/logger";
-import {first} from "rxjs/operators";
+import {DOCUMENT} from '@angular/common';
 
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ParkingService} from "../../services/parking.service";
-import {RegionService} from "../../services/region.service";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ParkingService} from '../../services/parking.service';
+import {RegionService} from '../../services/region.service';
 
 
 @Component({
   selector: 'app-Parkings',
-  templateUrl: './priceConfig.component.html'
-
+  templateUrl: './priceConfig.component.html',
+  styleUrls: ['./priceConfig.component.css']
 })
 export class PriceConfigComponent implements OnInit {
 
@@ -27,30 +23,36 @@ export class PriceConfigComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   public Parkings1: any = [];
   public price1: any = [];
-  public car1:any=[];
-  public region1:any=[];
+  public car1: any = [];
+  public region1: any = [];
   public Parkings: any = [];
   submitted: boolean;
   public response: any = null;
   isAddMode: boolean;
-  isExisting:boolean;
-  serviceId:any;
-  sessionId:any;
-  status:any;
+  isExisting: boolean;
+  serviceId: any;
+  sessionId: any;
+  status: any;
   storageObject: any = {};
 
- // ParkingsData: Parkings[];
+  // ParkingsData: Parkings[];
   priceForm: FormGroup;
 
   // constructor(private modalService: NgbModal, public formBuilder: FormBuilder) { }
-  constructor(private toastr: ToastrService,private regionSvc: RegionService,
-              private parkingSvc: ParkingService, @Inject(DOCUMENT) private document: any,public formBuilder: FormBuilder,
+  constructor(private toastr: ToastrService, private regionSvc: RegionService,
+              private parkingSvc: ParkingService, @Inject(DOCUMENT) private document: any, public formBuilder: FormBuilder,
               private modalService: NgbModal
   ) {
   }
 
+  /**
+   * Returns form
+   */
+  get form() {
+    return this.priceForm.controls;
+  }
 
-  ngOnInit():void {
+  ngOnInit(): void {
 
     this.getParkings();
     this.getcarType();
@@ -72,17 +74,15 @@ export class PriceConfigComponent implements OnInit {
     // this._fetchData();*/
   }
 
-
   /*  private _fetchData() {
       this.ParkingsData = ParkingsData;
     }*/
-  initAddParking():void{
-    this.isAddMode=true;
-    this.isExisting =false;
+  initAddParking(): void {
+    this.isAddMode = true;
+    this.isExisting = false;
 
 
     this.priceForm = this.formBuilder.group({
-
 
 
       serviceId: ['', [Validators.required]],
@@ -92,23 +92,17 @@ export class PriceConfigComponent implements OnInit {
       active: ['', [Validators.required]],
 
 
-
     });
 
   }
-  /**
-   * Returns form
-   */
-  get form() {
-    return this.priceForm.controls;
-  }
+
   /**
    * Modal Open
    * @param content modal content
    */
   openModal(content: any) {
-    this.isAddMode=true;
-    this.modalService.open(content, { centered: true });
+    this.isAddMode = true;
+    this.modalService.open(content, {centered: true});
   }
 
   /**
@@ -126,69 +120,69 @@ export class PriceConfigComponent implements OnInit {
     this.price1.active = this.priceForm.get('active').value;
 
     // this.Parkings1.ParkingFullName=(+ this.priceForm.get('secondname').value +this.priceForm.get('lastname').value;
-    console.log(this.price1,"Parkings")
-    const session=localStorage.getItem('currentUser');
+    console.log(this.price1, 'Parkings');
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.serviceId,"this.Parkings1");
-    console.log(this.sessionId.entity,"this.Parkings1");
+    console.log(this.sessionId.entity.serviceId, 'this.Parkings1');
+    console.log(this.sessionId.entity, 'this.Parkings1');
 
-    this.price1.createdBy=this.sessionId.entity.userId;
-    console.log(this.price1.createdBy, "this.Parkings1.createdBy")
+    this.price1.createdBy = this.sessionId.entity.userId;
+    console.log(this.price1.createdBy, 'this.Parkings1.createdBy');
 
     this.parkingSvc.addPriceConfig(this.price1).subscribe((response) => {
       this.response = response;
-      console.log(this.response.status,"response")
-      if (this.response.status===200) {
+      console.log(this.response.status, 'response');
+      if (this.response.status === 200) {
 
 
         //logger.info("Great! The Parking information was saved successfully")
         this.modalService.dismissAll();
         this.getPrice();
-        return this.toastr.success('Great! The Price information was saved successfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The Price information was saved successfully"', ' Success!', {timeOut: 3000});
 
         //alert("Great! The Parking information was saved successfully");
 
-      }else{
-        return this.toastr.error('Exception Occurred', ' Error!', { timeOut: 3000 });
+      } else {
+        return this.toastr.error('Exception Occurred', ' Error!', {timeOut: 3000});
 
       }
       this.submitted = true;
     });
   }
 
-  initEditParking(Parking){
-    this.isAddMode=false;
-    this.isExisting =true;
-    this.price1.id=Parking.id;
-    console.log(Parking,"Parking id ................")
+  initEditParking(Parking) {
+    this.isAddMode = false;
+    this.isExisting = true;
+    this.price1.id = Parking.id;
+    console.log(Parking, 'Parking id ................');
     this.priceForm = this.formBuilder.group({
-      serviceId :new FormControl(Parking.serviceId, Validators.required),
-      subCountyId :new FormControl(Parking.subCountyId, Validators.required),
-      carTypeId :new FormControl(Parking.carTypeId, Validators.required),
-      fee :new FormControl(Parking.fee, Validators.required),
-      active :new FormControl(Parking.active, Validators.required)
+      serviceId: new FormControl(Parking.serviceId, Validators.required),
+      subCountyId: new FormControl(Parking.subCountyId, Validators.required),
+      carTypeId: new FormControl(Parking.carTypeId, Validators.required),
+      fee: new FormControl(Parking.fee, Validators.required),
+      active: new FormControl(Parking.active, Validators.required)
 
     });
 
   }
+
   cancel() {
     this.getParkings();
     this.isAddMode = true;
     this.isExisting = true;
 
   }
-  updateParking()
 
-  {
+  updateParking() {
     //this.Parkings1.serviceId=this.Parkings.serviceId;
     // this.Parkings1.serviceId = this.priceForm.get('Parkings1').value;
 
     //this.Parkings1.serviceId=this.serviceId;
 
 
-    console.log( this.Parkings1.serviceId, " this.Parkings1.serviceId")
+    console.log(this.Parkings1.serviceId, ' this.Parkings1.serviceId');
     this.price1.serviceId = this.priceForm.get('serviceId').value;
     this.price1.subCountyId = this.priceForm.get('subCountyId').value;
     this.price1.carTypeId = this.priceForm.get('carTypeId').value;
@@ -198,19 +192,19 @@ export class PriceConfigComponent implements OnInit {
     const Parking2 = {
       'id': this.price1.id,
       'serviceId': this.price1.serviceId,
-      'subCountyId' :this.price1.subCountyId,
-      'carTypeId' :this.price1.carTypeId,
-      'fee' :this.price1.fee,
-      'active' :this.price1.active,
+      'subCountyId': this.price1.subCountyId,
+      'carTypeId': this.price1.carTypeId,
+      'fee': this.price1.fee,
+      'active': this.price1.active,
 
 
     };
-    console.log(Parking2,"$$$$$$$$$$$$$$$")
-    console.log(this.Parkings1, "$$$$$$$$$$$$$$$$")
+    console.log(Parking2, '$$$$$$$$$$$$$$$');
+    console.log(this.Parkings1, '$$$$$$$$$$$$$$$$');
     this.parkingSvc.updatePriceConfig(Parking2).subscribe((response) => {
       this.response = response;
-      console.log(this.response.status,"response")
-      if (this.response.status===200) {
+      console.log(this.response.status, 'response');
+      if (this.response.status === 200) {
 
 
         //logger.info("Great! The Parking information was saved successfully")
@@ -224,112 +218,111 @@ export class PriceConfigComponent implements OnInit {
         this.isAddMode = true;
 
         //alert(response.respMessage);
-        return this.toastr.success('Great! The Parking information was saved successfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The Parking information was saved successfully"', ' Success!', {timeOut: 3000});
 
 
-
-      }else{
-        return this.toastr.error('Exception Occurred', ' Error!', { timeOut: 3000 });
+      } else {
+        return this.toastr.error('Exception Occurred', ' Error!', {timeOut: 3000});
 
       }
       this.submitted = true;
     });
   }
 
-  getPrice(){
+  getPrice() {
     //  this.blockUI.start("Loading data....");
-    this.isAddMode=false;
-    const session=localStorage.getItem('currentUser');
+    this.isAddMode = false;
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.serviceId,"this.Parkings1");
-    console.log(this.sessionId.entity,"this.Parkings1");
+    console.log(this.sessionId.entity.serviceId, 'this.Parkings1');
+    console.log(this.sessionId.entity, 'this.Parkings1');
 
-    this.parkingSvc.gtPriceConfig().subscribe(Parkings =>{
+    this.parkingSvc.gtPriceConfig().subscribe(Parkings => {
       // if(data){
 
 
       this.price1 = Parkings;
-      console.log(this.price1, "PRICE CONFIGS")
+      console.log(this.price1, 'PRICE CONFIGS');
       //this.blockUI.stop();
       /* }
        else{*/
       for (var i = 0; i <= this.Parkings1.length - 1; i++) {
-        console.log(this.Parkings1[i].approved, "this.Parkings1.approved")
+        console.log(this.Parkings1[i].approved, 'this.Parkings1.approved');
 
 
         if (this.Parkings1[i].approved === 'N') {
 
-          this.Parkings1[i].approved ==='Pending Approval';
-          console.log(this.Parkings1[i].approved,"$$$$$$$$$$$$$$$$$$$$")
+          this.Parkings1[i].approved === 'Pending Approval';
+          console.log(this.Parkings1[i].approved, '$$$$$$$$$$$$$$$$$$$$');
         } else {
           this.Parkings1[i].approved === 'Approved';
         }
-        console.log(this.Parkings1, "data.message");
+        console.log(this.Parkings1, 'data.message');
         // this.blockUI.stop();
         //return this.toastr.info(data.message);
         //}
       }
-    },()=>{
-      console.log("error fetching customers...");
+    }, () => {
+      console.log('error fetching customers...');
       //this.blockUI.stop();
-    })
+    });
   }
 
 
-  getcarType(){
+  getcarType() {
     //  this.blockUI.start("Loading data....");
-    this.isAddMode=false;
-    const session=localStorage.getItem('currentUser');
+    this.isAddMode = false;
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.carTypeId,"this.car1");
-    console.log(this.sessionId.entity,"this.car1");
+    console.log(this.sessionId.entity.carTypeId, 'this.car1');
+    console.log(this.sessionId.entity, 'this.car1');
 
-    this.parkingSvc.gtCarType().subscribe(carType =>{
+    this.parkingSvc.gtCarType().subscribe(carType => {
       // if(data){
 
 
       this.car1 = carType;
-      console.log(this.car1 ,"carrrrrrrrrrrrrrrrrrrrr")
+      console.log(this.car1, 'carrrrrrrrrrrrrrrrrrrrr');
       //this.blockUI.stop();
       /* }
        else{*/
       for (var i = 0; i <= this.car1.length - 1; i++) {
-        console.log(this.car1[i].approved, "this.car1.approved")
+        console.log(this.car1[i].approved, 'this.car1.approved');
 
 
         if (this.car1[i].approved === 'N') {
 
-          this.car1[i].approved ==='Pending Approval';
-          console.log(this.car1[i].approved,"$$$$$$$$$$$$$$$$$$$$")
+          this.car1[i].approved === 'Pending Approval';
+          console.log(this.car1[i].approved, '$$$$$$$$$$$$$$$$$$$$');
         } else {
           this.car1[i].approved === 'Approved';
         }
-        console.log(this.car1, "data.message");
+        console.log(this.car1, 'data.message');
         // this.blockUI.stop();
         //return this.toastr.info(data.message);
         //}
       }
-    },()=>{
-      console.log("error fetching customers...");
+    }, () => {
+      console.log('error fetching customers...');
       //this.blockUI.stop();
-    })
+    });
   }
 
-  getsubCountys(){
+  getsubCountys() {
     //  this.blockUI.start("Loading data....");
-    this.isAddMode=false;
-    const session=localStorage.getItem('currentUser');
+    this.isAddMode = false;
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.subCountyId,"this.region1");
-    console.log(this.sessionId.entity,"this.region1");
+    console.log(this.sessionId.entity.subCountyId, 'this.region1');
+    console.log(this.sessionId.entity, 'this.region1');
 
-    this.regionSvc.gtSubcounty().subscribe(subCountys =>{
+    this.regionSvc.gtSubcounty().subscribe(subCountys => {
       // if(data){
 
 
@@ -338,38 +331,38 @@ export class PriceConfigComponent implements OnInit {
       /* }
        else{*/
       for (var i = 0; i <= this.region1.length - 1; i++) {
-        console.log(this.region1[i].approved, "this.region1.approved")
+        console.log(this.region1[i].approved, 'this.region1.approved');
 
 
         if (this.region1[i].approved === 'N') {
 
-          this.region1[i].approved ==='Pending Approval';
-          console.log(this.region1[i].approved,"$$$$$$$$$$$$$$$$$$$$")
+          this.region1[i].approved === 'Pending Approval';
+          console.log(this.region1[i].approved, '$$$$$$$$$$$$$$$$$$$$');
         } else {
           this.region1[i].approved === 'Approved';
         }
-        console.log(this.region1, "data.message");
+        console.log(this.region1, 'data.message');
         // this.blockUI.stop();
         //return this.toastr.info(data.message);
         //}
       }
-    },()=>{
-      console.log("error fetching customers...");
+    }, () => {
+      console.log('error fetching customers...');
       //this.blockUI.stop();
-    })
+    });
   }
 
-  getParkings(){
+  getParkings() {
     //  this.blockUI.start("Loading data....");
-    this.isAddMode=false;
-    const session=localStorage.getItem('currentUser');
+    this.isAddMode = false;
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.serviceId,"this.Parkings1");
-    console.log(this.sessionId.entity,"this.Parkings1");
+    console.log(this.sessionId.entity.serviceId, 'this.Parkings1');
+    console.log(this.sessionId.entity, 'this.Parkings1');
 
-    this.parkingSvc.gtParkings().subscribe(Parkings =>{
+    this.parkingSvc.gtParkings().subscribe(Parkings => {
       // if(data){
 
 
@@ -378,25 +371,25 @@ export class PriceConfigComponent implements OnInit {
       /* }
        else{*/
       for (var i = 0; i <= this.Parkings1.length - 1; i++) {
-        console.log(this.Parkings1[i].approved, "this.Parkings1.approved")
+        console.log(this.Parkings1[i].approved, 'this.Parkings1.approved');
 
 
         if (this.Parkings1[i].approved === 'N') {
 
-          this.Parkings1[i].approved ==='Pending Approval';
-          console.log(this.Parkings1[i].approved,"$$$$$$$$$$$$$$$$$$$$")
+          this.Parkings1[i].approved === 'Pending Approval';
+          console.log(this.Parkings1[i].approved, '$$$$$$$$$$$$$$$$$$$$');
         } else {
           this.Parkings1[i].approved === 'Approved';
         }
-        console.log(this.Parkings1, "data.message");
+        console.log(this.Parkings1, 'data.message');
         // this.blockUI.stop();
         //return this.toastr.info(data.message);
         //}
       }
-    },()=>{
-      console.log("error fetching customers...");
+    }, () => {
+      console.log('error fetching customers...');
       //this.blockUI.stop();
-    })
+    });
   }
 
 }
