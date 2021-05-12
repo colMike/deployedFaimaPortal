@@ -181,7 +181,7 @@ export class deleteCustomers implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 

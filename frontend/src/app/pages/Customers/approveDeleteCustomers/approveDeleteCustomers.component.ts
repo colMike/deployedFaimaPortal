@@ -151,12 +151,12 @@ export class approveDeleteCustomersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
         this.getUsers();
-        return this.toastr.success('Great! The user information was saved succesfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The user information was saved successfully"', ' Success!', { timeOut: 3000 });
 
-        //alert("Great! The user information was saved succesfully");
+        //alert("Great! The user information was saved successfully");
 
       }else{
         return this.toastr.error('Exception Occurred', ' Error!', { timeOut: 3000 });
@@ -254,7 +254,7 @@ export class approveDeleteCustomersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 
@@ -333,7 +333,7 @@ export class approveDeleteCustomersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 

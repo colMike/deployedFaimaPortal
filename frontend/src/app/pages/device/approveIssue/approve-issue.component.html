@@ -1,6 +1,6 @@
 <block-ui>
   <div class="container-fluid">
-    <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Approve Device Delete"></app-pagetitle>
+    <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Approve Device Issue"></app-pagetitle>
 
 
     <div *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) " class="row">
@@ -34,10 +34,10 @@
                   </td>
 
                   <td class="text-center">
-                    <button (click)="initEditDevice(user)" class="btn-rounded btn-light btn-sm btn-outline-warning"
+                    <button (click)="initEditDevice(user)" class="btn-rounded btn-light btn-sm btn-outline-primary"
                             title="Edit Device" type="button">
                       <i class="ri-check-double-line"></i>
-                      Approve Delete
+                      Approve Device
                     </button>
                   </td>
                 </tr>
@@ -84,8 +84,8 @@
             <button (click)="saveData()" *ngIf="!isExisting && isAddMode" class="btn btn-success" type="submit">Save
             </button>
 
-            <button (click)="approveDeleteDevice()" *ngIf="!isAddMode && isExisting" class="btn btn-success" type="submit">
-              Approve Deletion
+            <button (click)="updateDevice()" *ngIf="!isAddMode && isExisting" class="btn btn-success" type="submit">
+              Update
             </button>
 
             <button (click)="cancel()" class="btn btn-danger ml-1" type="button">Cancel</button>

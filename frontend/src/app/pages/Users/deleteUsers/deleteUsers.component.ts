@@ -8,6 +8,7 @@ import { DOCUMENT } from '@angular/common';
 import {logger} from "codelyzer/util/logger";
 import {first} from "rxjs/operators";
 import {UserService} from "../../services/user.service";
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {UserService} from "../../services/user.service";
 
 })
 export class deleteUsersComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
 
   // breadcrumb items
   breadCrumbItems: Array<{}>;
@@ -141,10 +143,10 @@ export class deleteUsersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
         this.getUsers();
-        alert("Great! The user information was saved succesfully");
+        alert("Great! The user information was saved successfully");
 
       }else{
 
@@ -234,7 +236,7 @@ export class deleteUsersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 

@@ -223,23 +223,24 @@ export let settings = {
       filter: false
     },
     groupCode: {
-      title: 'Code',
+      title: 'Group Code',
       filter: true
     },
     groupName: {
-      title: 'Name',
+      title: 'Group Name',
       filter: true
     }
   },
+
   edit: {
     // tslint:disable-next-line:max-line-length
-    editButtonContent: '<a class="btn btn-block btn-outline-success m-r-10"> <i class="fas fa-check-circle text-info-custom"></i></a>',
-    saveButtonContent: '<i class="ti-save text-success m-r-10"></i>',
+    editButtonContent: '<a class="btn btn-block btn-outline-success"><p class="mb-0"><i class="fas fa-check-circle text-info-custom"></i> Edit User Group</p></a>',
+    saveButtonContent: '<i class="ti-save text-success"></i>',
     cancelButtonContent: '<i class="ti-close text-danger"></i>'
   },
   add: {
     // tslint:disable-next-line:max-line-length
-    addButtonContent: '<a class="btn btn-block btn-outline-info m-r-10"> <i class="fas fa-plus-circle"></i></a>',
+    addButtonContent: '<a class="btn btn-block btn-outline-info"><p class="mb-0"><i class="fas fa-plus-circle"></i> Add New User Group</p></a>',
     createButtonContent: '<i class="nb-checkmark"></i>',
     cancelButtonContent: '<i class="nb-close"></i>',
   },

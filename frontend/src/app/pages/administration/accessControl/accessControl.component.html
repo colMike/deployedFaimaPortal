@@ -7,11 +7,11 @@
 
         <div class="card-body">
 
-          <h4 class="card-title">User group</h4>
+          <h4 class="card-title">User Groups</h4>
 
           <div class="table table-responsive smart-table">
             <ng2-smart-table (create)="initAddGroup()" (edit)="initEditGroup($event)" [settings]="settings" [source]="source"
-                             class=""></ng2-smart-table>
+                             class="table table-bordered"></ng2-smart-table>
           </div>
         </div>
       </div>
@@ -82,9 +82,9 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Right name</th>
-                        <th scope="col">View</th>
-                        <th scope="col">Add</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col" class="text-center">View</th>
+                        <th scope="col" class="text-center">Add</th>
+                        <th scope="col" class="text-center">Edit</th>
                         <!-- <th scope="col">Delete</th> -->
                       </tr>
                       </thead>
@@ -92,15 +92,15 @@
                       <tr *ngFor="let right of rights">
                         <td>{{right.rightId}}</td>
                         <td>{{right.rightName}}</td>
-                        <td style="padding: 1px;">
+                        <td class="text-center">
                           <input [(ngModel)]="right.allowView" [ngModelOptions]="{standalone: true}" type="checkbox">
                         </td>
-                        <td style="padding: 1px;">
+                        <td  class="text-center">
                           <label>
                             <input [(ngModel)]="right.allowAdd" [ngModelOptions]="{standalone: true}" type="checkbox">
                           </label>
                         </td>
-                        <td style="padding: 1px;">
+                        <td  class="text-center">
                           <label>
                             <input [(ngModel)]="right.allowEdit" [ngModelOptions]="{standalone: true}" type="checkbox">
                           </label>

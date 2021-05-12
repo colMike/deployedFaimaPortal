@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 // @ts-ignore
-import {FormBuilder, Validators, FormGroup, FormControl} from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 // @ts-ignore
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 // @ts-ignore
-import {AgentService} from "../../services/agent.service";
-
+import {AgentService} from '../../services/agent.service';
 
 
 @Component({
-  selector: 'app-agents',  templateUrl: './approveDeleteAgents.component.html'
+  selector: 'app-agents', templateUrl: './approveDeleteAgents.component.html'
 
 })
 export class approveDeleteAgentsComponent implements OnInit {
@@ -20,100 +19,85 @@ export class approveDeleteAgentsComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   submitted: boolean;
-  isExisting:boolean;
+  isExisting: boolean;
   isAddMode: boolean;
-  sessionId:any;
+  sessionId: any;
   public agents: any = [];
   public response: any = null;
 
   // agentsData: agents[];
   validationform: FormGroup;
 
-  constructor(private toastr: ToastrService,private modalService: NgbModal, private agentSvc: AgentService, public formBuilder: FormBuilder) { }
+  constructor(private toastr: ToastrService, private modalService: NgbModal, private agentSvc: AgentService, public formBuilder: FormBuilder) {
+  }
+
+  /**
+   * Returns form
+   */
+  get form() {
+    return this.validationform.controls;
+  }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Agents' }, { label: 'agents', active: true }];
+    this.breadCrumbItems = [{label: 'Agents'}, {label: 'agents', active: true}];
     this.gtAgent();
 
 
     //this._fetchData();
   }
 
-  initAddAgent():void{
-    this.isAddMode=true;
-    this.isExisting =false;
+  initAddAgent(): void {
+    this.isAddMode = true;
+    this.isExisting = false;
 
 
     this.validationform = this.formBuilder.group({
 
 
-      agent_names: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      mobile: ['', [Validators.required]],
-      branch: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      business_name: ['', [Validators.required]],
+      firstname: ['', [Validators.required]],
+      secondname: ['', [Validators.required]],
+      agentnames: ['', [Validators.required]],
+      agenttype: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      idtype: ['', [Validators.required]],
+      idnumber: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      id_number: ['', [Validators.required]],
-      business_mobile: ['', [Validators.required]],
-      first_name: ['', [Validators.required]],
-      second_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      super_agent: ['', [Validators.required]],
-      postal_address: ['', [Validators.required]],
-      referees_contacts: ['', [Validators.required]],
-      business_category: ['', [Validators.required]],
-      agent_type: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      businessmobile: ['', [Validators.required]],
+      county: ['', [Validators.required]],
+      subcounty: ['', [Validators.required]],
       ward: ['', [Validators.required]]
     });
 
   }
-  initEditAgent(agent){
-    this.isAddMode=false;
-    this.isExisting =true;
-    this.agents.id=agent.id;
-    this.agents.maker=agent.maker;
-    this.agents.deletedBy=agent.deletedBy;
-    console.log(agent,"agent id ................")
-    console.log(this.agents.id,"agent id ................")
+
+  initEditAgent(agent) {
+    this.isAddMode = false;
+    this.isExisting = true;
+    this.agents.id = agent.id;
+    this.agents.maker = agent.maker;
+    this.agents.deletedBy = agent.deletedBy;
+
+    this.agents.agentid = agent.agentid;
+    console.log(agent, 'agent id ................');
+    console.log(this.agents.id, 'agent id ................');
 
     this.validationform = this.formBuilder.group({
-      location :new FormControl(agent.location, Validators.required),
-      mobile :new FormControl(agent.mobile, Validators.required),
-      branch :new FormControl(agent.branch, Validators.required),
-      business_name :new FormControl(agent.business_name, Validators.required),
-
-      email :new FormControl(agent.email, Validators.required),
-      id_number :new FormControl(agent.id_number, Validators.required),
-      business_mobile :new FormControl(agent.business_mobile, Validators.required),
-      second_name :new FormControl(agent.second_name, Validators.required),
-      last_name :new FormControl(agent.last_name, Validators.required),
-      first_name :new FormControl(agent.first_name, Validators.required),
-      postal_address :new FormControl(agent.postal_address, Validators.required),
-      referees_contacts :new FormControl(agent.referees_contacts, Validators.required),
-      business_category :new FormControl(agent.business_category, Validators.required),
-      agent_type :new FormControl(agent.agent_type, Validators.required),
-      ward :new FormControl(agent.ward, Validators.required)
+      firstname: new FormControl(agent.firstname, Validators.required),
+      secondname: new FormControl(agent.secondname, Validators.required),
+      dob: new FormControl(agent.dob, Validators.required),
+      idtype: new FormControl(agent.idtype, Validators.required),
+      idnumber: new FormControl(agent.idnumber, Validators.required),
+      email: new FormControl(agent.email, Validators.required),
+      gender: new FormControl(agent.gender, Validators.required),
+      businessmobile: new FormControl(agent.businessmobile, Validators.required),
+      county: new FormControl(agent.county, Validators.required),
+      subcounty: new FormControl(agent.subcounty, Validators.required),
+      ward: new FormControl(agent.ward, Validators.required),
+      approved: new FormControl(agent.approved, Validators.required)
 
     });
 
-  }
-
-  gtAgent(){
-    this.isAddMode=false;
-    this.agentSvc.getAgentsToApproveDelete().subscribe(agent =>{
-      // if(data){
-      this.agents = agent;
-      //this.blockUI.stop();
-      /* }
-       else{*/
-      console.log(this.agents,"data.message");
-      // this.blockUI.stop();
-      //return this.toastr.info(data.message);
-      //}
-    },()=>{
-      console.log("error fetching customers...");
-      //this.blockUI.stop();
-    })
   }
 
 
@@ -121,40 +105,56 @@ export class approveDeleteAgentsComponent implements OnInit {
       this.agentsData = agentsData;
     }*/
 
-  Reject(){
-    //this.agents.agentnames = this.validationform.get('agentnames').value;
-    console.log( this.agents.id, " this.agents.userId")
-    this.agents.deleted = 'U';
+  gtAgent() {
+    this.isAddMode = false;
+    this.agentSvc.getAgentsToApproveDelete().subscribe(agent => {
+      // if(data){
+      this.agents = agent;
+      // this.blockUI.stop();
+      /* }
+       else{*/
+      console.log(this.agents, 'data.message');
+      // this.blockUI.stop();
+      // return this.toastr.info(data.message);
+      // }
+    }, () => {
+      console.log('error fetching customers...');
+      //this.blockUI.stop();
+    });
+  }
 
-    const session=localStorage.getItem('currentUser');
+  Reject() {
+    // this.agents.agentnames = this.validationform.get('agentnames').value;
+    console.log(this.agents.id, ' this.agents.userId');
+    this.agents.deleted = false;
 
-    this.sessionId=JSON.parse(session);
+    const session = localStorage.getItem('currentUser');
 
-    console.log(this.sessionId.entity.userId,"this.users1");
-    console.log(this.sessionId.entity,"this.users1");
-    this.agents.approvedBy=this.sessionId.entity.userId;
+    this.sessionId = JSON.parse(session);
 
-    if(this.agents.deletedBy === this.agents.approvedBy){
+    console.log(this.sessionId.entity.userId, 'this.users1');
+    console.log(this.sessionId.entity, 'this.users1');
+    this.agents.approvedBy = this.sessionId.entity.userId;
 
-      return this.toastr.warning('A user who deletes an agent cannot reject the deletion', ' Warning!', { timeOut: 3000 });
+    if (this.agents.deletedBy == this.agents.approvedBy) {
+
+      return this.toastr.warning('A user who deletes an agent cannot reject the deletion', ' Warning!', {timeOut: 3000});
 
 
     }
 
-    const agent1 ={
-      'id':this.agents.id,
-      'deleted':this.agents.deleted
+    const agent1 = {
+      'agentid': this.agents.agentid,
+      'deletedby': this.sessionId.entity.userId,
+    };
 
-    }
 
-
-    console.log(agent1, "$$$$$$$$$$$$$$$$")
-    console.log(this.agents.id, "this.agents.id")
+    console.log(agent1, '$$$$$$$$$$$$$$$$');
+    console.log(this.agents.id, 'this.agents.id');
     this.agentSvc.approveDeleteAgent(agent1).subscribe((response) => {
       this.response = response;
-      console.log(this.response.status,"response")
-      if (this.response.status===200) {
-
+      console.log(this.response.status, 'response');
+      if (this.response.agentnames) {
 
 
         /*   this.usersData.push({
@@ -166,90 +166,76 @@ export class approveDeleteAgentsComponent implements OnInit {
              userNationalId
            });*/
         this.validationform = this.formBuilder.group({
-          agent_names: '',
-          location: '',
-          mobile	: '',
-          branch	: '',
-          business_name: '',
-          email	: '',
-          id_number	: '',
-          business_mobile: '',
-          first_name: '',
-          second_name: '',
-          last_name: '',
-          super_agent: '',
-          postal_address: '',
-          referees_contacts: '',
-          business_category: '',
-          agent_type	: '',
+          firstname: '',
+          secondname: '',
+          dob: '',
+          idtype: '',
+          idnumber: '',
+          email: '',
+          gender: '',
+          businessmobile: '',
+          county: '',
+          subcounty: '',
           ward: '',
 
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
         this.gtAgent();
         this.isAddMode = true;
 
-        return this.toastr.success('Great! The Agent information was rejected successfully', ' Warning!', { timeOut: 3000 });
+        return this.toastr.success('Great! The Agent information was rejected successfully', ' Warning!', {timeOut: 3000});
 
 
-
-      }else{
+      } else {
 
       }
       this.submitted = true;
     });
 
   }
-  /**
-   * Returns form
-   */
-  get form() {
-    return this.validationform.controls;
-  }
+
   /**
    * Modal Open
    * @param content modal content
    */
   openModal(content: any) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, {centered: true});
   }
-  Approve(){
+
+  Approve() {
     //this.agents.agentnames = this.validationform.get('agentnames').value;
-    console.log( this.agents.id, " this.agents.userId")
-    this.agents.deleted = 'AD';
-    const session=localStorage.getItem('currentUser');
+    console.log(this.agents.id, ' this.agents.userId');
+    // this.agents.deleted = 'AD';
+    const session = localStorage.getItem('currentUser');
 
-    this.sessionId=JSON.parse(session);
+    this.sessionId = JSON.parse(session);
 
-    console.log(this.sessionId.entity.userId,"this.users1");
-    console.log(this.sessionId.entity,"this.users1");
-    this.agents.approvedBy=this.sessionId.entity.userId;
+    console.log(this.sessionId.entity.userId, 'this.users1');
+    console.log(this.sessionId.entity, 'this.users1');
+    this.agents.approvedBy = this.sessionId.entity.userId;
 
-    if(this.agents.deletedBy === this.agents.approvedBy){
-      return this.toastr.warning('A user who deletes an agent cannot approve the deletion', ' Warning!', { timeOut: 3000 });
-
-
+    if (this.agents.deletedBy == this.agents.approvedBy) {
+      return this.toastr.warning('A user who deletes an agent cannot approve the deletion', ' Warning!', {timeOut: 3000});
 
 
     }
 
-    const agent1 ={
-      'id':this.agents.id,
-      'deleted':this.agents.deleted
+    const agent1 = {
+      'agentid': this.agents.agentid,
+      'deletedby': this.sessionId.entity.userId
 
-    }
+    };
 
 
-    console.log(agent1, "$$$$$$$$$$$$$$$$")
-    console.log(this.agents.id, "this.agents.id")
+    console.log(agent1, '$$$$$$$$$$$$$$$$');
+    console.log(this.agents.agentid, 'this.agents.id');
     this.agentSvc.approveDeleteAgent(agent1).subscribe((response) => {
       this.response = response;
-      console.log(this.response.status,"response")
-      if (this.response.status===200) {
-
+      console.log(this.response.status, 'response');
+      if (this.response.agentnames) {
 
 
         /*   this.usersData.push({
@@ -261,39 +247,31 @@ export class approveDeleteAgentsComponent implements OnInit {
              userNationalId
            });*/
         this.validationform = this.formBuilder.group({
-          agent_names: '',
-          location: '',
-          mobile	: '',
-          branch	: '',
-          business_name: '',
-          email	: '',
-          id_number	: '',
-          business_mobile: '',
-          first_name: '',
-          second_name: '',
-          last_name: '',
-          super_agent: '',
-          postal_address: '',
-          referees_contacts: '',
-          business_category: '',
-          agent_type	: '',
-          ward: '',
-
+          firstname: '',
+          secondname: '',
+          dob: '',
+          idtype: '',
+          idnumber: '',
+          email: '',
+          gender: '',
+          businessmobile: '',
+          county: '',
+          subcounty: '',
+          ward: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 
         //alert(response.respMessage);
         this.gtAgent();
         this.isAddMode = true;
-        return this.toastr.success('Great! The Agent information was approved successfully', ' Warning!', { timeOut: 3000 });
+        return this.toastr.success('Great! The Agent information was approved successfully', ' Warning!', {timeOut: 3000});
 
 
-
-      }else{
-        return this.toastr.error('Exception Occured', ' Error!', { timeOut: 3000 });
+      } else {
+        return this.toastr.error('Exception Occurred', ' Error!', {timeOut: 3000});
 
       }
       this.submitted = true;
@@ -301,13 +279,15 @@ export class approveDeleteAgentsComponent implements OnInit {
 
 
   }
+
   cancel() {
     this.gtAgent();
     this.isAddMode = true;
-    this.isExisting =true;
+    this.isExisting = true;
 
   }
-  Delete(){
+
+  Delete() {
 
   }
 
@@ -334,12 +314,12 @@ export class approveDeleteAgentsComponent implements OnInit {
     this.agents.agent_type = this.validationform.get('agent_type').value;
     this.agents.ward = this.validationform.get('ward').value;
 
-    console.log(this.agents, "++++++++++++++++++++++++++++")
+    console.log(this.agents, '++++++++++++++++++++++++++++');
 
     this.agentSvc.addAgent(this.agents).subscribe((response) => {
       this.response = response;
-      console.log(this.response.status,"response")
-      if (this.response.status===200) {
+      console.log(this.response.status, 'response');
+      if (this.response.status === 200) {
         //if (this.validationform.valid) {
         /* this.agentsData.push({
            agentnames,
@@ -364,11 +344,11 @@ export class approveDeleteAgentsComponent implements OnInit {
         this.validationform = this.formBuilder.group({
           agent_names: '',
           location: '',
-          mobile	: '',
-          branch	: '',
+          mobile: '',
+          branch: '',
           business_name: '',
-          email	: '',
-          id_number	: '',
+          email: '',
+          id_number: '',
           business_mobile: '',
           first_name: '',
           second_name: '',
@@ -377,15 +357,15 @@ export class approveDeleteAgentsComponent implements OnInit {
           postal_address: '',
           referees_contacts: '',
           business_category: '',
-          agent_type	: '',
+          agent_type: '',
           ward: '',
 
         });
         this.modalService.dismissAll();
         this.gtAgent();
-        alert("Great! The user information was saved succesfully");
+        alert('Great! The user information was saved successfully');
 
-      }else{
+      } else {
 
       }
       this.submitted = true;

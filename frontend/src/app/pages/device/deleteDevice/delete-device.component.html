@@ -1,6 +1,6 @@
 <block-ui>
   <div class="container-fluid">
-    <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Approve Device Delete"></app-pagetitle>
+    <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="Approve Device Deletion"></app-pagetitle>
 
 
     <div *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) " class="row">
@@ -19,6 +19,7 @@
                   <th class="text-center">Status</th>
                   <th class="text-center">Action</th>
                 </tr>
+
                 </thead>
                 <tbody>
                 <tr *ngFor="let user of Device1; let i= index">
@@ -34,10 +35,10 @@
                   </td>
 
                   <td class="text-center">
-                    <button (click)="initEditDevice(user)" class="btn-rounded btn-light btn-sm btn-outline-warning"
-                            title="Edit Device" type="button">
-                      <i class="ri-check-double-line"></i>
-                      Approve Delete
+                    <button (click)="initEditDevice(user)" class="btn-rounded btn-light btn-sm btn-outline-danger"
+                            title="Delete Device" type="button">
+                      <i class="ri-delete-bin-7-line"></i>
+                      Delete Device
                     </button>
                   </td>
                 </tr>
@@ -84,8 +85,8 @@
             <button (click)="saveData()" *ngIf="!isExisting && isAddMode" class="btn btn-success" type="submit">Save
             </button>
 
-            <button (click)="approveDeleteDevice()" *ngIf="!isAddMode && isExisting" class="btn btn-success" type="submit">
-              Approve Deletion
+            <button (click)="deleteDevice()" *ngIf="!isAddMode && isExisting" class="btn btn-warning" type="submit">
+              Delete
             </button>
 
             <button (click)="cancel()" class="btn btn-danger ml-1" type="button">Cancel</button>

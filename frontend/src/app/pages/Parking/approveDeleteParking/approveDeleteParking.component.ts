@@ -152,7 +152,7 @@ export class approveDeleteParkingComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 
@@ -260,7 +260,7 @@ export class approveDeleteParkingComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 

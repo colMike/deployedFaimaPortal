@@ -18,8 +18,7 @@
             </button>
           </div>
           <div class="table-responsive mt-3"  >
-            <table class="table table-centered datatable dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <table class="table table-hover table-bordered table-centered datatable dt-responsive nowrap p-4">
               <thead class="thead-light">
               <tr>
                 <!--   <th style="width: 20px;">
@@ -28,10 +27,10 @@
                        <label class="custom-control-label" for="customercheck">&nbsp;</label>
                      </div>&ndash;&gt;
                    </th>-->
-                <th>Service Code</th>
-                <th>Service Name</th>
+                <th>Parking Code</th>
+                <th class="text-center">Parking Name</th>
                <!-- <th>Status</th>-->
-                <th >Action</th>
+                <th class="text-center">Action</th>
               </tr>
               </thead>
               <tbody>
@@ -44,7 +43,7 @@
                      </td>-->
 
                 <td>{{user.serviceCode}}</td>
-                <td>{{user.serviceName}}</td>
+                <td class="text-center">{{user.serviceName}}</td>
 
             <!--    <td>
                   <div class="badge font-size-12" [ngClass]="{'badge-soft-danger': user.approved === 'Pending Approval',
@@ -54,18 +53,22 @@
                   &lt;!&ndash; {{item.approved}}&ndash;&gt;
                 </td>-->
 
-                <td>
-                  <button type="button"   (click)="initEditParking(user)" title="Edit user">
 
-                    <i class="ri-quill-pen-line"></i>
+                <td class="text-center">
+                  <button (click)="initEditParking(user)"
+                          class="btn-rounded btn-light btn-sm btn-outline-primary"
+                          title="Edit parking details"
+                          type="button">
+
+                    <i class="ri-quill-pen-line"></i> Edit Parking Details
                   </button>
-
 
 
                   <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
                        <i class="mdi mdi-trash-can font-size-18"></i>
                      </a>-->
                 </td>
+
               </tr>
               </tbody>
             </table>
@@ -93,18 +96,17 @@
     <form  [formGroup]="ParkingForm">
 
 
+<!--      <div class="form-group row" *ngIf="!isAddMode && isExisting">-->
+<!--        <label for="serviceCode">Parking Code</label>-->
+<!--        <input type="text" class="form-control" id="serviceCode" placeholder="Enter Parking Code" formControlName="serviceCode" value="Parking" disabled>-->
+<!--        &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">-->
+<!--             <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">-->
+<!--               <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>-->
+<!--             </div>&ndash;&gt;-->
+<!--      </div>-->
       <div class="form-group row">
-        <label for="serviceCode">Service Code</label>
-        <input type="text" class="form-control" id="serviceCode" placeholder="Enter ServiceCode" formControlName="serviceCode" value="PARKING1" disabled
-        >
-        <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
-             <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
-               <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
-             </div>-->
-      </div>
-      <div class="form-group row">
-        <label for="serviceName">Service Name</label>
-        <input type="text" class="form-control" id="serviceName" placeholder="Enter Service Name" formControlName="serviceName"
+        <label for="serviceName">Parking Name</label>
+        <input type="text" class="form-control" id="serviceName" placeholder="Enter Parking Name" formControlName="serviceName"
         >
         <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
              <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">

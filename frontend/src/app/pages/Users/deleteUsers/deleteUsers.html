@@ -1,6 +1,6 @@
 <block-ui>
 <div class="container-fluid">
-  <app-pagetitle title="User Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Delete User Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
 
   <div class="row" *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) ">
@@ -58,21 +58,20 @@
                 </td>
 
                 <td>
-                  <button type="button"
-                          class="close btn-rounded btn-light btn-lg  btn-outline-primary"
-                          aria-label="Close"
-                          (click)="initEditUser(user)"
-                          title="Edit user">
+                  <button (click)="initEditUser(user)"
+                          class="btn-rounded btn-light btn-sm btn-outline-danger"
+                          title="Delete user"
+                          type="button">
 
-                    <i class="ri-quill-pen-line"></i>
+                    <i class="ri-delete-bin-2-line"></i> Delete user
                   </button>
-
 
 
                   <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
                        <i class="mdi mdi-trash-can font-size-18"></i>
                      </a>-->
                 </td>
+
               </tr>
               </tbody>
             </table>

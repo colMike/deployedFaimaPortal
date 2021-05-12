@@ -156,12 +156,12 @@ export class RegionComponent implements OnInit {
       if (this.response.status===200) {
 
 
-        //logger.info("Great! The subCounty information was saved succesfully")
+        //logger.info("Great! The subCounty information was saved successfully")
         this.modalService.dismissAll();
         this.getsubCountys();
-        return this.toastr.success('Great! The subCounty information was saved succesfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The subCounty information was saved successfully"', ' Success!', { timeOut: 3000 });
 
-        //alert("Great! The subCounty information was saved succesfully");
+        //alert("Great! The subCounty information was saved successfully");
 
       }else{
         return this.toastr.error('Exception Occurred', ' Error!', { timeOut: 3000 });
@@ -219,7 +219,7 @@ export class RegionComponent implements OnInit {
       if (this.response.status===200) {
 
 
-        //logger.info("Great! The subCounty information was saved succesfully")
+        //logger.info("Great! The subCounty information was saved successfully")
 
         this.modalService.dismissAll();
 
@@ -230,7 +230,7 @@ export class RegionComponent implements OnInit {
         this.isAddMode = true;
 
         //alert(response.respMessage);
-        return this.toastr.success('Great! The subCounty information was saved succesfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The subCounty information was saved successfully"', ' Success!', { timeOut: 3000 });
 
 
 

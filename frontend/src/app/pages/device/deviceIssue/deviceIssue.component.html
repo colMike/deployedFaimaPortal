@@ -30,6 +30,7 @@
                      </th>-->
                   <th></th>
                   <th>User Full name</th>
+                  <th>Device Phone Number</th>
                   <th>Device IMEI</th>
                   <!-- <th>Status</th>-->
                   <th class="text-center">Action</th>
@@ -45,8 +46,9 @@
                          </div>
                        </td>-->
                   <!--td >   <li *ngFor="let item of pos1">{{item.userFullName}}</li></td>-->
-                  <td class="text-capitalize">{{user.userFullName }}</td>
-                  <td>{{user.device_imei }}</td>
+                  <td class="text-capitalize">{{user.agentnames }}</td>
+                  <td class="text-capitalize">{{user.devicemobilenumber }}</td>
+                  <td>{{user.deviceimei }}</td>
 
                   <!-- <td>
                      <div class="badge font-size-12" [ngClass]="{'badge-soft-danger': user.active === 'Active',
@@ -60,7 +62,7 @@
                   <td class="text-center">
 
                     <button (click)="initEditDevice(user)"
-                            class="btn-rounded btn-light btn-lg  btn-outline-primary"
+                            class="btn-rounded btn-light btn-sm  btn-outline-primary"
                             title="Edit Device"
                             type="button">
                       <i class="ri-quill-pen-line"></i>
@@ -103,9 +105,9 @@
               <label class="control-label">Select Device</label>
               <fieldset [disabled]="(isAddMode && !isExisting)">
                 <ng-select [items]="DeviceIssue1"
-                           bindLabel="device_imei"
-                           bindValue="device_imei"
-                           formControlName="device_imei">
+                           bindLabel="deviceimei"
+                           bindValue="deviceimei"
+                           formControlName="deviceimei">
                 </ng-select>
               </fieldset>
             </div>
@@ -114,16 +116,42 @@
 
           <div class="col-xxl-6">
             <div class="form-group">
-              <label class="control-label">Select User</label>
+              <label class="control-label">Select Agent</label>
               <fieldset [disabled]="(isAddMode && isExisting)">
                 <ng-select [items]="pos1"
-                           bindLabel="userFullName"
-                           bindValue="userId"
-                           formControlName="userId">
+                           bindLabel="agentnames"
+                           bindValue="agentid"
+                           formControlName="agentid">
                 </ng-select>
               </fieldset>
             </div>
           </div>
+
+          <div class="row text-center">
+            <div class="col-xl-4">
+
+            </div>
+            <div class="col-xl-4">
+              <div class="form-group">
+                <label class="control-label">Select Device Language</label>
+                <fieldset [disabled]="(isAddMode && isExisting)">
+                  <ng-select [items]="languages"
+                             bindLabel="name"
+                             bindValue="value"
+                             formControlName="devicelanguage">
+                  </ng-select>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="col-xl-4">
+
+            </div>
+          </div>
+
+
+
+
 
           <div class="text-right col-xxl-6">
 

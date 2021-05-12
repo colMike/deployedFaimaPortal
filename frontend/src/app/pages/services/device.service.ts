@@ -1,37 +1,55 @@
-import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { Urls } from './url';
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Urls} from './url';
+import {Observable} from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceService {
 
   API_URL = new Urls();
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 
   /*  updUser (customer) {
       return this.http.post(`${this.API_URL.url}/store` , customer);
     }*/
-  gtDevice ():Observable<any> {
+  gtDevice(): Observable<any> {
     return this.http.get(`${this.API_URL.url}/Device_linkingService/viewDevice_linking`);
   }
-  getPosUsers ():Observable<any> {
-    return this.http.get(`${this.API_URL.url}/Device_linkingService/getPosUsers`);
+
+  getPosUsers(): Observable<any> {
+    return this.http.get(`${this.API_URL.url}/Device_linkingService/getAgentToIssueDevice`);
   }
-  getDevicesToIssue ():Observable<any> {
+
+  getDevicesToIssue(): Observable<any> {
     return this.http.get(`${this.API_URL.url}/Device_linkingService/getDevicesToIssue`);
   }
 
-  addDevice(device):Observable<any>  {
-    return  this.http.post(`${this.API_URL.url}/Device_linkingService/addDevice_linking`, device);
+  addDevice(device): Observable<any> {
+    return this.http.put(`${this.API_URL.url}/Device_linkingService/addDevice_linking`, device);
   }
 
-  addDeviceReg(device):Observable<any>  {
-    return  this.http.post(`${this.API_URL.url}/Device_linkingService/addDevice`, device);
+  addDeviceReg(device): Observable<any> {
+    return this.http.post(`${this.API_URL.url}/Device_linkingService/addDevice`, device);
   }
-  gtDeviceReg ():Observable<any> {
+
+  gtDeviceReg(): Observable<any> {
     return this.http.get(`${this.API_URL.url}/Device_linkingService/viewDevice`);
+  }
+
+  gtDeletedDevicesTOApprove(): Observable<any> {
+    return this.http.get(`${this.API_URL.url}/Device_linkingService/viewDevicesToApproveDelete`);
+  }
+
+  deleteDevice(device): Observable<any> {
+    return this.http.put(`${this.API_URL.url}/Device_linkingService/deleteDevice`, device);
+  }
+
+  approveDeviceDeletion(device): Observable<any> {
+    return this.http.put(`${this.API_URL.url}/Device_linkingService/approveDeleteDevice`, device);
   }
 
 }

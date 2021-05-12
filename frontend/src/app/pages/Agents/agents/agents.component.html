@@ -45,20 +45,21 @@
                 <td>{{item.email}}</td>
                 <td>
 
-<!--                  [ngClass]="{'badge-soft-danger': !item.approved, 'badge-soft-success':item.approved, 'badge-soft-warning':item.rejected}-->
-                  <div [ngClass]="{'badge-soft-danger':item.rejected=== null && item.approved===false , 'badge-soft-success':item.approved, 'badge-soft-warning':item.rejected}
+                  <!--                  [ngClass]="{'badge-soft-danger': !item.approved, 'badge-soft-success':item.approved, 'badge-soft-warning':item.rejected}-->
+                  <div [ngClass]="{'badge-soft-danger':item.rejected === null  || item.rejected === false && item.approved===false , 'badge-soft-success':item.approved, 'badge-soft-warning':item.rejected}
                     "
 
                        class="badge font-size-12">
-<!--                    <ngb-highlight [result]="item.approved ? 'approved':'pending' "></ngb-highlight>-->
+                    <!--                    <ngb-highlight [result]="item.approved ? 'approved':'pending' "></ngb-highlight>-->
 
-                    <ngb-highlight [result]="item.approved ? 'approved' : item.rejected ? 'rejected': item.rejected=== null && item.approved===false ? 'pending':'null'"></ngb-highlight>
+                    <ngb-highlight
+                      [result]="item.approved === true ? 'approved' :  item.rejected ? 'rejected': item.rejected=== null || item.rejected === false && item.approved===false ? 'pending' : 'null'"></ngb-highlight>
                   </div>
                 </td>
 
                 <td>
                   <button (click)="initEditAgent(item)"
-                          class="btn-rounded btn-light btn-lg btn-outline-primary"
+                          class="btn-rounded btn-light btn-sm btn-outline-primary"
                           title="Edit"
                           type="button">
 
@@ -106,7 +107,8 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="name">First Name</label><strong
                 style="color:#ff0000">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.firstname.errors}" class="form-control" formControlName="firstname" id="name"
+                <input [ngClass]="{'is-invalid': submitted && form.firstname.errors}" class="form-control"
+                       formControlName="firstname" id="name"
                        placeholder="Enter firstname"
                        type="text">
                 <div *ngIf="submitted && form.firstname.errors" class="invalid-feedback">
@@ -119,7 +121,8 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="secondname">Second Name</label><strong
                 style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.secondname.errors}" class="form-control" formControlName="secondname" id="secondname"
+                <input [ngClass]="{'is-invalid': submitted && form.secondname.errors}" class="form-control"
+                       formControlName="secondname" id="secondname"
                        placeholder="Enter secondname">
                 <div *ngIf="submitted && form.secondname.errors" class="invalid-feedback">
                   <span *ngIf="form.secondname.errors.required">secondname is mandatory.</span>
@@ -138,7 +141,8 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="dob">Date of Birth</label><strong
                 style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.dob.errors}" class="form-control" formControlName="dob" id="dob" placeholder="Enter Date of Birth"
+                <input [ngClass]="{'is-invalid': submitted && form.dob.errors}" class="form-control"
+                       formControlName="dob" id="dob" placeholder="Enter Date of Birth"
                        type="date">
                 <div *ngIf="submitted && form.dob.errors" class="invalid-feedback">
                   <span *ngIf="form.dob.errors.required">DOB is mandatory.</span>
@@ -149,9 +153,17 @@
             <div class="col-xl-2">
               <div class="form-group">
                 <label class="control-label input-sm" for="idtype">ID Type</label><strong style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.idtype.errors}" class="form-control" formControlName="idtype" id="idtype"
-                       placeholder="Enter id type"
-                       type="number">
+                <!--                <input [ngClass]="{'is-invalid': submitted && form.idtype.errors}" class="form-control" formControlName="idtype" id="idtype"-->
+                <!--                       placeholder="Enter id type"-->
+                <!--                       type="number">-->
+                <ng-select
+                  [items]="[{id:1, name: 'Passport'}, {id:2, name: 'ID Card'}, {id:3, name: 'Driving License'}]"
+                  bindLabel="name"
+                  bindValue="id"
+                  formControlName="idtype"
+                  id="idtype"
+                >
+                </ng-select>
                 <div *ngIf="submitted && form.idtype.errors" class="invalid-feedback">
                   <span *ngIf="form.idtype.errors.required">Id Type is mandatory.</span>
                 </div>
@@ -161,7 +173,8 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="idnumber">ID Number</label><strong
                 style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" id="idnumber"
+                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control"
+                       formControlName="idnumber" id="idnumber"
                        placeholder="Enter ID Number">
                 <div *ngIf="submitted && form.idnumber.errors" class="invalid-feedback">
                   <span *ngIf="form.idnumber.errors.required">Id Number is mandatory.</span>
@@ -179,7 +192,8 @@
             <div class="col-xl-3">
               <div class="form-group">
                 <label class="control-label input-sm" for="email">Email</label><strong style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.email.errors}" class="form-control" formControlName="email" id="email" placeholder="Enter email"
+                <input [ngClass]="{'is-invalid': submitted && form.email.errors}" class="form-control"
+                       formControlName="email" id="email" placeholder="Enter email"
                        type="email">
                 <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
                   <span *ngIf="form.balance.errors.required">email is mandatory.</span>
@@ -189,12 +203,20 @@
 
             <div class="col-xl-2">
               <div class="form-group">
-                <label class="control-label input-sm" for="idNumber">Gender <strong style="color:red">*</strong>
+                <label class="control-label input-sm" for="gender">Gender <strong style="color:red">*</strong>
                 </label>
-                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" placeholder="Enter Id Number"
-                       type="number">
-                <div *ngIf="submitted && form.idnumber.errors" class="invalid-feedback">
-                  <span *ngIf="form.idnumber.errors.required">Balance is mandatory.</span>
+                <!--                <input [ngClass]="{'is-invalid': submitted && form.gender.errors}" class="form-control" formControlName="gender" placeholder="Enter Gender" id="gender"-->
+                <!--                       type="number">-->
+                <ng-select [items]="[{id:1, name: 'Male'}, {id:2, name: 'Female'}]"
+                           bindLabel="name"
+                           bindValue="name"
+                           formControlName="gender"
+                           id="gender"
+                >
+                </ng-select>
+
+                <div *ngIf="submitted && form.gender.errors" class="invalid-feedback">
+                  <span *ngIf="form.gender.errors.required">Gender is mandatory.</span>
                 </div>
               </div>
             </div>
@@ -203,7 +225,8 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="businessmobile">Business Mobile</label><strong
                 style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.businessmobile.errors}" class="form-control" formControlName="businessmobile"
+                <input [ngClass]="{'is-invalid': submitted && form.businessmobile.errors}" class="form-control"
+                       formControlName="businessmobile"
                        id="businessmobile"
                        placeholder="Enter Business Mobile">
                 <div *ngIf="submitted && form.businessmobile.errors" class="invalid-feedback">

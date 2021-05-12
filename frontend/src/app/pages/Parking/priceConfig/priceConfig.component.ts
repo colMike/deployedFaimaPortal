@@ -143,12 +143,12 @@ export class PriceConfigComponent implements OnInit {
       if (this.response.status===200) {
 
 
-        //logger.info("Great! The Parking information was saved succesfully")
+        //logger.info("Great! The Parking information was saved successfully")
         this.modalService.dismissAll();
         this.getPrice();
-        return this.toastr.success('Great! The Price information was saved succesfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The Price information was saved successfully"', ' Success!', { timeOut: 3000 });
 
-        //alert("Great! The Parking information was saved succesfully");
+        //alert("Great! The Parking information was saved successfully");
 
       }else{
         return this.toastr.error('Exception Occurred', ' Error!', { timeOut: 3000 });
@@ -213,7 +213,7 @@ export class PriceConfigComponent implements OnInit {
       if (this.response.status===200) {
 
 
-        //logger.info("Great! The Parking information was saved succesfully")
+        //logger.info("Great! The Parking information was saved successfully")
 
         this.modalService.dismissAll();
 
@@ -224,7 +224,7 @@ export class PriceConfigComponent implements OnInit {
         this.isAddMode = true;
 
         //alert(response.respMessage);
-        return this.toastr.success('Great! The Parking information was saved succesfully"', ' Success!', { timeOut: 3000 });
+        return this.toastr.success('Great! The Parking information was saved successfully"', ' Success!', { timeOut: 3000 });
 
 
 

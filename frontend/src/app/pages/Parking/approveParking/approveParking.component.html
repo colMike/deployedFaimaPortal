@@ -1,6 +1,6 @@
 <block-ui>
 <div class="container-fluid">
-  <app-pagetitle title="Price Config Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Approve Price Configuration" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
 
   <div class="row" *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) ">
@@ -11,8 +11,7 @@
 
 
           <div class="table-responsive mt-3"  >
-            <table class="table table-centered datatable dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <table class="table table-hover table-bordered table-centered datatable dt-responsive nowrap p-4">
               <thead class="thead-light">
               <tr>
                 <!--   <th style="width: 20px;">
@@ -27,7 +26,7 @@
                 <th>Car Type</th>
                 <th>Fee</th>
 
-                <th >Action</th>
+                <th class="text-center">Action</th>
               </tr>
               </thead>
               <tbody>
@@ -52,18 +51,16 @@
                     &lt;!&ndash; {{item.approved}}&ndash;&gt;
                   </td>-->
 
-                <td>
-                  <button type="button"   (click)="initEditParking(user)" title="Edit user">
 
-                    <i class="ri-quill-pen-line"></i>
+                <td class="text-center">
+                  <button (click)="initEditParking(user)" class="btn-rounded btn-light btn-sm btn-outline-primary"
+                          title="Approve Price Config" type="button">
+                    <i class="ri-check-double-line"></i>
+                    Approve Price Config
                   </button>
-
-
-
-                  <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
-                       <i class="mdi mdi-trash-can font-size-18"></i>
-                     </a>-->
                 </td>
+
+
               </tr>
               </tbody>
             </table>
@@ -93,7 +90,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label class="control-label">Service</label>
+          <label class="control-label">Parking Name</label>
           <ng-select [items]="Parkings1"
                      bindLabel="serviceName"
                      bindValue="serviceId"

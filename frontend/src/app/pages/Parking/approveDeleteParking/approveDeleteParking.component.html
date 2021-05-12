@@ -1,6 +1,6 @@
 <block-ui>
 <div class="container-fluid">
-  <app-pagetitle title="Price Config Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Approve Price Config Deletion" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
 
   <div class="row" *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) ">
@@ -11,8 +11,7 @@
 
 
           <div class="table-responsive mt-3"  >
-            <table class="table table-centered datatable dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <table class="table table-hover table-bordered table-centered datatable dt-responsive nowrap p-4">
               <thead class="thead-light">
               <tr>
                 <!--   <th style="width: 20px;">
@@ -53,7 +52,10 @@
                   </td>-->
 
                 <td>
-                  <button type="button"   (click)="initEditParking(user)" title="Edit user">
+                  <button type="button"
+                          class="btn-rounded btn-light btn-sm btn-outline-primary"
+                          (click)="initEditParking(user)"
+                          title="Edit user">
 
                     <i class="ri-quill-pen-line"></i>
                   </button>

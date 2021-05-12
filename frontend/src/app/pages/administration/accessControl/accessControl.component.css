@@ -371,3 +371,9 @@ table tr th {
 .modal-content {
   width: 630px !important;
 }
+
+:host /deep/ ng2-smart-table table tr td {
+  padding-bottom: 0px;
+  font-weight: 300;
+  color: #111;
+}

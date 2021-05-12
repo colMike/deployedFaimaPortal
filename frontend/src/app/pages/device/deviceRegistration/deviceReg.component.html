@@ -32,11 +32,12 @@
 
                   <th></th>
                   <th>Device IMEI</th>
-                  <th>Status</th>
+                  <th class="text-center">Status</th>
                   <th class="text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
+
                 <tr *ngFor="let user of Device1; let i= index">
                   <!--     <td>
                          <div class="custom-control custom-checkbox">
@@ -46,11 +47,16 @@
                        </td>-->
                   <!--                <td>{{user.userFullName }}</td>-->
                   <td>{{i + 1}}</td>
-                  <td>{{user.device_imei }}</td>
-                  <td>{{user.active === 'true' ? 'Active' : 'Inactive'}}</td>
+                  <td>{{user.deviceimei }}</td>
 
                   <td class="text-center">
-                    <button (click)="initEditDevice(user)" class="btn-rounded btn-light btn-lg btn-outline-primary"
+                    <div [ngClass]="{'badge-soft-success':user.active === true, 'badge-soft-danger':user.active === false}" class="badge">
+                      <ngb-highlight [result]="user.active ? 'Active' : 'Inactive'"></ngb-highlight>
+                    </div>
+                  </td>
+
+                  <td class="text-center">
+                    <button (click)="initEditDevice(user)" class="btn-rounded btn-light btn-sm btn-outline-primary"
                             title="Edit Device" type="button">
                       <i class="ri-quill-pen-line"></i>
                       Edit Device
@@ -90,8 +96,8 @@
         <div class="card mr-5 p-5  col-xxl-8">
           <div>
             <div class="form-group col-xxl-8">
-              <label for="device_imei"> Device IMEI number</label>
-              <input class="form-control" formControlName="device_imei" id="device_imei" placeholder="Enter device IMEI"
+              <label for="deviceimei"> Device IMEI number</label>
+              <input class="form-control" formControlName="deviceimei" id="deviceimei" placeholder="Enter device IMEI"
                      type="text"
               >
             </div>

@@ -73,7 +73,7 @@ export class approveAgentsComponent implements OnInit {
   initEditAgent(agent) {
     this.isAddMode = false;
     this.isExisting = true;
-    this.agents.id = agent.id;
+    this.agents.id = agent.agentid;
     console.log(agent, 'agent id ................');
     console.log(this.agents.id, 'agent id ................');
     this.agents.maker = agent.maker;
@@ -133,7 +133,7 @@ export class approveAgentsComponent implements OnInit {
     console.log(this.sessionId.entity, 'this.users1');
     this.agents.checker = this.sessionId.entity.userId;
 
-    if (this.agents.maker === this.agents.checker) {
+    if (this.agents.maker == this.agents.checker) {
       return this.toastr.warning('Agent creator cannot reject an agent he/she created', ' Warning!', {timeOut: 3000});
 
 
@@ -177,7 +177,7 @@ export class approveAgentsComponent implements OnInit {
           ward: ''
         });
 
-        // logger.info("Great! The user information was saved succesfully")
+        // logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 
@@ -216,7 +216,7 @@ export class approveAgentsComponent implements OnInit {
     this.agents.checker = this.sessionId.entity.userId;
     console.log(this.agents.maker, 'this.agents.maker');
 
-    if (this.agents.maker === this.agents.checker) {
+    if (this.agents.maker == this.agents.checker) {
 
       return this.toastr.warning('Agent creator cannot approve an agent he/she created', 'Warning!', {timeOut: 3000});
 
@@ -261,7 +261,7 @@ export class approveAgentsComponent implements OnInit {
 
         });
 
-        // logger.info("Great! The user information was saved succesfully")
+        // logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
         this.gtAgent();

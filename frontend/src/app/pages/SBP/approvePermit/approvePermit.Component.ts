@@ -196,7 +196,7 @@ export class approvePermitComponent implements OnInit, OnDestroy {
           permitNationalId: ''
         });
 
-        //logger.info("Great! The permit information was saved succesfully")
+        //logger.info("Great! The permit information was saved successfully")
 
 
 
@@ -287,7 +287,7 @@ export class approvePermitComponent implements OnInit, OnDestroy {
           permitNationalId: ''
         });
 
-        //logger.info("Great! The permit information was saved succesfully")
+        //logger.info("Great! The permit information was saved successfully")
 
 
 

@@ -1,6 +1,6 @@
 <block-ui>
 <div class="container-fluid">
-  <app-pagetitle title="Price Config Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Delete Config Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
 
   <div class="row" *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) ">
@@ -11,8 +11,7 @@
 
 
           <div class="table-responsive mt-3"  >
-            <table class="table table-centered datatable dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <table class="table table-hover table-bordered table-centered datatable dt-responsive nowrap p-4">
               <thead class="thead-light">
               <tr>
                 <!--   <th style="width: 20px;">
@@ -21,7 +20,7 @@
                        <label class="custom-control-label" for="customercheck">&nbsp;</label>
                      </div>&ndash;&gt;
                    </th>-->
-                <th>Service Name</th>
+                <th>Parking Name</th>
                 <th>Sub-County</th>
 
                 <th>Car Type</th>
@@ -53,17 +52,20 @@
                   </td>-->
 
                 <td>
-                  <button type="button"   (click)="initEditParking(user)" title="Edit user">
+                  <button (click)="initEditParking(user)"
+                          class="btn-rounded btn-light btn-sm btn-outline-danger"
+                          title="Delete Price Config"
+                          type="button">
 
-                    <i class="ri-quill-pen-line"></i>
+                    <i class="ri-delete-bin-2-line"></i> Delete Price Config
                   </button>
-
 
 
                   <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
                        <i class="mdi mdi-trash-can font-size-18"></i>
                      </a>-->
                 </td>
+
               </tr>
               </tbody>
             </table>

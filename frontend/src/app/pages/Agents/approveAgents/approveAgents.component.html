@@ -41,19 +41,23 @@
                 <td>{{item.businessmobile}}</td>
                 <td>{{item.email}}</td>
                 <td>
-                  <!--                    [ngClass]="{'badge-soft-danger': item.approved === 'Pending Approval', 'badge-soft-success':item.approved === 'Approved'}-->
-                  <div [ngClass]="{'badge-soft-danger': !item.approved, 'badge-soft-success':item.approved}
+
+                  <div [ngClass]="{'badge-soft-danger':item.rejected === null  || item.rejected === false && item.approved===false , 'badge-soft-success':item.approved, 'badge-soft-warning':item.rejected}
                     "
 
                        class="badge font-size-12">
-                    <ngb-highlight [result]="item.approved ? 'approved':'pending' "></ngb-highlight>
+                    <!--                    <ngb-highlight [result]="item.approved ? 'approved':'pending' "></ngb-highlight>-->
+
+                    <ngb-highlight
+                      [result]="item.approved === true ? 'approved' :  item.rejected ? 'rejected': item.rejected=== null || item.rejected === false && item.approved===false ? 'pending' : 'null'"></ngb-highlight>
                   </div>
                 </td>
 
 
+
                 <td>
                   <button (click)="initEditAgent(item)"
-                          class="btn-rounded btn-light btn-lg btn-outline-primary btn-sm"
+                          class="btn-rounded btn-light btn-sm btn-outline-primary btn-sm"
                           title="Edit"
                           type="button">
                     <i class="ri-quill-pen-line"></i> Approve
@@ -83,7 +87,7 @@
     <form [formGroup]="validationform">
 
       <section>
-        <h5 class="mb-10 font-weight-bold text-dark text-center">Enter Agent Details</h5>
+        <h5 class="mb-10 font-weight-bold text-dark text-center">Approve Agent Details</h5>
         <hr style="width: 35%">
 
         <div class="panel-body">
@@ -98,7 +102,9 @@
                 style="color:#ff0000">*</strong>
                 <input [ngClass]="{'is-invalid': submitted && form.firstname.errors}" class="form-control" formControlName="firstname" id="name"
                        placeholder="Enter firstname"
-                       type="text">
+                       type="text"
+                       disabled
+                >
                 <div *ngIf="submitted && form.firstname.errors" class="invalid-feedback">
                   <span *ngIf="form.firstname.errors.required">Name is mandatory.</span>
                 </div>
@@ -110,7 +116,7 @@
                 <label class="control-label input-sm" for="secondname">Second Name</label><strong
                 style="color:red">*</strong>
                 <input [ngClass]="{'is-invalid': submitted && form.secondname.errors}" class="form-control" formControlName="secondname" id="secondname"
-                       placeholder="Enter secondname">
+                       placeholder="Enter secondname" disabled>
                 <div *ngIf="submitted && form.secondname.errors" class="invalid-feedback">
                   <span *ngIf="form.secondname.errors.required">secondname is mandatory.</span>
                 </div>
@@ -129,7 +135,7 @@
                 <label class="control-label input-sm" for="dob">Date of Birth</label><strong
                 style="color:red">*</strong>
                 <input [ngClass]="{'is-invalid': submitted && form.dob.errors}" class="form-control" formControlName="dob" id="dob" placeholder="Enter Date of Birth"
-                       type="date">
+                       type="date" disabled>
                 <div *ngIf="submitted && form.dob.errors" class="invalid-feedback">
                   <span *ngIf="form.dob.errors.required">DOB is mandatory.</span>
                 </div>
@@ -139,9 +145,18 @@
             <div class="col-xl-2">
               <div class="form-group">
                 <label class="control-label input-sm" for="idtype">ID Type</label><strong style="color:red">*</strong>
-                <input [ngClass]="{'is-invalid': submitted && form.idtype.errors}" class="form-control" formControlName="idtype" id="idtype"
-                       placeholder="Enter id type"
-                       type="number">
+<!--                <input [ngClass]="{'is-invalid': submitted && form.idtype.errors}" class="form-control" formControlName="idtype" id="idtype"-->
+<!--                       placeholder="Enter id type"-->
+<!--                       type="number">-->
+
+                <ng-select [items]="[{id:1, name: 'Passport'}, {id:2, name: 'ID Card'}, {id:3, name: 'Driving License'}]"
+                           id="idtype"
+                           bindLabel="name"
+                           bindValue="id"
+                           formControlName="idtype"
+                           disabled
+                >
+                </ng-select>
                 <div *ngIf="submitted && form.idtype.errors" class="invalid-feedback">
                   <span *ngIf="form.idtype.errors.required">Id Type is mandatory.</span>
                 </div>
@@ -152,7 +167,7 @@
                 <label class="control-label input-sm" for="idnumber">ID Number</label><strong
                 style="color:red">*</strong>
                 <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" id="idnumber"
-                       placeholder="Enter ID Number">
+                       placeholder="Enter ID Number" disabled>
                 <div *ngIf="submitted && form.idnumber.errors" class="invalid-feedback">
                   <span *ngIf="form.idnumber.errors.required">Id Number is mandatory.</span>
                 </div>
@@ -170,7 +185,7 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="email">Email</label><strong style="color:red">*</strong>
                 <input [ngClass]="{'is-invalid': submitted && form.email.errors}" class="form-control" formControlName="email" id="email" placeholder="Enter email"
-                       type="email">
+                       type="email" disabled>
                 <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
                   <span *ngIf="form.balance.errors.required">email is mandatory.</span>
                 </div>
@@ -181,8 +196,16 @@
               <div class="form-group">
                 <label class="control-label input-sm" for="idNumber">Gender <strong style="color:red">*</strong>
                 </label>
-                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" placeholder="Enter Id Number"
-                       type="number">
+<!--                <input [ngClass]="{'is-invalid': submitted && form.idnumber.errors}" class="form-control" formControlName="idnumber" placeholder="Enter Id Number"-->
+<!--                       type="number">-->
+                <ng-select [items]="[{id:1, name: 'Male'}, {id:2, name: 'Female'}]"
+                           id="gender"
+                           bindLabel="name"
+                           bindValue="name"
+                           formControlName="gender"
+                           disabled
+                >
+                </ng-select>
                 <div *ngIf="submitted && form.idnumber.errors" class="invalid-feedback">
                   <span *ngIf="form.idnumber.errors.required">Balance is mandatory.</span>
                 </div>
@@ -195,7 +218,9 @@
                 style="color:red">*</strong>
                 <input [ngClass]="{'is-invalid': submitted && form.businessmobile.errors}" class="form-control" formControlName="businessmobile"
                        id="businessmobile"
-                       placeholder="Enter Business Mobile">
+                       placeholder="Enter Business Mobile"
+                       disabled
+                >
                 <div *ngIf="submitted && form.businessmobile.errors" class="invalid-feedback">
                   <span *ngIf="form.businessmobile.errors.required">Business Mobile.</span>
                 </div>
@@ -213,7 +238,7 @@
                 <label class="control-label input-sm" for="county">County <strong
                   style="color:red">*</strong></label>
                 <input class="form-control input-sm" formControlName="county" id="county" placeholder="County"
-                       type="text">
+                       type="text" disabled>
               </div>
             </div>
 
@@ -222,8 +247,8 @@
                 <label class="control-label input-sm" for="subcounty">SubCounty <strong
                   style="color:red">*</strong></label>
                 <input class="form-control input-sm" formControlName="subcounty" id="subcounty"
-                       placeholder="Sub County "
-                       type="text">
+                       placeholder="Sub County"
+                       type="text" disabled>
               </div>
             </div>
 
@@ -232,7 +257,7 @@
                 <label class="control-label input-sm" for="ward">Ward <strong
                   style="color:red">*</strong></label>
                 <input class="form-control input-sm" formControlName="ward" id="ward" placeholder="Ward "
-                       type="text">
+                       type="text" disabled>
               </div>
             </div>
 
@@ -246,7 +271,7 @@
 
       <div class="text-center btn-group">
         <button (click)="Approve()" class="btn btn-success" type="submit">Approve</button>
-        <button (click)="Reject()" class="btn btn-danger ml-1" type="submit">reject</button>
+        <button (click)="Reject()" class="btn btn-danger ml-1" type="submit">Reject</button>
         <button (click)="cancel()" class="btn btn-dark ml-1" type="button">Cancel</button>
       </div>
     </form>

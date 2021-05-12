@@ -104,7 +104,7 @@ export class approveUsersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 
@@ -231,10 +231,10 @@ export class approveUsersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
         this.getUsers();
-        alert("Great! The user information was saved succesfully");
+        alert("Great! The user information was saved successfully");
 
       }else{
 
@@ -332,7 +332,7 @@ export class approveUsersComponent implements OnInit {
           userNationalId: ''
         });
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 

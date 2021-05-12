@@ -158,7 +158,7 @@ export class approveDeleteRoleComponent implements OnInit, OnDestroy {
            });*/
 
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 
@@ -229,7 +229,7 @@ export class approveDeleteRoleComponent implements OnInit, OnDestroy {
            });*/
 
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 

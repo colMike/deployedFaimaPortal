@@ -8,13 +8,12 @@ import {BlockUI, NgBlockUI} from 'ng-block-ui';
 import {DeviceService} from '../../services/device.service';
 import {DOCUMENT} from '@angular/common';
 
-
 @Component({
   selector: 'app-device-registration',
-  templateUrl: './approve-delete.component.html'
+  templateUrl: './delete-device.component.html'
 
 })
-export class ApproveDeleteComponent implements OnInit {
+export class DeleteDeviceComponent implements OnInit {
 
   // breadcrumb items
   breadCrumbItems: Array<{}>;
@@ -166,7 +165,9 @@ export class ApproveDeleteComponent implements OnInit {
 
   }
 
-  approveDeleteDevice() {
+  deleteDevice() {
+
+    console.log('deleting device');
     // this.Device1.subCountyId=this.subCountys.subCountyId;
     // this.Device1.subCountyId = this.deviceForm.get('Device1').value;
 
@@ -188,7 +189,7 @@ export class ApproveDeleteComponent implements OnInit {
     };
     console.log(subCounty2, '$$$$$$$$$$$$$$$');
     console.log(this.Device1, '$$$$$$$$$$$$$$$$');
-    this.deviceRegSvc.approveDeviceDeletion(subCounty2).subscribe((response) => {
+    this.deviceRegSvc.deleteDevice(subCounty2).subscribe((response) => {
       this.response = response;
       console.log(this.response.status, 'response');
       if (this.response.deviceid) {
@@ -205,7 +206,7 @@ export class ApproveDeleteComponent implements OnInit {
         this.isAddMode = true;
 
         // alert(response.respMessage);
-        return this.toastr.success('The device registration details were saved successfully', ' Success!', {timeOut: 3000});
+        return this.toastr.success('The device was successfully deleted. On approval, the device will be removed from the list', ' Success!', {timeOut: 3000});
 
 
       } else {
@@ -226,7 +227,7 @@ export class ApproveDeleteComponent implements OnInit {
     console.log(this.sessionId.entity.subCountyId, 'this.Device1');
     console.log(this.sessionId.entity, 'this.Device1');
 
-    this.deviceRegSvc.gtDeletedDevicesTOApprove().subscribe(dev => {
+    this.deviceRegSvc.gtDeviceReg().subscribe(dev => {
       // if(data){
 
 

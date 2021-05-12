@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <app-pagetitle title="User Details" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle [breadcrumbItems]="breadCrumbItems" title="User Details"></app-pagetitle>
 
 
-  <div class="row" *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) ">
+  <div *ngIf="(!isAddMode && !isExisting ) || (isExisting && isAddMode) " class="row">
 
-    <div class="col-lg-12"  >
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
 
@@ -16,7 +16,7 @@
                  <i class="mdi mdi-plus mr-2"></i> Add User
                </button>
              </div>-->
-          <div class="table-responsive mt-3"  >
+          <div class="table-responsive mt-3">
             <table class="table table-centered datatable dt-responsive nowrap"
                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead class="thead-light">
@@ -33,7 +33,7 @@
 
                 <th>Status</th>
 
-                <th >Action</th>
+                <th class="text-center">Action</th>
               </tr>
               </thead>
               <tbody>
@@ -53,25 +53,24 @@
                     <td>{{user.userNationalId}}</td>
                     <td>{{user.address}}</td>-->
                 <td>
-                  <div class="badge font-size-12" [ngClass]="{'badge-soft-danger': user.approved === 'Pending Approval',
-                    'badge-soft-success':user.approved === 'Approved'}">
+                  <div [ngClass]="{'badge-soft-danger': user.approved === 'Pending Approval',
+                    'badge-soft-success':user.approved === 'Approved'}" class="badge font-size-12">
                     <ngb-highlight [result]="user.approved"></ngb-highlight>
                   </div>
                   <!-- {{item.approved}}-->
                 </td>
 
-                <td>
-                  <button type="button"  class="close" aria-label="Close" (click)="initEditUser(user)" title="Edit user">
-
-                    <i class="ri-quill-pen-line"></i>
+                <td class="text-center">
+                  <button
+                    (click)="initEditUser(user)"
+                    class="btn-rounded btn-light btn-sm btn-outline-danger"
+                    title="Approve Delete"
+                    type="button">
+                    <i class="ri-check-double-line"></i>
+                    Approve Delete
                   </button>
-
-
-
-                  <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
-                       <i class="mdi mdi-trash-can font-size-18"></i>
-                     </a>-->
                 </td>
+
               </tr>
               </tbody>
             </table>
@@ -84,112 +83,119 @@
 
 <!-- Contacts model  -->
 <!--<ng-template #content role="document" let-modal="close"  *ngIf="!isAddMode " >-->
-<div class="modal-header"  >
+<!--<div class="modal-header">-->
 
 
-  <button type="button" class="close" aria-label="Close" ><!--(click)="modal('Cross click')"-->
+<!--  <button aria-label="Close" class="close" type="button">&lt;!&ndash;(click)="modal('Cross click')"&ndash;&gt;-->
 
-    <!--<span aria-hidden="true">&times;</span>-->
-  </button>
-</div>
+<!--    &lt;!&ndash;<span aria-hidden="true">&times;</span>&ndash;&gt;-->
+<!--  </button>-->
+<!--</div>-->
 
-<div class="modal-body p-3" *ngIf="(!isAddMode && isExisting)|| (!isExisting && isAddMode)"  >
-  <div class="text-left" >
+<div *ngIf="(!isAddMode && isExisting)|| (!isExisting && isAddMode)" class="modal-body p-3">
+  <div class="text-left">
 
-    <form  [formGroup]="userForm">
+    <form [formGroup]="userForm">
+
+      <div class="card p-5 col-xxl-8">
+        <div>
 
 
-      <div class="form-group row">
-        <label for="customername">Customer Name</label>
-        <input type="text" class="form-control" id="customername" placeholder="Enter User first name" formControlName="customername"
-        >
-        <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
-             <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
-               <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
-             </div>-->
-      </div>
-      <div class="form-group row">
-        <label for="phonenumber">Phone Number</label>
-        <input type="text" class="form-control" id="phonenumber" placeholder="Enter User second name" formControlName="phonenumber"
-        >
-        <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
-             <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
-               <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
-             </div>-->
-      </div>
-      <div class="form-group row">
-        <label for="email">Last name</label>
-        <input type="text" class="form-control" id="email" placeholder="Enter User last name" formControlName="email"
-        >
-        <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
-             <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
-               <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
-             </div>-->
-      </div>
-      <!-- <div class="form-group row">
-         <label for="address">Address</label>
-         <input type="text" class="form-control" id="address" placeholder="Enter User address" formControlName="address"
-         >
-         &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
-              <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
-                <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
-              </div>&ndash;&gt;
-       </div>
-
-       <div class="form-group row">
-         <label for="email">Email address</label>
-         <input class="form-control" id="email" placeholder="Enter email" formControlName="userEmail"
-         >
-         &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.email.errors}">
-          <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
-            <span *ngIf="form.email.errors.required">Email address is mandatory.</span>
-            <span *ngIf="form.email.errors.pattern">Please enter valid email.</span>
-          </div>&ndash;&gt;
-       </div>
-
-       <div class="form-group row">
-         <label>Phone </label>
-         <input type="number" class="form-control" placeholder="Enter phone number" formControlName="userPhone"
-         >
-         &lt;!&ndash;[ngClass]="{'is-invalid': submitted && form.userPhone.errors}" minlength="10">
-            <div *ngIf="submitted && form.userPhone.errors" class="invalid-feedback">
-              <span *ngIf="form.userPhone.errors.required">Phone is mandatory.</span>
-              <span *ngIf="form.userPhone.errors.minlength">Phone number must be 10 characters.</span>
-            </div>&ndash;&gt;
-       </div>
-
-       <div class="form-group row">
-         <label>National Id Number </label>
-         <input type="number" class="form-control" placeholder="Enter Id Number" formControlName="userNationalId"
-         >
-         &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.userNationalId.errors}">
-           <div *ngIf="submitted && form.userNationalId.errors" class="invalid-feedback">
-             <span *ngIf="form.userNationalId.errors.required">userNationalId is mandatory.</span>
-           </div>&ndash;&gt;
-       </div>
-       <div class="custom-control custom-checkbox">
-         <input type="checkbox" class="custom-control-input" id="active"  formControlName="active"/>
-         <label class="custom-control-label" for="active">Active</label>
-       </div>
- -->
-      <!--  <div class="form-group row">
-          <label>Date </label>
-          <input class="form-control" placeholder="Enter date" formControlName="date"
-            [ngClass]="{'is-invalid': submitted && form.date.errors}">
-          <div *ngIf="submitted && form.date.errors" class="invalid-feedback">
-            <span *ngIf="form.date.errors.required">Date is mandatory.</span>
+          <div class="form-group row">
+            <label for="customername">Customer Name</label>
+            <input class="form-control" formControlName="customername" id="customername" placeholder="Enter User first name"
+                   type="text"
+            >
+            <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
+                 <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
+                   <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
+                 </div>-->
           </div>
-        </div>-->
+          <div class="form-group row">
+            <label for="phonenumber">Phone Number</label>
+            <input class="form-control" formControlName="phonenumber" id="phonenumber" placeholder="Enter User second name"
+                   type="text"
+            >
+            <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
+                 <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
+                   <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
+                 </div>-->
+          </div>
+          <div class="form-group row">
+            <label for="email">Last name</label>
+            <input class="form-control" formControlName="email" id="email" placeholder="Enter User last name"
+                   type="text"
+            >
+            <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
+                 <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
+                   <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
+                 </div>-->
+          </div>
+          <!-- <div class="form-group row">
+             <label for="address">Address</label>
+             <input type="text" class="form-control" id="address" placeholder="Enter User address" formControlName="address"
+             >
+             &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
+                  <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">
+                    <span *ngIf="form.userFullName.errors.required">Name is mandatory.</span>
+                  </div>&ndash;&gt;
+           </div>
 
-      <div class="text-right">
-        <button type="submit" (click) ="Approve()" class="btn btn-success">Approve</button>
-        <button type="submit"  (click) ="Reject()" class="btn btn-success">Reject</button>
-        <button type="button" class="btn btn-danger ml-1"(click)="cancel()">Cancel</button>
+           <div class="form-group row">
+             <label for="email">Email address</label>
+             <input class="form-control" id="email" placeholder="Enter email" formControlName="userEmail"
+             >
+             &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.email.errors}">
+              <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                <span *ngIf="form.email.errors.required">Email address is mandatory.</span>
+                <span *ngIf="form.email.errors.pattern">Please enter valid email.</span>
+              </div>&ndash;&gt;
+           </div>
+
+           <div class="form-group row">
+             <label>Phone </label>
+             <input type="number" class="form-control" placeholder="Enter phone number" formControlName="userPhone"
+             >
+             &lt;!&ndash;[ngClass]="{'is-invalid': submitted && form.userPhone.errors}" minlength="10">
+                <div *ngIf="submitted && form.userPhone.errors" class="invalid-feedback">
+                  <span *ngIf="form.userPhone.errors.required">Phone is mandatory.</span>
+                  <span *ngIf="form.userPhone.errors.minlength">Phone number must be 10 characters.</span>
+                </div>&ndash;&gt;
+           </div>
+
+           <div class="form-group row">
+             <label>National Id Number </label>
+             <input type="number" class="form-control" placeholder="Enter Id Number" formControlName="userNationalId"
+             >
+             &lt;!&ndash; [ngClass]="{'is-invalid': submitted && form.userNationalId.errors}">
+               <div *ngIf="submitted && form.userNationalId.errors" class="invalid-feedback">
+                 <span *ngIf="form.userNationalId.errors.required">userNationalId is mandatory.</span>
+               </div>&ndash;&gt;
+           </div>
+           <div class="custom-control custom-checkbox">
+             <input type="checkbox" class="custom-control-input" id="active"  formControlName="active"/>
+             <label class="custom-control-label" for="active">Active</label>
+           </div>
+     -->
+          <!--  <div class="form-group row">
+              <label>Date </label>
+              <input class="form-control" placeholder="Enter date" formControlName="date"
+                [ngClass]="{'is-invalid': submitted && form.date.errors}">
+              <div *ngIf="submitted && form.date.errors" class="invalid-feedback">
+                <span *ngIf="form.date.errors.required">Date is mandatory.</span>
+              </div>
+            </div>-->
+
+          <div class="text-center">
+            <button (click)="Approve()" class="btn btn-success mr-2" type="submit">Approve</button>
+            <button (click)="Reject()" class="btn btn-warning mr-2" type="submit">Reject</button>
+            <button (click)="cancel()" class="btn btn-danger" type="button">Cancel</button>
+          </div>
+        </div>
       </div>
     </form>
   </div>
 </div>
-
 
 
 <!--</ng-template>-->

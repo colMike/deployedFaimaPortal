@@ -102,7 +102,7 @@ export class approveParkingComponent implements OnInit {
            });*/
 
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
         //alert(response.respMessage);
@@ -227,7 +227,7 @@ export class approveParkingComponent implements OnInit {
            });*/
 
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
         this.modalService.dismissAll();
 
 

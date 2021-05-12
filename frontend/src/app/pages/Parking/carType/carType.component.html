@@ -18,8 +18,8 @@
             </button>
           </div>
           <div class="table-responsive mt-3"  >
-            <table class="table table-centered datatable dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <table class="table table-hover table-bordered table-centered datatable dt-responsive nowrap p-4">
+
               <thead class="thead-light">
               <tr>
                 <!--   <th style="width: 20px;">
@@ -30,7 +30,7 @@
                    </th>-->
                 <th>Car Type Id</th>
                 <th>Car Type Name</th>
-                <th >Action</th>
+                <th class="text-center">Action</th>
               </tr>
               </thead>
               <tbody>
@@ -44,9 +44,14 @@
 
                 <td>{{user.carTypeId}}</td>
                 <td>{{user.carTypeName}}</td>
-                <td>
-                  <button type="button"   (click)="initEditcarType(user)" title="Edit user">
-                    <i class="ri-quill-pen-line"></i>
+
+                <td class="text-center">
+                  <button (click)="initEditcarType(user)"
+                          class="btn-rounded btn-light btn-sm btn-outline-primary"
+                          title="Edit car details"
+                          type="button">
+
+                    <i class="ri-quill-pen-line"></i> Edit Car Details
                   </button>
                 </td>
               </tr>
@@ -77,8 +82,14 @@
 
 
       <div class="form-group row">
-        <label for="CarTypeName">Car Type Name</label>
-        <input type="text" class="form-control" id="CarTypeName" placeholder="Enter Car Type Name" formControlName="carTypeName"
+        <label for="carTypeName">Car Type Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="carTypeName"
+          placeholder="Enter Car Type Name"
+          formControlName="carTypeName"
+          [value]="carTypeForm.get('carTypeName').value | titlecase"
         >
         <!-- [ngClass]="{'is-invalid': submitted && form.userFullName.errors}">
              <div *ngIf="submitted && form.userFullName.errors" class="invalid-feedback">

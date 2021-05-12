@@ -63,7 +63,7 @@ export class DeviceRegComponent implements OnInit {
     // this.blockUI.start('Loading device data...');
 
     this.getDevices();
-    //this.initAddsubCounty();
+    // this.initAddsubCounty();
     // this.initEditsubCounty();
     /*  this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'subCountys', active: true }];*/
 
@@ -85,7 +85,7 @@ export class DeviceRegComponent implements OnInit {
 
 
     this.deviceForm = this.formBuilder.group({
-      device_imei: ['', [Validators.required]],
+      deviceimei: ['', [Validators.required]],
       active: [false, [Validators.required]],
 
 
@@ -107,11 +107,12 @@ export class DeviceRegComponent implements OnInit {
    */
   saveData() {
 
+    this.blockUI.start('Loading Devices');
 
-    this.Device1 = this.deviceForm.value;
+    const deviceToSave = this.deviceForm.value;
 
-    this.Device1.device_imei = this.deviceForm.get('device_imei').value;
-    this.Device1.active = this.deviceForm.get('active').value;
+    deviceToSave.deviceimei = this.deviceForm.get('deviceimei').value;
+    deviceToSave.active = this.deviceForm.get('active').value;
 
 
     // this.Device1.subCountyFullName=(+ this.deviceForm.get('secondname').value +this.deviceForm.get('lastname').value;
@@ -123,41 +124,55 @@ export class DeviceRegComponent implements OnInit {
     console.log(this.sessionId.entity.subCountyId, 'this.Device1');
     console.log(this.sessionId.entity, 'this.Device1');
 
-    this.Device1.createdBy = this.sessionId.entity.userId;
-    console.log(this.Device1.createdBy, 'this.Device1.createdBy');
+    deviceToSave.createdby = this.sessionId.entity.userId;
+    console.log(this.Device1.createdby, 'this.Device1.createdby');
 
-    this.deviceRegSvc.addDeviceReg(this.Device1).subscribe((response) => {
-      this.response = response;
-      console.log(this.response.status, 'response');
-      if (this.response.status === 200) {
+    this.deviceRegSvc.addDeviceReg(deviceToSave).subscribe((result) => {
 
+      this.blockUI.stop();
+      console.log('result');
+      console.log(result);
 
-        //  logger.info("Great! The subCounty information was saved succesfully")
+      this.response = result;
+      if (this.response.deviceid) {
+        //  logger.info("Great! The subCounty information was saved successfully")
         this.modalService.dismissAll();
         this.getDevices();
         return this.toastr.success('Great! The device registration details were saved successfully', ' Success!', {timeOut: 3000});
 
-        //  alert("Great! The subCounty information was saved succesfully");
+        //  alert("Great! The subCounty information was saved successfully");
 
       } else {
         return this.toastr.error('Exception Occurred', ' Error!', {timeOut: 3000});
 
       }
       this.submitted = true;
+    }, er => {
+      this.blockUI.stop();
+      console.log(JSON.stringify(er));
+
+      // if (error.message === 'Record already exists') {
+
+      this.modalService.dismissAll();
+      this.getDevices();
+
+      return this.toastr.warning('Sorry, This device is already registered.', ' Warning!', {timeOut: 3000});
+
+      // }
     });
   }
 
   initEditDevice(device) {
     this.isAddMode = false;
     this.isExisting = true;
-    this.Device1.id = device.id;
+    this.Device1.deviceid = device.deviceid;
     console.log(this.Device1.subCountyId, 'subCounty id ................');
 
 
     this.deviceForm = this.formBuilder.group({
-      device_imei: new FormControl(device.device_imei, Validators.required),
+      deviceimei: new FormControl(device.deviceimei, Validators.required),
       active: new FormControl(device.active === 'false' ? false : true, Validators.required),
-      id: new FormControl(device.id, Validators.required)
+      deviceid: new FormControl(device.deviceid, Validators.required)
 
     });
 
@@ -171,20 +186,21 @@ export class DeviceRegComponent implements OnInit {
   }
 
   updateDevice() {
-    //this.Device1.subCountyId=this.subCountys.subCountyId;
+    this.blockUI.start('Loading');
+    // this.Device1.subCountyId=this.subCountys.subCountyId;
     // this.Device1.subCountyId = this.deviceForm.get('Device1').value;
 
-    //this.Device1.subCountyId=this.subCountyId;
+    // this.Device1.subCountyId=this.subCountyId;
 
 
     console.log(this.Device1.subCountyId, ' this.Device1.subCountyId');
-    this.Device1.device_imei = this.deviceForm.get('device_imei').value;
+    this.Device1.deviceimei = this.deviceForm.get('deviceimei').value;
     this.Device1.active = this.deviceForm.get('active').value;
-    this.Device1.id = this.deviceForm.get('id').value;
+    this.Device1.deviceid = this.deviceForm.get('deviceid').value;
 
     const subCounty2 = {
-      'id': this.Device1.id,
-      'device_imei': this.Device1.device_imei,
+      'deviceid': this.Device1.deviceid,
+      'deviceimei': this.Device1.deviceimei,
       'active': this.Device1.active,
 
 
@@ -192,22 +208,23 @@ export class DeviceRegComponent implements OnInit {
     console.log(subCounty2, '$$$$$$$$$$$$$$$');
     console.log(this.Device1, '$$$$$$$$$$$$$$$$');
     this.deviceRegSvc.addDeviceReg(subCounty2).subscribe((response) => {
+      this.blockUI.stop();
       this.response = response;
       console.log(this.response.status, 'response');
-      if (this.response.status === 200) {
+      if (this.response.deviceid) {
 
 
-        //logger.info("Great! The subCounty information was saved succesfully")
+        // logger.info("Great! The subCounty information was saved successfully")
 
         this.modalService.dismissAll();
 
 
-        //alert(response.respMessage);
+        // alert(response.respMessage);
 
         this.getDevices();
         this.isAddMode = true;
 
-        //alert(response.respMessage);
+        // alert(response.respMessage);
         return this.toastr.success('The device registration details were saved successfully', ' Success!', {timeOut: 3000});
 
 
@@ -234,7 +251,9 @@ export class DeviceRegComponent implements OnInit {
 
 
       this.Device1 = dev;
-      //this.blockUI.stop();
+
+
+      // this.blockUI.stop();
       /* }
        else{*/
       for (var i = 0; i <= this.Device1.length - 1; i++) {
@@ -250,18 +269,18 @@ export class DeviceRegComponent implements OnInit {
         }
         console.log(this.Device1, 'data.message');
         // this.blockUI.stop();
-        //return this.toastr.info(data.message);
-        //}
+        // return this.toastr.info(data.message);
+        // }
       }
     }, () => {
       console.log('error fetching customers...');
-      //this.blockUI.stop();
+      // this.blockUI.stop();
     });
   }
 
 
   checkItem() {
-    console.log('value is: ' + this.form.active.value);
+
     return this.form.active.value === 'true' ? true : false;
   }
 }

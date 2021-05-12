@@ -1,28 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
 
-import { LayoutsModule } from './layouts/layouts.module';
-import { PagesModule } from './pages/pages.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {LayoutsModule} from './layouts/layouts.module';
+import {PagesModule} from './pages/pages.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 
-import { initFirebaseBackend } from './authUtils';
+import {initFirebaseBackend} from './authUtils';
 
-import { ErrorInterceptor } from './core/helpers/error.interceptor';
-import { JwtInterceptor } from './core/helpers/jwt.interceptor';
-import { FakeBackendInterceptor } from './core/helpers/fake-backend';
-import {BlockUIModule} from "ng-block-ui";
-import {SpinnerComponent} from "./layouts/shared/spinner.component";
-import {MySharedService} from "./pages/services/sharedService";
-import {ArchwizardModule} from "angular-archwizard";
-import {WizardComponent} from "./pages/form/wizard/wizard.component";
+import {ErrorInterceptor} from './core/helpers/error.interceptor';
+import {JwtInterceptor} from './core/helpers/jwt.interceptor';
+import {FakeBackendInterceptor} from './core/helpers/fake-backend';
+import {BlockUIModule} from 'ng-block-ui';
+import {SpinnerComponent} from './layouts/shared/spinner.component';
+import {MySharedService} from './pages/services/sharedService';
+import {ArchwizardModule} from 'angular-archwizard';
+import {WizardComponent} from './pages/form/wizard/wizard.component';
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -38,7 +38,7 @@ export function createTranslateLoader(http: HttpClient): any {
 @NgModule({
   declarations: [
     AppComponent,
-SpinnerComponent,
+    SpinnerComponent,
 
 
   ],
@@ -61,12 +61,13 @@ SpinnerComponent,
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true},
     MySharedService,
     WizardComponent
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

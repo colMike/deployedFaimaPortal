@@ -11,10 +11,10 @@ import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-device-registration',
-  templateUrl: './approve-delete.component.html'
+  templateUrl: './approve-issue.component.html'
 
 })
-export class ApproveDeleteComponent implements OnInit {
+export class ApproveIssueComponent implements OnInit {
 
   // breadcrumb items
   breadCrumbItems: Array<{}>;
@@ -166,7 +166,7 @@ export class ApproveDeleteComponent implements OnInit {
 
   }
 
-  approveDeleteDevice() {
+  updateDevice() {
     // this.Device1.subCountyId=this.subCountys.subCountyId;
     // this.Device1.subCountyId = this.deviceForm.get('Device1').value;
 
@@ -182,13 +182,12 @@ export class ApproveDeleteComponent implements OnInit {
       'deviceid': this.Device1.deviceid,
       'deviceimei': this.Device1.deviceimei,
       'active': this.Device1.active,
-      'deletedby': this.sessionId.entity.userId
 
 
     };
     console.log(subCounty2, '$$$$$$$$$$$$$$$');
     console.log(this.Device1, '$$$$$$$$$$$$$$$$');
-    this.deviceRegSvc.approveDeviceDeletion(subCounty2).subscribe((response) => {
+    this.deviceRegSvc.addDeviceReg(subCounty2).subscribe((response) => {
       this.response = response;
       console.log(this.response.status, 'response');
       if (this.response.deviceid) {
@@ -226,7 +225,7 @@ export class ApproveDeleteComponent implements OnInit {
     console.log(this.sessionId.entity.subCountyId, 'this.Device1');
     console.log(this.sessionId.entity, 'this.Device1');
 
-    this.deviceRegSvc.gtDeletedDevicesTOApprove().subscribe(dev => {
+    this.deviceRegSvc.gtDeviceReg().subscribe(dev => {
       // if(data){
 
 

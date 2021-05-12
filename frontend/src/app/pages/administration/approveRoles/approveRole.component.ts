@@ -162,7 +162,7 @@ export class approveRoleComponent implements OnInit, OnDestroy {
            });*/
 
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 
@@ -245,7 +245,7 @@ export class approveRoleComponent implements OnInit, OnDestroy {
            });*/
 
 
-        //logger.info("Great! The user information was saved succesfully")
+        //logger.info("Great! The user information was saved successfully")
 
 
 

@@ -1,14 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {UsersComponent} from "./users/users.component";
-import {approveUsersComponent} from "./approveUsers/approveUsers.component";
-import {deleteUsersComponent} from "./deleteUsers/deleteUsers.component";
-import {approveDeleteUsersComponent} from "./approveDeleteUsers/approveDeleteUsers.component";
-import {ServiceGuard} from "../services/service.guard";
-
-
-
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {UsersComponent} from './users/users.component';
+import {approveUsersComponent} from './approveUsers/approveUsers.component';
+import {deleteUsersComponent} from './deleteUsers/deleteUsers.component';
+import {approveDeleteUsersComponent} from './approveDeleteUsers/approveDeleteUsers.component';
 
 
 const routes: Routes = [
@@ -16,22 +11,22 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-   // canActivate: [ServiceGuard]
+    // canActivate: [ServiceGuard]
   },
   {
     path: 'approveUsers',
     component: approveUsersComponent,
-    //canActivate: [ServiceGuard]
+    // canActivate: [ServiceGuard]
   },
   {
     path: 'deleteUsers',
     component: deleteUsersComponent,
-    //canActivate: [ServiceGuard]
+    // canActivate: [ServiceGuard]
   },
   {
     path: 'approvedeleteusers',
     component: approveDeleteUsersComponent,
-   // canActivate: [ServiceGuard]
+    // canActivate: [ServiceGuard]
   }
 
 
@@ -41,4 +36,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {
+}

@@ -9,6 +9,7 @@ import {DOCUMENT} from '@angular/common';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeviceService} from '../../services/device.service';
+import {AgentService} from '../../services/agent.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class DeviceIssueComponent implements OnInit {
   // breadcrumb items
   breadCrumbItems: Array<{}>;
   public Device1: any = [];
+  public agents: any = [];
   public region1: any = [];
   arrs = [];
   public subCountys: any = [];
@@ -34,6 +36,11 @@ export class DeviceIssueComponent implements OnInit {
   status: any;
   storageObject: any = {};
 
+  languages = [
+    {id: 1, name: 'Kiswahili', value: 'en'},
+    {id: 2, name: 'English', value: 'ki'}
+  ];
+
   // subCountysData: subCountys[];
 
   deviceIssueForm: FormGroup;
@@ -43,7 +50,9 @@ export class DeviceIssueComponent implements OnInit {
   public DeviceIssue1: any;
 
   constructor(private toastr: ToastrService,
-              private deviceRegSvc: DeviceService, @Inject(DOCUMENT) private document: any, public formBuilder: FormBuilder,
+              private deviceRegSvc: DeviceService,
+              private agentSvc: AgentService,
+              @Inject(DOCUMENT) private document: any, public formBuilder: FormBuilder,
               private modalService: NgbModal
   ) {
   }
@@ -56,7 +65,11 @@ export class DeviceIssueComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getPosUsers();
+
+    this.getAgents();
+
     this.getDevicesIssued();
 
     this.getDevicesToIssue();
@@ -88,10 +101,10 @@ export class DeviceIssueComponent implements OnInit {
 
 
     this.deviceIssueForm = this.formBuilder.group({
-      device_imei: ['', [Validators.required]],
-      userId: ['', [Validators.required]],
-
-
+      deviceimei: ['', [Validators.required]],
+      agentid: ['', [Validators.required]],
+      agentnames: ['', [Validators.required]],
+      devicelanguage: ['', [Validators.required]]
     });
 
   }
@@ -106,15 +119,21 @@ export class DeviceIssueComponent implements OnInit {
   }
 
   /**
-   * save the subCountys data
+   * save the subCounty's data
    */
   saveData() {
 
 
     this.Device1 = this.deviceIssueForm.value;
 
-    this.Device1.device_imei = this.deviceIssueForm.get('device_imei').value;
-    this.Device1.userId = this.deviceIssueForm.get('userId').value;
+    console.log('Here is device one: this.Device1');
+    console.log(this.Device1);
+
+    this.Device1.agentnames = this.getAgentNames();
+    this.Device1.agentid = this.deviceIssueForm.get('agentid').value;
+    this.Device1.deviceimei = this.deviceIssueForm.get('deviceimei').value;
+    this.Device1.lang = this.deviceIssueForm.get('devicelanguage').value;
+    this.Device1.linkmaker = this.sessionId.entity.userId;
 
 
     // this.Device1.subCountyFullName=(+ this.deviceIssueForm.get('secondname').value +this.deviceIssueForm.get('lastname').value;
@@ -126,21 +145,21 @@ export class DeviceIssueComponent implements OnInit {
     console.log(this.sessionId.entity.subCountyId, 'this.Device1');
     console.log(this.sessionId.entity, 'this.Device1');
 
-    this.Device1.issuedBy = this.sessionId.entity.userId;
-    console.log(this.Device1.issuedBy, 'this.Device1.createdBy');
+
+    console.log(this.Device1, 'this.Device1');
 
     this.deviceRegSvc.addDevice(this.Device1).subscribe((response) => {
       this.response = response;
-      console.log(this.response.status, 'response');
-      if (this.response.status === 200) {
+
+      if (this.response) {
 
 
-        // logger.info("Great! The subCounty information was saved succesfully")
+        // logger.info("Great! The subCounty information was saved successfully")
         this.modalService.dismissAll();
         this.getDevicesIssued();
-        return this.toastr.success('Great! The subCounty information was saved succesfully"', ' Success!', {timeOut: 3000});
+        return this.toastr.success('Great! The device has ben successfully linked to an agent"', ' Success!', {timeOut: 3000});
 
-        // alert("Great! The subCounty information was saved succesfully");
+        // alert("Great! The subCounty information was saved successfully");
 
       } else {
         return this.toastr.error('Exception Occurred', ' Error!', {timeOut: 3000});
@@ -156,8 +175,11 @@ export class DeviceIssueComponent implements OnInit {
     this.Device1.id = device.id;
     console.log(this.Device1, 'subCounty id ................');
     this.deviceIssueForm = this.formBuilder.group({
-      device_imei: new FormControl(device.device_imei, Validators.required),
-      userId: new FormControl(device.userId, Validators.required),
+      deviceimei: new FormControl(device.deviceimei, Validators.required),
+      agentid: new FormControl(device.agentid, Validators.required),
+      agentnames: new FormControl(device.agentnames, Validators.required),
+      devicelanguage: new FormControl(device.devicelanguage, Validators.required),
+
       id: new FormControl(device.id, Validators.required)
 
     });
@@ -180,25 +202,28 @@ export class DeviceIssueComponent implements OnInit {
 
     console.log(this.Device1.subCountyId, ' this.Device1.subCountyId');
 
-    this.Device1.device_imei = this.deviceIssueForm.get('device_imei').value;
-    this.Device1.userId = this.deviceIssueForm.get('userId').value;
+    this.Device1.deviceimei = this.deviceIssueForm.get('deviceimei').value;
+    this.Device1.agentnames = this.deviceIssueForm.get('agentnames').value;
+    this.Device1.agentid = this.deviceIssueForm.get('agentid').value;
+    this.Device1.devicelanguage = this.deviceIssueForm.get('devicelanguage').value;
+    this.Device1.agentnames = this.getAgentNames();
 
-    const subCounty2 = {
-      id: this.Device1.id,
-      device_imei: this.Device1.device_imei,
-      userId: this.Device1.userId,
-
-
+    const updateObj = {
+      agentid: this.Device1.agentid,
+      deviceimei: this.Device1.deviceimei,
+      agentnames: this.Device1.agentnames,
+      lang: this.Device1.devicelanguage,
+      linkmaker: this.sessionId.entity.userId
     };
-    console.log(subCounty2, '$$$$$$$$$$$$$$$');
-    console.log(this.Device1, '$$$$$$$$$$$$$$$$');
-    this.deviceRegSvc.addDevice(subCounty2).subscribe((response) => {
+    console.log(updateObj, '$$$$$$$$$$$$$$$');
+
+    this.deviceRegSvc.addDevice(updateObj).subscribe((response) => {
       this.response = response;
       console.log(this.response.status, 'response');
-      if (this.response.status === 200) {
+      if (this.response.agentnames) {
 
 
-        // logger.info("Great! The subCounty information was saved succesfully")
+        // logger.info("Great! The subCounty information was saved successfully")
 
         this.modalService.dismissAll();
 
@@ -209,7 +234,7 @@ export class DeviceIssueComponent implements OnInit {
         this.isAddMode = true;
 
         // alert(response.respMessage);
-        return this.toastr.success('Great! The device issue information was saved successfully"', ' Success!', {timeOut: 3000});
+        return this.toastr.success('Great! The device has ben successfully linked to an agent"', ' Success!', {timeOut: 3000});
 
 
       } else {
@@ -236,7 +261,7 @@ export class DeviceIssueComponent implements OnInit {
 
       this.Device1 = dev;
       console.log(this.Device1);
-      this.arrs = this.Device1.collection;
+      this.arrs = this.Device1;
       // this.blockUI.stop();
       console.log(this.arrs);
       /*  for(var i = 0;i <= this.arrs.length - 1;i++){
@@ -244,7 +269,7 @@ export class DeviceIssueComponent implements OnInit {
 
 
 
-            device_imei: this.Device1.collection[i]. device_imei,
+            deviceimei: this.Device1.collection[i]. deviceimei,
             active: this.Device1.collection[i].active,
             userFullName: this.Device1.userFullName,
 
@@ -342,6 +367,7 @@ export class DeviceIssueComponent implements OnInit {
       // this.blockUI.stop();
       /* }
        else{*/
+
       for (let i = 0; i <= this.Device1.length - 1; i++) {
         console.log(this.Device1[i].approved, 'this.Device1.approved');
 
@@ -362,6 +388,30 @@ export class DeviceIssueComponent implements OnInit {
       console.log('error fetching customers...');
       // this.blockUI.stop();
     });
+  }
+
+  getAgents() {
+    this.agentSvc.gtAgent().subscribe(agent => {
+
+      this.agents = agent;
+
+      console.log(this.agents, 'data.message');
+
+    }, () => {
+      console.log('error fetching customers...');
+    });
+  }
+
+  getAgentNames() {
+    if (this.pos1 === undefined) {
+      return;
+    }
+    const agent = this.pos1.filter(item => item.agentid === this.deviceIssueForm.get('agentid').value);
+    if (agent[0] === undefined) {
+      return;
+    }
+    return agent[0].agentnames;
+
   }
 
 

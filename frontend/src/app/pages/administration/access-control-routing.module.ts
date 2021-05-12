@@ -1,15 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {AccessControlComponent} from "./accessControl/accessControl.component";
-import {ServiceGuard} from "../services/service.guard";
-import {approveDeleteRoleComponent} from "./approveDeleteRoles/approveDeleteRole.component";
-import {deleteRoleComponent} from "./deleteRoles/deleteRole.component";
-import {approveRoleComponent} from "./approveRoles/approveRole.component";
-
-
-
-
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AccessControlComponent} from './accessControl/accessControl.component';
+import {approveDeleteRoleComponent} from './approveDeleteRoles/approveDeleteRole.component';
+import {deleteRoleComponent} from './deleteRoles/deleteRole.component';
+import {approveRoleComponent} from './approveRoles/approveRole.component';
 
 
 const routes: Routes = [
@@ -20,7 +14,7 @@ const routes: Routes = [
 
     component: AccessControlComponent
 
-   // canActivate: [ServiceGuard]
+    // canActivate: [ServiceGuard]
 
   },
   {
@@ -52,4 +46,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AccessControlRoutingModule { }
+export class AccessControlRoutingModule {
+}

@@ -1,34 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // tslint:disable-next-line: max-line-length
-import { NgbAccordionModule, NgbNavModule, NgbTypeaheadModule, NgbPaginationModule, NgbCollapseModule, NgbTooltipModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { ArchwizardModule } from 'angular-archwizard';
-import { Ng5SliderModule } from 'ng5-slider';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { DropzoneModule } from 'ngx-dropzone-wrapper';
-import {AgentsRoutingModule} from "./agents-routing.module";
+import {
+  NgbAccordionModule,
+  NgbCollapseModule,
+  NgbModalModule,
+  NgbNavModule,
+  NgbPaginationModule,
+  NgbTooltipModule,
+  NgbTypeaheadModule
+} from '@ng-bootstrap/ng-bootstrap';
+import {ArchwizardModule} from 'angular-archwizard';
+import {Ng5SliderModule} from 'ng5-slider';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {DropzoneModule} from 'ngx-dropzone-wrapper';
+import {AgentsRoutingModule} from './agents-routing.module';
 
 
-
-import {approveAgentsComponent} from "./approveAgents/approveAgents.component";
-import {AgentsComponent} from "./agents/agents.component";
-import {deleteAgentsComponent} from "./deleteAgents/deleteAgents.components";
-import {UiModule} from "../../shared/ui/ui.module";
-import {approveDeleteUsersComponent} from "../Users/approveDeleteUsers/approveDeleteUsers.component";
-import {approveDeleteAgentsComponent} from "./approveDeleteAgents/approveDeleteAgents.component";
-
-
-
-
-
-
+import {approveAgentsComponent} from './approveAgents/approveAgents.component';
+import {AgentsComponent} from './agents/agents.component';
+import {deleteAgentsComponent} from './deleteAgents/deleteAgents.components';
+import {UiModule} from '../../shared/ui/ui.module';
+import {approveDeleteAgentsComponent} from './approveDeleteAgents/approveDeleteAgents.component';
 
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [AgentsComponent,deleteAgentsComponent,approveAgentsComponent,approveDeleteAgentsComponent],
+  declarations: [AgentsComponent, deleteAgentsComponent, approveAgentsComponent, approveDeleteAgentsComponent],
 
   imports: [
     CommonModule,
@@ -50,4 +50,5 @@ import {approveDeleteAgentsComponent} from "./approveDeleteAgents/approveDeleteA
     NgbModalModule
   ]
 })
-export class AgentsModule { }
+export class AgentsModule {
+}
