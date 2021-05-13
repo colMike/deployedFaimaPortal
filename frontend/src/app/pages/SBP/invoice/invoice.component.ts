@@ -594,8 +594,8 @@ export class InvoiceComponent implements OnInit, OnDestroy {
           });*/
 
 
-    this.reportUrl = `http://localhost:20204/revenueCollection/api/erevenue/reports?type=I&businnessNo=${this.businessNo}&approvedUser=${this.approvedUser}&appliedFor=${this.appliedFor}`;
-    // this.reportUrl = `http://197.220.114.46:20204/revenueCollection/api/erevenue/reports?type=I&businnessNo=${this.businessNo}&approvedUser=${this.approvedUser}&appliedFor=${this.appliedFor}`;
+    // this.reportUrl = `http://localhost:20204/revenueCollection/api/erevenue/reports?type=I&businnessNo=${this.businessNo}&approvedUser=${this.approvedUser}&appliedFor=${this.appliedFor}`;
+    this.reportUrl = `http://197.220.114.46:20204/revenueCollection/api/erevenue/reports?type=I&businnessNo=${this.businessNo}&approvedUser=${this.approvedUser}&appliedFor=${this.appliedFor}`;
   }
 
   getsubCountys() {

@@ -20,28 +20,19 @@
                        <label class="custom-control-label" for="customercheck">&nbsp;</label>
                      </div>&ndash;&gt;
                    </th>-->
-                <th>Service Name</th>
                 <th>Sub-County</th>
-
-                <th>Car Type</th>
-                <th>Fee</th>
-
-                <th >Action</th>
+                <th class="text-center">Service Name</th>
+                <th class="text-center">Car Type</th>
+                <th class="text-center">Fee</th>
+                <th class="text-center">Action</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let user of price1; let i= index ">
-                <!--     <td>
-                       <div class="custom-control custom-checkbox">
-                         <input type="checkbox" class="custom-control-input" :id="customercheck{{i}}" />
-                         <label class="custom-control-label" :for="customercheck{{i}}">&nbsp;</label>
-                       </div>
-                     </td>-->
-
-                <td ><li *ngFor="let item of Parkings1">{{item.serviceName}}</li></td>
-                <td><li *ngFor="let item of region1">{{item.subCountyName}}</li></td>
-                <td><li *ngFor="let item of car1">{{item.carTypeName}}</li></td>
-                <td>{{user.fee}}</td>
+                <td>{{user.subcountyName | titlecase }}</td>
+                <td class="text-center">{{user.serviceName}}</td>
+                <td class="text-center">{{user.carTypeName}}</td>
+                <td class="text-center">{{user.fee}}</td>
 
                 <!--  <td>
                     <div class="badge font-size-12" [ngClass]="{'badge-soft-danger': user.approved === 'Pending Approval',
@@ -51,16 +42,15 @@
                     &lt;!&ndash; {{item.approved}}&ndash;&gt;
                   </td>-->
 
-                <td>
-                  <button type="button"
-                          class="btn-rounded btn-light btn-sm btn-outline-primary"
-                          (click)="initEditParking(user)"
-                          title="Edit user">
+                <td class="text-center">
 
-                    <i class="ri-quill-pen-line"></i>
+                  <button (click)="initEditParking(user)"
+                          class="btn-rounded btn-light btn-sm btn-outline-danger"
+                          title="Approve Delete"
+                          type="button">
+
+                    <i class="ri-check-double-line"></i> Approve Delete
                   </button>
-
-
 
                   <!--   <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete">
                        <i class="mdi mdi-trash-can font-size-18"></i>
