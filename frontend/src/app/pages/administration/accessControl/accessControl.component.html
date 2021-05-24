@@ -10,7 +10,8 @@
           <h4 class="card-title">User Groups</h4>
 
           <div class="table table-responsive smart-table">
-            <ng2-smart-table (create)="initAddGroup()" (edit)="initEditGroup($event)" [settings]="settings" [source]="source"
+            <ng2-smart-table (create)="initAddGroup()" (edit)="initEditGroup($event)" [settings]="settings"
+                             [source]="source"
                              class="table table-bordered"></ng2-smart-table>
           </div>
         </div>
@@ -33,8 +34,14 @@
                     <label class="control-label text-left col-md-2">Group code</label>
                     <div class="col-md-10">
                       <fieldset [disabled]="is_edit">
-                        <input [(ngModel)]="userGroup.groupCode" [ngModelOptions]="{standalone: true}" class="form-control"
-                               type="text">
+<!--                        [value]="'_'+userGroup.groupName+'_'"-->
+                        <input
+                          [(ngModel)]="userGroup.groupCode"
+                          [ngModelOptions]="{standalone: true}"
+
+                          class="form-control"
+                          disabled
+                          type="text">
                       </fieldset>
                     </div>
                   </div>
@@ -47,7 +54,8 @@
                   <div class="form-group has-danger row">
                     <label class="control-label text-left col-md-2">Group name</label>
                     <div class="col-md-10">
-                      <input [(ngModel)]="userGroup.groupName" [ngModelOptions]="{standalone: true}" class="form-control form-control-danger"
+                      <input [(ngModel)]="userGroup.groupName" [ngModelOptions]="{standalone: true}"
+                             class="form-control form-control-danger"
                              type="text">
                     </div>
                   </div>
@@ -61,7 +69,8 @@
                   <div class="form-group row">
                     <label class="control-label text-right col-md-2"></label>
                     <div class="custom-control custom-checkbox">
-                      <input [(ngModel)]="userGroup.active" [ngModelOptions]="{standalone: true}" class="custom-control-input"
+                      <input [(ngModel)]="userGroup.active" [ngModelOptions]="{standalone: true}"
+                             class="custom-control-input"
                              id="customCheck1" type="checkbox">
                       <label class="custom-control-label" for="customCheck1">Active</label>
                     </div>
@@ -82,9 +91,9 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Right name</th>
-                        <th scope="col" class="text-center">View</th>
-                        <th scope="col" class="text-center">Add</th>
-                        <th scope="col" class="text-center">Edit</th>
+                        <th class="text-center" scope="col">View</th>
+                        <th class="text-center" scope="col">Add</th>
+                        <th class="text-center" scope="col">Edit</th>
                         <!-- <th scope="col">Delete</th> -->
                       </tr>
                       </thead>
@@ -95,12 +104,12 @@
                         <td class="text-center">
                           <input [(ngModel)]="right.allowView" [ngModelOptions]="{standalone: true}" type="checkbox">
                         </td>
-                        <td  class="text-center">
+                        <td class="text-center">
                           <label>
                             <input [(ngModel)]="right.allowAdd" [ngModelOptions]="{standalone: true}" type="checkbox">
                           </label>
                         </td>
-                        <td  class="text-center">
+                        <td class="text-center">
                           <label>
                             <input [(ngModel)]="right.allowEdit" [ngModelOptions]="{standalone: true}" type="checkbox">
                           </label>

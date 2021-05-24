@@ -174,59 +174,84 @@ const transactions = [
         orderid: '#NZ1563',
         date: '28 Mar, 2020',
         billingname: 'Frank Dean',
-        total: '$164',
+        total: 'KES 164',
         paymentstatus: 'Unpaid'
     },
     {
         orderid: '#NZ1564',
         date: '28 Mar, 2020',
         billingname: 'Eddy Torres',
-        total: '$141',
+        total: 'KES 141',
         paymentstatus: 'Paid'
     },
     {
         orderid: '#NZ1565',
         date: '29 Mar, 2020',
         billingname: 'Jamison Clark',
-        total: '$123',
+        total: 'KES 123',
         paymentstatus: 'Paid'
     },
     {
         orderid: '#NZ1566',
         date: '30 Mar, 2020',
         billingname: 'Jewel Buckley',
-        total: '$112',
+        total: 'KES 112',
         paymentstatus: 'Paid'
     },
     {
         orderid: '#NZ1567',
         date: '31 Mar, 2020',
         billingname: 'Jeffrey Waltz',
-        total: '$105',
+        total: 'KES 105',
         paymentstatus: 'Unpaid'
     },
     {
         orderid: '#NZ1568',
         date: '01 Apr, 2020',
         billingname: 'Jefferson Allen',
-        total: '$160',
+        total: 'KES 160',
         paymentstatus: 'Chargeback'
     }
 ];
 
 const statData = [
     {
-        icon: 'ri-stack-line',
-        title: 'Number of Sales',
-        value: '1452'
-    }, {
-        icon: 'ri-store-2-line',
-        title: 'Sales Revenue',
-        value: '$ 38452'
+        icon: 'ri-shield-user-fill',
+        title: 'Users',
+        value: '8'
+    },
+    {
+      icon: 'ri-shopping-cart-2-fill',
+      title: 'Markets',
+      value: '10'
+    },
+    {
+        icon: 'ri-device-fill',
+        title: 'Devices',
+        value: '6'
+    },
+    {
+      icon: 'ri-customer-service-2-fill',
+      title: 'Services',
+      value: '6'
+    },
+    {
+        icon: 'ri-briefcase-4-line',
+        title: 'Parking Fees Collected',
+        value: 'KES 38.50'
     }, {
         icon: 'ri-briefcase-4-line',
-        title: 'Average Price',
-        value: '$ 15.4'
+        title: 'SBP Collections',
+        value: 'KES 15.4'
+    },
+    {
+        icon: 'ri-briefcase-4-line',
+        title: 'Land Rates Collections',
+        value: 'KES 38,452'
+    }, {
+        icon: 'ri-briefcase-4-line',
+        title: 'POS Collections',
+        value: 'KES 15.4'
     }
 ];
 

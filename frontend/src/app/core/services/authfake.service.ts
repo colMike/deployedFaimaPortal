@@ -135,6 +135,9 @@ export class AuthfakeauthenticationService {
                }
                return user;*/
           });
+          } else if(user.entity.respCode == 400) {
+          this.blockUI.stop();
+          return this.toastr.warning('This user is already logged in.', 'Alert!', {timeOut: 1500});
         } else {
           this.blockUI.stop();
           return this.toastr.warning('Invalid Username or Password', 'Alert!', {timeOut: 1500});

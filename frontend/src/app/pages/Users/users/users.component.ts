@@ -107,7 +107,7 @@ export class UsersComponent implements OnInit {
       userEmail: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       active: ['', [Validators.required]],
       userNationalId: ['', [Validators.required, Validators.maxLength(8)]],
-      userGroupTypeId: ['', [Validators.required]]
+      userGroupTypeId: [1, [Validators.required]]
 
       // userNationalId: ['', [Validators.required],
 
@@ -176,7 +176,7 @@ export class UsersComponent implements OnInit {
     this.users1.active = this.userForm.get('active').value;
     this.users1.groupId = this.userForm.get('groupId').value;
     this.users1.userNationalId = this.userForm.get('userNationalId').value;
-    this.users1.userGroupTypeId = this.userForm.get('userGroupTypeId').value;
+    this.users1.userGroupTypeId = 1;
 
 
     // this.users1.userFullName=(+ this.userForm.get('secondname').value +this.userForm.get('lastname').value;
@@ -247,7 +247,7 @@ export class UsersComponent implements OnInit {
       active: new FormControl(user.active, Validators.required),
       userPhone: new FormControl(user.userPhone, Validators.required),
       userNationalId: new FormControl(user.userNationalId, Validators.required),
-      userGroupTypeId: new FormControl(user.userGroupTypeId, Validators.required)
+      userGroupTypeId: new FormControl(1, Validators.required)
     });
 
   }
@@ -277,7 +277,7 @@ export class UsersComponent implements OnInit {
     this.users1.groupId = this.userForm.get('groupId').value;
     this.users1.active = this.userForm.get('active').value;
     this.users1.userNationalId = this.userForm.get('userNationalId').value;
-    this.users1.userGroupTypeId = this.userForm.get('userGroupTypeId').value;
+    this.users1.userGroupTypeId = 1;
 
     const user2 = {
       'userId': this.users1.userId,
@@ -290,7 +290,7 @@ export class UsersComponent implements OnInit {
       'userPhone': this.users1.userPhone,
       'groupId': this.users1.groupId,
       'userNationalId': this.users1.userNationalId,
-      'userGroupTypeId': this.users1.userGroupTypeId
+      'userGroupTypeId': 1
 
     };
     console.log(user2, '$$$$$$$$$$$$$$$');

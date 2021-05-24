@@ -1,28 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // tslint:disable-next-line: max-line-length
-import { NgbAccordionModule, NgbNavModule, NgbTypeaheadModule, NgbPaginationModule, NgbCollapseModule, NgbTooltipModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { ArchwizardModule } from 'angular-archwizard';
-import { Ng5SliderModule } from 'ng5-slider';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import {
+  NgbAccordionModule,
+  NgbCollapseModule, NgbDropdownModule,
+  NgbModalModule,
+  NgbNavModule,
+  NgbPaginationModule,
+  NgbTooltipModule,
+  NgbTypeaheadModule
+} from '@ng-bootstrap/ng-bootstrap';
+import {ArchwizardModule} from 'angular-archwizard';
+import {Ng5SliderModule} from 'ng5-slider';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {DropzoneModule} from 'ngx-dropzone-wrapper';
 
-import { ToastrModule } from 'ngx-toastr';
-import {UiModule} from "../../shared/ui/ui.module";
-import {AuditTrailComponent} from "./auditTrail/auditTrail.component";
-import {reportRoutingModule} from "./report-routing.module";
-
-
-
-
-
+import {ToastrModule} from 'ngx-toastr';
+import {UiModule} from '../../shared/ui/ui.module';
+import {AuditTrailComponent} from './auditTrail/auditTrail.component';
+import {ParkingReportComponent} from './parking/parking-report.component';
+import {reportRoutingModule} from './report-routing.module';
+import {BlockUIModule} from 'ng-block-ui';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [AuditTrailComponent],
+  declarations: [AuditTrailComponent, ParkingReportComponent],
 
   imports: [
     CommonModule,
@@ -42,7 +48,11 @@ import {reportRoutingModule} from "./report-routing.module";
     NgbCollapseModule,
     NgSelectModule,
     Ng5SliderModule,
-    NgbModalModule
+    NgbModalModule,
+    BlockUIModule,
+    Ng2SmartTableModule,
+    NgbDropdownModule
   ]
 })
-export class reportModule { }
+export class reportModule {
+}

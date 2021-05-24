@@ -118,6 +118,7 @@ export class AccessControlComponent implements OnInit, OnDestroy {
 
   addGroup() {
     console.log(this.userGroup.id, '  this.userGrou');
+    console.log(this.userGroup.groupCode, '  this.groupCode');
     if (this.userGroup.groupCode === '') {
       this.toastr.warning('Please specify the group code', 'Alert!', {timeOut: 4000});
     } else if (this.userGroup.groupName === '') {

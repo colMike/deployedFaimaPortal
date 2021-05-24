@@ -42,7 +42,7 @@ export class approveAgentsComponent implements OnInit {
     this.gtAgent();
 
 
-    //this._fetchData();
+    // this._fetchData();
   }
 
   initAddAgent(): void {
@@ -133,16 +133,16 @@ export class approveAgentsComponent implements OnInit {
     console.log(this.sessionId.entity, 'this.users1');
     this.agents.checker = this.sessionId.entity.userId;
 
-    if (this.agents.maker == this.agents.checker) {
+    if (this.agents.maker === this.agents.checker) {
       return this.toastr.warning('Agent creator cannot reject an agent he/she created', ' Warning!', {timeOut: 3000});
 
 
     }
 
     const agent1 = {
-      'agentid': this.agents.agentid,
-      'approved': this.agents.approved,
-      'checker': this.agents.checker
+      agentid: this.agents.agentid,
+      approved: this.agents.approved,
+      checker: this.agents.checker
 
     };
 
@@ -204,7 +204,7 @@ export class approveAgentsComponent implements OnInit {
   }
 
   Approve() {
-    //this.agents.agentnames = this.validationform.get('agentnames').value;
+    // this.agents.agentnames = this.validationform.get('agentnames').value;
     console.log(this.agents.id, ' this.agents.userId');
     this.agents.approved = true;
     const session = localStorage.getItem('currentUser');
@@ -224,9 +224,9 @@ export class approveAgentsComponent implements OnInit {
     }
 
     const agent1 = {
-      'agentid': this.agents.agentid,
-      'approved': this.agents.approved,
-      'checker': this.agents.checker
+      agentid: this.agents.agentid,
+      approved: this.agents.approved,
+      checker: this.agents.checker
 
     };
 
@@ -314,7 +314,7 @@ export class approveAgentsComponent implements OnInit {
       this.response = response;
       console.log(this.response.status, 'response');
       if (this.response.agentnames) {
-        //if (this.validationform.valid) {
+        // if (this.validationform.valid) {
         /* this.agentsData.push({
            agentnames,
            location,

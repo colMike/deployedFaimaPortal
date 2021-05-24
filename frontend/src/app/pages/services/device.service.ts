@@ -35,13 +35,20 @@ export class DeviceService {
   addDeviceReg(device): Observable<any> {
     return this.http.post(`${this.API_URL.url}/Device_linkingService/addDevice`, device);
   }
+  approveDeviceReg(device): Observable<any> {
+    return this.http.put(`${this.API_URL.url}/Device_linkingService/approveDevice`, device, {observe: 'response'});
+  }
 
   gtDeviceReg(): Observable<any> {
     return this.http.get(`${this.API_URL.url}/Device_linkingService/viewDevice`);
   }
 
-  gtDeletedDevicesTOApprove(): Observable<any> {
+  gtDeletedDevicesToApprove(): Observable<any> {
     return this.http.get(`${this.API_URL.url}/Device_linkingService/viewDevicesToApproveDelete`);
+  }
+
+  gtDevicesToApprove(): Observable<any> {
+    return this.http.get(`${this.API_URL.url}/Device_linkingService/viewDevicesToApprove`);
   }
 
   deleteDevice(device): Observable<any> {

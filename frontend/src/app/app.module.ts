@@ -4,6 +4,9 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { DatePipe } from '@angular/common';
 
 import {environment} from '../environments/environment';
 
@@ -23,6 +26,8 @@ import {SpinnerComponent} from './layouts/shared/spinner.component';
 import {MySharedService} from './pages/services/sharedService';
 import {ArchwizardModule} from 'angular-archwizard';
 import {WizardComponent} from './pages/form/wizard/wizard.component';
+import {NgIdleKeepaliveModule} from '@ng-idle/keepalive';
+import {MomentModule} from 'angular2-moment';
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -43,6 +48,8 @@ export function createTranslateLoader(http: HttpClient): any {
 
   ],
   imports: [
+    ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -50,6 +57,8 @@ export function createTranslateLoader(http: HttpClient): any {
     AppRoutingModule,
     PagesModule,
 
+    NgIdleKeepaliveModule.forRoot(),
+    MomentModule,
     BlockUIModule.forRoot({message: 'Please wait to finish request'}),
     LayoutsModule,
     TranslateModule.forRoot({
@@ -65,7 +74,8 @@ export function createTranslateLoader(http: HttpClient): any {
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true},
     MySharedService,
-    WizardComponent
+    WizardComponent,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

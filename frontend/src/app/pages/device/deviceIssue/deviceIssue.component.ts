@@ -6,7 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 
 
 import {DOCUMENT} from '@angular/common';
-
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeviceService} from '../../services/device.service';
 import {AgentService} from '../../services/agent.service';
@@ -35,6 +35,7 @@ export class DeviceIssueComponent implements OnInit {
   sessionId: any;
   status: any;
   storageObject: any = {};
+  @BlockUI() blockUI: NgBlockUI;
 
   languages = [
     {id: 1, name: 'Kiswahili', value: 'en'},
@@ -174,6 +175,8 @@ export class DeviceIssueComponent implements OnInit {
     this.isExisting = true;
     this.Device1.id = device.id;
     console.log(this.Device1, 'subCounty id ................');
+    console.log(device);
+
     this.deviceIssueForm = this.formBuilder.group({
       deviceimei: new FormControl(device.deviceimei, Validators.required),
       agentid: new FormControl(device.agentid, Validators.required),
@@ -346,7 +349,7 @@ export class DeviceIssueComponent implements OnInit {
   }
 
   getPosUsers() {
-    //  this.blockUI.start("Loading data....");
+    this.blockUI.start('Loading data....');
     this.isAddMode = false;
     const session = localStorage.getItem('currentUser');
 
@@ -356,6 +359,7 @@ export class DeviceIssueComponent implements OnInit {
     console.log(this.sessionId.entity, 'this.Device1');
 
     this.deviceRegSvc.getPosUsers().subscribe(dev => {
+      this.blockUI.stop();
       // if(data){
 
 
@@ -386,7 +390,7 @@ export class DeviceIssueComponent implements OnInit {
       }
     }, () => {
       console.log('error fetching customers...');
-      // this.blockUI.stop();
+      this.blockUI.stop();
     });
   }
 

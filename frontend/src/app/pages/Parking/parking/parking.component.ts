@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 import {ToastrService} from 'ngx-toastr';
-
+import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 import {DOCUMENT} from '@angular/common';
 
@@ -30,6 +30,8 @@ export class ParkingComponent implements OnInit {
   sessionId: any;
   status: any;
   storageObject: any = {};
+
+  @BlockUI() blockUI: NgBlockUI;
 
   // ParkingsData: Parkings[];
   ParkingForm: FormGroup;
@@ -97,7 +99,7 @@ export class ParkingComponent implements OnInit {
    */
   saveData() {
 
-
+    this.blockUI.start('Updating parking details...');
     this.Parkings1 = this.ParkingForm.value;
 
     this.Parkings1.serviceName = this.ParkingForm.get('serviceName').value;
@@ -117,6 +119,7 @@ export class ParkingComponent implements OnInit {
     console.log(this.Parkings1.createdBy, 'this.Parkings1.createdBy');
 
     this.parkingSvc.addParkings(this.Parkings1).subscribe((response) => {
+      this.blockUI.stop();
       this.response = response;
       console.log(this.response.status, 'response');
       if (this.response.status === 200) {
@@ -159,6 +162,7 @@ export class ParkingComponent implements OnInit {
   }
 
   updateParking() {
+    this.blockUI.start('Updating parking details...');
     // this.Parkings1.serviceId=this.Parkings.serviceId;
     // this.Parkings1.serviceId = this.ParkingForm.get('Parkings1').value;
 
@@ -181,6 +185,7 @@ export class ParkingComponent implements OnInit {
     console.log(Parking2, '$$$$$$$$$$$$$$$');
     console.log(this.Parkings1, '$$$$$$$$$$$$$$$$');
     this.parkingSvc.updateParkings(Parking2).subscribe((response) => {
+      this.blockUI.stop();
       this.response = response;
       console.log(this.response.status, 'response');
       if (this.response.status === 200) {

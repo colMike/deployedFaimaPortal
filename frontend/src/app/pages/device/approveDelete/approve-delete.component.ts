@@ -226,7 +226,7 @@ export class ApproveDeleteComponent implements OnInit {
     console.log(this.sessionId.entity.subCountyId, 'this.Device1');
     console.log(this.sessionId.entity, 'this.Device1');
 
-    this.deviceRegSvc.gtDeletedDevicesTOApprove().subscribe(dev => {
+    this.deviceRegSvc.gtDeletedDevicesToApprove().subscribe(dev => {
       // if(data){
 
 
