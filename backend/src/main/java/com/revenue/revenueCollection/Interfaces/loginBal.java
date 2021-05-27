@@ -7,4 +7,5 @@ import javax.ejb.Local;
 @Local
 public interface loginBal {
     public LoginUser logIn(String username, String pwd);
+    public LoginUser logOut(Integer userId);
 }

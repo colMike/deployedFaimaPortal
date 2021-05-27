@@ -173,4 +173,28 @@ public class Parking {
     public void setCount(int count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "Parking{" +
+                "serviceId=" + serviceId +
+                ", serviceCode='" + serviceCode + '\'' +
+                ", serviceName='" + serviceName + '\'' +
+                ", active=" + active +
+                ", createdBy=" + createdBy +
+                ", createdOn=" + createdOn +
+                ", approved='" + approved + '\'' +
+                ", approvedBy='" + approvedBy + '\'' +
+                ", approvedOn=" + approvedOn +
+                ", deleted='" + deleted + '\'' +
+                ", deletedBy='" + deletedBy + '\'' +
+                ", deletedOn=" + deletedOn +
+                ", respCode=" + respCode +
+                ", creationStatus='" + creationStatus + '\'' +
+                ", createJson='" + createJson + '\'' +
+                ", updatedJson='" + updatedJson + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", count=" + count +
+                '}';
+    }
 }

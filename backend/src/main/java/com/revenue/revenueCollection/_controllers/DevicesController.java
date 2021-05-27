@@ -133,6 +133,7 @@ public class DevicesController {
     return returnValue;
   }
 
+
   @PutMapping(
       path = "updateDevice",
       produces = {MediaType.APPLICATION_JSON_VALUE},
@@ -157,6 +158,9 @@ public class DevicesController {
       consumes = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<DeviceRest> approveDevice(
       @Valid @RequestBody DeviceDetailsRequestModel deviceDetails) {
+
+    System.out.println("here are the deviceDetails");
+    System.out.println(deviceDetails);
 
     DeviceRest returnValue = new DeviceRest();
 

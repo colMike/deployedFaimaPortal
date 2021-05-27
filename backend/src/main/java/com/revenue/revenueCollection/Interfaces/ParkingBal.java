@@ -15,6 +15,8 @@ public interface ParkingBal {
 
     List<Parking> GetAllParking();
 
+//    Parking GetAllParkingByParkingName(String serviceName);
+
     List<priceConfig> getParkingToApprove();
 
     List<priceConfig> getParkingToApproveDelete();

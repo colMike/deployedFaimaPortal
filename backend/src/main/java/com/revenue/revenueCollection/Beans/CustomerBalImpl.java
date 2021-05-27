@@ -29,7 +29,10 @@ public class CustomerBalImpl implements CustomerBal {
             System.out.print("customer "+ customer.getId());
             if (customer.getId() == 0) {
                 String jsonString = gson.toJson(customer);
+                customer.setCreated_on(new Timestamp(System.currentTimeMillis()));
+                customer.setLat_long("-1.292066, 36.821946");
                 customer.setCreateJson(jsonString);
+
                 customerDao.save(customer);
                 return new ResponseMessage(200,"Customer Registered Successfully");
             }

@@ -31,12 +31,12 @@ public class priceConfig {
     public String remarks;
     public String active;
     public Timestamp deletedOn;
-    @Transient
-    public String subcountyName;
-    @Transient
-    public String carTypeName;
-    @Transient
-    public String serviceName;
+
+    public String sub_county_name;
+
+    public String car_type_name;
+
+    public String service_name;
 
     public String getActive() {
         return active;
@@ -47,27 +47,27 @@ public class priceConfig {
     }
 
     public String getSubcountyName() {
-        return subcountyName;
+        return sub_county_name;
     }
 
-    public void setSubcountyName(String subcountyName) {
-        this.subcountyName = subcountyName;
+    public void setSubCountyName(String sub_county_name) {
+        this.sub_county_name = sub_county_name;
     }
 
     public String getCarTypeName() {
-        return carTypeName;
+        return car_type_name;
     }
 
-    public void setCarTypeName(String carTypeName) {
-        this.carTypeName = carTypeName;
+    public void setCarTypeName(String car_type_name) {
+        this.car_type_name = car_type_name;
     }
 
     public String getServiceName() {
-        return serviceName;
+        return service_name;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setServiceName(String service_name) {
+        this.service_name = service_name;
     }
 
     public int getId() {
@@ -212,5 +212,32 @@ public class priceConfig {
 
     public void setDeletedOn(Timestamp deletedOn) {
         this.deletedOn = deletedOn;
+    }
+
+    @Override
+    public String toString() {
+        return "priceConfig{" +
+                "serviceId=" + serviceId +
+                ", createdBy=" + createdBy +
+                ", createdOn=" + createdOn +
+                ", subCountyId=" + subCountyId +
+                ", fee=" + fee +
+                ", carTypeId=" + carTypeId +
+                ", count=" + count +
+                ", respCode=" + respCode +
+                ", approved='" + approved + '\'' +
+                ", approvedBy=" + approvedBy +
+                ", approvedOn=" + approvedOn +
+                ", create_Json='" + create_Json + '\'' +
+                ", update_json='" + update_json + '\'' +
+                ", deleted='" + deleted + '\'' +
+                ", deletedBy=" + deletedBy +
+                ", remarks='" + remarks + '\'' +
+                ", active='" + active + '\'' +
+                ", deletedOn=" + deletedOn +
+                ", subCountyName='" + sub_county_name + '\'' +
+                ", car_type_name='" + car_type_name + '\'' +
+                ", service_name='" + service_name + '\'' +
+                '}';
     }
 }

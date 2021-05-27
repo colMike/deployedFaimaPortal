@@ -18,7 +18,7 @@ public class RevenueCollectionApplication extends SpringBootServletInitializer {
 
   static Properties getProperties() {
     Properties props = new Properties();
-    props.put("spring.config.location", ResourceConfig.CATALINA_BASE + "/conf/newErevenue/");
+    props.put("spring.config.location", ResourceConfig.CATALINA_BASE + "/conf/backofficeConfigs/");
     return props;
   }
 

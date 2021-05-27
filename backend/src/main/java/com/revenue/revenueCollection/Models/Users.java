@@ -28,6 +28,8 @@ public class Users implements Serializable {
     public int approvedBy;
     public Timestamp approvedOn;
     public boolean active;
+    @Column(columnDefinition = "bit default 0")
+    public boolean isLoggedIn;
     public int createdBy;
     public Timestamp createdOn;
     public int respCode;
@@ -300,7 +302,53 @@ public class Users implements Serializable {
         return status;
     }
 
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userFullName='" + userFullName + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", deletedBy=" + deletedBy +
+                ", deletedOn=" + deletedOn +
+                ", secondname='" + secondname + '\'' +
+                ", userPwd='" + userPwd + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", groupId=" + groupId +
+                ", groupName='" + groupName + '\'' +
+                ", approvedBy=" + approvedBy +
+                ", approvedOn=" + approvedOn +
+                ", active=" + active +
+                ", isLoggedIn=" + isLoggedIn +
+                ", createdBy=" + createdBy +
+                ", createdOn=" + createdOn +
+                ", respCode=" + respCode +
+                ", deviceId='" + deviceId + '\'' +
+                ", address='" + address + '\'' +
+                ", approved='" + approved + '\'' +
+                ", deleted='" + deleted + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", updateJson='" + updateJson + '\'' +
+                ", createJson='" + createJson + '\'' +
+                ", creationStatus='" + creationStatus + '\'' +
+                ", userGroupTypeId=" + userGroupTypeId +
+                ", userTypeId=" + userTypeId +
+                ", userNationalId='" + userNationalId + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

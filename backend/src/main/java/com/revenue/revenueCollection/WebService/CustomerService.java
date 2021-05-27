@@ -20,10 +20,6 @@ public class CustomerService {
     private CustomerBal customerBal;
 
 
-
-
-
-
     @GetMapping(path="/viewCustomers",produces = "application/json")
     public List<Customer> getAllCustomers() {
         return customerBal.viewCustomerDetails();
