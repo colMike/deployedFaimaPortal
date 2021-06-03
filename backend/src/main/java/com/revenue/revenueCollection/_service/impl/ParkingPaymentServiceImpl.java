@@ -24,7 +24,6 @@ public class ParkingPaymentServiceImpl implements ParkingPaymentService {
 
 
     for (IParkingPaymentRefinedDto parkingPayment : retrievedPayments) {
-//      System.out.println(parkingPayment.serviceName());
       ParkingPaymentDto parkingPaymentDto = new ParkingPaymentDto();
       BeanUtils.copyProperties(parkingPayment, parkingPaymentDto);
       returnValue.add(parkingPaymentDto);

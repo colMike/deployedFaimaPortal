@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 @Component
 public class  AccountBalImpl implements AccountBal {
+
     @Autowired
-    AccountDao accountDao ;
+    AccountDao accountDao;
+
     @Override
     public ResponseMessage registerAccount(Account account) {
         try {
@@ -34,7 +36,7 @@ public class  AccountBalImpl implements AccountBal {
 
     @Override
     public List<Account> viewAccountDetails() {
-        return accountDao.findAll();
+        return (List<Account>) accountDao.findAll();
     }
 
     @Override

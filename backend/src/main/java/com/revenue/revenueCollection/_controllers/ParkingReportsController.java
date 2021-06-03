@@ -1,17 +1,18 @@
 package com.revenue.revenueCollection._controllers;
 
-import com.revenue.revenueCollection._model.request.ParkingPaymentRequestModel;
-import com.revenue.revenueCollection._model.response.ParkingPaymentRest;
+import com.revenue.revenueCollection._repositories.ParkingPaymentRepository;
 import com.revenue.revenueCollection._service.ParkingPaymentService;
-import com.revenue.revenueCollection._shared.dto.ParkingPaymentDto;
-import org.springframework.beans.BeanUtils;
+import com.revenue.revenueCollection._service.reports.ParkingPaymentReportService;
+import com.revenue.revenueCollection._shared.dto.IParkingPaymentRefinedDto;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,23 +20,37 @@ import java.util.List;
 public class ParkingReportsController {
 
   @Autowired ParkingPaymentService parkingPaymentService;
+  @Autowired ParkingPaymentRepository parkingPaymentRepository;
 
   @GetMapping(
       path = "/getParkingPayments",
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public List<ParkingPaymentRest> getParkingPayments() {
+  public List<IParkingPaymentRefinedDto> getParkingPayments() {
 
-    List<ParkingPaymentRest> returnValue = new ArrayList<>();
-    List<ParkingPaymentDto> parkingPayments = parkingPaymentService.getAllParkingPayments();
+    List<IParkingPaymentRefinedDto> list = parkingPaymentRepository.findAllParkingPaymentDetails();
+    list.forEach(l -> System.out.println(l));
 
-    for (ParkingPaymentDto parkingPaymentDto : parkingPayments) {
+    return list;
 
-      ParkingPaymentRest parkingPaymentModel = new ParkingPaymentRest();
-      BeanUtils.copyProperties(parkingPaymentDto, parkingPaymentModel);
-      returnValue.add(parkingPaymentModel);
-    }
+    //    List<ParkingPaymentRest> returnValue = new ArrayList<>();
+    //    List<ParkingPaymentDto> parkingPayments = parkingPaymentService.getAllParkingPayments();
+    //
+    //    for (ParkingPaymentDto parkingPaymentDto : parkingPayments) {
+    //
+    //      ParkingPaymentRest parkingPaymentModel = new ParkingPaymentRest();
+    //      BeanUtils.copyProperties(parkingPaymentDto, parkingPaymentModel);
+    //      returnValue.add(parkingPaymentModel);
+    //    }
 
-    return returnValue;
+    //    return returnValue;
   }
 
+  @GetMapping(path = "/testReport")
+  public ResponseEntity<byte[]> testReport() throws IOException, JRException {
+
+    ParkingPaymentReportService parkingPaymentReportService = new ParkingPaymentReportService();
+
+    return parkingPaymentReportService.exportReport("pdf");
+
+  }
 }

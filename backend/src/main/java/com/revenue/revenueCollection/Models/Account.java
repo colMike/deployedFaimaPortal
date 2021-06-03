@@ -8,13 +8,14 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+
 @Entity
-@TableGenerator(name = "Accounts")
+@TableGenerator(name = "Account")
 public class Account {
 @Id
 @GeneratedValue
 @NotNull
-public int ID;
+public Integer ID;
 public String BRANCH;
 @NotNull
 public String ACCOUNTNO;
@@ -170,11 +171,11 @@ public String KYCVERIFIED;
 public String CHECKSUM;
 public String GROUP_ID;
 
-   public int getID() {
+   public Integer getID() {
       return ID;
    }
 
-   public void setID(int ID) {
+   public void setID(Integer ID) {
       this.ID = ID;
    }
 

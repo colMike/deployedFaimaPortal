@@ -3,17 +3,22 @@
  */
 package com.revenue.revenueCollection.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.revenue.revenueCollection._domains.ParkingPayments;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * @author Faima
  *
  */
 @Entity
-public class SubCounty {
+public class SubCounty implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
 	public int subCountyId;
@@ -31,6 +36,9 @@ public class SubCounty {
 	public double serviceValue;
 	public String createJson;
 	public String updateJson;
+
+	@OneToMany(targetEntity = ParkingPayments.class, mappedBy = "parkingPaymentId", orphanRemoval = false, fetch = FetchType.LAZY)
+	private Set<ParkingPayments> parkingPayments;
 
 	public String getCreateJson() {
 		return createJson;

@@ -3,12 +3,18 @@ package com.revenue.revenueCollection;
 import com.revenue.revenueCollection.config.ResourceConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Properties;
 
 @SpringBootApplication
+//@EnableJpaRepositories("com.revenue.revenueCollection.*")
+//@ComponentScan(basePackages = { "com.revenue.revenueCollection.*" })
+//@EntityScan("my.package.base.*")
 public class RevenueCollectionApplication extends SpringBootServletInitializer {
 
   public RevenueCollectionApplication() {

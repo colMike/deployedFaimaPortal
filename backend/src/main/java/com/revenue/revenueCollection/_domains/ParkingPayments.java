@@ -3,15 +3,21 @@
  */
 package com.revenue.revenueCollection._domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.revenue.revenueCollection.Models.CarType;
+import com.revenue.revenueCollection.Models.Parking;
+import com.revenue.revenueCollection.Models.SubCounty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 @Entity
-public class ParkingPayments {
+public class ParkingPayments implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,21 +25,22 @@ public class ParkingPayments {
 
 	public Integer customerId;
 
-	public Integer subCountyId;
-	public Integer subCountyCode;
+	public Integer zoneId;
+	public String subCountyCode;
 	public Integer subCountyName;
 
-	public Integer carTypeId;
-	public String carTypeName;
-
-	public Integer serviceId;
+	public Integer parkingId;
 	public String serviceCode;
 	public String serviceName;
+
+	public Integer carId;
+	public String carTypeName;
+	public String regNumber;
+
 
 	public Double fee;
 
 	public String reference;
-	public String regNumber;
 	public String paymentType;
 
 	public String paymentReference;
@@ -46,6 +53,22 @@ public class ParkingPayments {
 	public String createJson;
 	public String updateJson;
 	public String channel;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "serviceId", insertable = false, updatable = false)
+	@Fetch(FetchMode.JOIN)
+	private Parking parking;
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "carTypeId", insertable = false, updatable = false)
+	@Fetch(FetchMode.JOIN)
+	private CarType cars;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "subCountyId", insertable = false, updatable = false)
+	@Fetch(FetchMode.JOIN)
+	private SubCounty subCounties;
 
 
 	public String getChannel() {
@@ -73,18 +96,18 @@ public class ParkingPayments {
 	}
 
 	public Integer getSubCountyId() {
-		return subCountyId;
+		return zoneId;
 	}
 
-	public void setSubCountyId(Integer subCountyId) {
-		this.subCountyId = subCountyId;
+	public void setSubCountyId(Integer zoneId) {
+		this.zoneId = zoneId;
 	}
 
-	public Integer getSubCountyCode() {
+	public String getSubCountyCode() {
 		return subCountyCode;
 	}
 
-	public void setSubCountyCode(Integer subCountyCode) {
+	public void setSubCountyCode(String subCountyCode) {
 		this.subCountyCode = subCountyCode;
 	}
 
@@ -97,11 +120,11 @@ public class ParkingPayments {
 	}
 
 	public Integer getCarTypeId() {
-		return carTypeId;
+		return carId;
 	}
 
-	public void setCarTypeId(Integer carTypeId) {
-		this.carTypeId = carTypeId;
+	public void setCarTypeId(Integer carId) {
+		this.carId = carId;
 	}
 
 	public String getCarTypeName() {
@@ -113,11 +136,11 @@ public class ParkingPayments {
 	}
 
 	public Integer getServiceId() {
-		return serviceId;
+		return parkingId;
 	}
 
-	public void setServiceId(Integer serviceId) {
-		this.serviceId = serviceId;
+	public void setServiceId(Integer parkingId) {
+		this.parkingId = parkingId;
 	}
 
 	public String getServiceCode() {

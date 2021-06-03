@@ -1,7 +1,6 @@
 package com.revenue.revenueCollection.Dao;
 
 import com.revenue.revenueCollection.Models.Account;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface AccountDao extends JpaRepository<Account,Integer> {
-}
+public interface AccountDao extends CrudRepository<Account, Integer> {}

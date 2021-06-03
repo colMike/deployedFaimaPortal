@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 @Entity(name = "agents")
 public class Agents implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long agentid;

@@ -1,14 +1,20 @@
 package com.revenue.revenueCollection.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.revenue.revenueCollection._domains.ParkingPayments;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
-public class Parking {
+public class Parking implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
+    @Column(name = "service_id")
     public int serviceId;
     public String serviceCode;
     public String serviceName;
@@ -29,6 +35,10 @@ public class Parking {
     public String updatedBy;
 
     public int count;
+
+
+    @OneToMany(targetEntity = ParkingPayments.class, mappedBy = "parkingPaymentId", orphanRemoval = false, fetch = FetchType.LAZY)
+    private Set<ParkingPayments> parkingPayments;
 
     public int getServiceId() {
         return serviceId;
